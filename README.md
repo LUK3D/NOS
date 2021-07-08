@@ -6,13 +6,15 @@ NOS (Nós), é uma linguagem de programação escrita em javascript, baseada no 
 
 ## Como Usar?
 
-Para ver a versão atual do **NOS** em funcionamento, basta fazer o download do código, abrir o arquivo index.html num navegador e executar o seguinte comando:
+Para ver a versão atual do **{NOS}** em funcionamento, basta fazer o download do código, abrir o arquivo index.html num navegador e executar o seguinte comando:
 `
 console.dir(NOS.Transpile(code))
 `
->NOS não é uma linguagem que é executada no navegador, apneas o seu transpilador (conversor). Ela é multiplataforma como seu pai (Python) e pode ser rodade em qualquer abiente que tenha suporte ao python. 
+>{NOS} não é uma linguagem que é executada no navegador, apneas o seu transpilador (conversor). Ela é multiplataforma como seu pai (Python) e pode ser rodade em qualquer abiente que tenha suporte ao python. 
 
-|TODO LIST| | |
-|------|----------|-------|
+###TODO LIST
+
 |TAREFA| DESCRIÇÃO| SATUS |
+|------|----------|-------|
+|Documentação| Criar o website oficial para a documentação do {NOS} e para a comunidade poder submeter projectos feitos com ela assim como reportar bug ou pedir alguma funcionalidade nova  | Em Curso |
 |Tipos de dados primitivos| Suportar a declaração de variáveis do tipo primitivo | Concluido |
