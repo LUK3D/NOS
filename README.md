@@ -48,3 +48,5 @@ console.dir(NOS.Transpile(code))
 |Tipos de dados primitivos (Inteiro, Real, Boleano e texto)| Suportar a declaração de variáveis do tipo primitivo | Em Curso |
 |Suporte a funcoes | Adicionar suporte de funções (blocos de códigos) e as suas invocações||
 |Constantes da matemática| Criar constantes comuns da matemática (Euler's number, PI, square root of 2, square root of 1/2, natural logarithm of 2, natural logarithm of 10, base 2 logarithm of E, base 10 logarithm of E)|
+
+
