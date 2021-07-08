@@ -4,6 +4,34 @@ NOS (Nós), é uma linguagem de programação escrita em javascript, baseada no 
 
 >O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento.
 
+## Exemplo de código escrito em {NOS}
+```JavaScript
+
+var nome;
+texto sobrenome;
+int idade;
+bool sexo; //true para masculino
+
+
+nome = leia();
+
+mostre("o seu nome e " ,  nome);
+
+int n1;
+int n2;
+
+mostre("Informe o primeiro Numero");
+n1 = leia();
+mostre("Informe o primeiro Segundo Numero");
+n2 = leia();
+
+n1 = toInt(n1);
+n2 = toInt(n2);
+mostre("O resultado da some e " , n1+n2);
+
+```
+
+
 ## Como Usar?
 
 Para ver a versão atual do **{NOS}** em funcionamento, basta fazer o download do código, abrir o arquivo index.html num navegador e executar o seguinte comando:
