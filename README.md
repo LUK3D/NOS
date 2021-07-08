@@ -1,3 +1,3 @@
 # {NOS}
 
-NOS (Nós), é uma linguagem de programação desenvolvida pela [http://www.luk3d.com](LUK3D)
+NOS (Nós), é uma linguagem de programação desenvolvida pela [LUK3D](http://www.luk3d.com)
