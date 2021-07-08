@@ -14,5 +14,5 @@ console.dir(NOS.Transpile(code))
 
 |TODO LIST| | |
 |------|----------|-------|
-|TAREFA| DESCROÇÃO| SATUS |
+|TAREFA| DESCRIÇÃO| SATUS |
 |Tipos de dados primitivos| Suportar a declaração de variáveis do tipo primitivo | Concluido |
