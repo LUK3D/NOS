@@ -38,7 +38,7 @@ Para ver a versão atual do **{NOS}** em funcionamento, basta fazer o download d
 `
 console.dir(NOS.Transpile(code))
 `
->{NOS} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em js podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser rodade em qualquer abiente que tenha suporte ao python. 
+>{NOS} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em js podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python. 
 
 ### TODO LIST
 
