@@ -1,8 +1,17 @@
-resultado=""
-def mostrar (nome, idade = 5):
-	return (nome, "a sua idade e", idade)
+nome=""
+idade=""
+continuar=""
+def executa():
+    print("\033[H\033[J")
+    nome=input("Informe o seu nome: ")
+    idade=input("Informe a idade: ")
+    print(nome,"a sua idade e: ", idade)
+    continuar=input("Pretende continuar? ")
+    if(continuar == "sim"):
+    	executa()
+    
+    else:
+    	print("Fim do programa")
 
-resultado = mostrar("Filipe Lukebana", 42)
-print(resultado)
-resultado = mostrar("Tabita Makuntima")
-print(resultado)
+
+executa()
