@@ -42,7 +42,7 @@ console.dir(NOS.Transpile(code))
 
 ### TODO LIST
 
-|TAREFA| DESCRIÇÃO| SATUS |
+|TAREFA| DESCRIÇÃO| STATUS |
 |------|----------|-------|
 |Documentação| Criar o website oficial para a documentação do {Nos} e para a comunidade poder submeter projectos feitos com ela assim como reportar bug ou pedir alguma funcionalidade nova  | Em Curso |
 |Tipos de dados primitivos (Inteiro, Real, Boleano e texto)| Suportar a declaração de variáveis do tipo primitivo | Em Curso |
