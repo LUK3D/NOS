@@ -1,29 +1,34 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 #Teste basico de codigo em {Nos}
+#Calcule a média aritmética das 3 notas de um aluno e mostre, além do valor da média, uma mensagem de "Aprovado",
+#caso a média seja igual ou superior a 6, ou a mensagem "reprovado", caso contrário.
 
-var nome;
-var idade;
-var continuar;
+int n1;
+int n2;
+int n3;
+int r;
+var entrada;
 
-funcao executa(){
-    Terminal.limpaTela();
-nome = leia("Informe o seu nome: ");
-idade = leia("Informe a idade: ");
+entrada = leia("Informe a primeira nota: ");
+n1 = toInt(entrada);
+entrada = leia("Informe a segunda nota: ");
+n2 = toInt(entrada);
+entrada = leia("informe a terceira nota: ");
+n3 = toInt(entrada);
 
-mostre(nome,"a sua idade e: ", idade);
+Terminal.limpaTela();
 
-continuar = leia("Pretende continuar? ");
+r = (n1+n2+n3)/3;
 
-    se(continuar == "sim"){
-executa();
-    }
-    senao{
-        mostre("Fim do programa");
-    }
+mostre("A media aritmética é: ", r);
+
+se(r>=6){
+    mostre("Apto");
 }
-
-executa();
+senao{
+    mostre("Não Apto");
+}
 
 `;
 
@@ -55,7 +60,7 @@ window.NOS = {
                         tabsTime+=1;
                         pyCode_final +="def " +element.substring(6,element.lastIndexOf(")")+1).trim() +":";
                         userFunctions.push(element.substring(6,element.indexOf("(")).trim())
-                        console.log(userFunctions)
+                       // console.log(userFunctions)
                     }
                     else
                         if(insideFunction)
@@ -107,8 +112,11 @@ window.NOS = {
 
                             if(command.type == "class"){
 
-                                console.log("cf", classFunction)
-                                        pyCode_final += this.indent(tabsTime)+(command[classFunction]().toString());
+                            
+                                    pyCode_final+=this.indent(tabsTime);
+                                    pyCode_final += (command[classFunction](tabsTime).toString());
+                              
+                                        
                                     
                             }
 
@@ -201,7 +209,7 @@ window.NOS = {
             tabs += "\t";
             
         }
-        console.log(times)
+       
         return tabs;
     },
    
@@ -215,10 +223,8 @@ window.NOS = {
         senao:{type:"endcommand", pyCode:"else", input:true},
         Terminal:{
             type:"class",
-            limpaTela(){
-                return `
-                \nprint("\\033[H\\033[J")
-                `
+            limpaTela(tabTimes){
+                return `print("\\033[H\\033[J")`
             }
         }
     },

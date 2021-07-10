@@ -1,17 +1,21 @@
-nome=""
-idade=""
-continuar=""
-def executa():
-    print("\033[H\033[J")
-    nome=input("Informe o seu nome: ")
-    idade=input("Informe a idade: ")
-    print(nome,"a sua idade e: ", idade)
-    continuar=input("Pretende continuar? ")
-    if(continuar == "sim"):
-    	executa()
-    
-    else:
-    	print("Fim do programa")
 
 
-executa()
+n1=0
+n2=0
+n3=0
+r=0
+entrada=""
+entrada=input("Informe a primeira nota: ")
+n1=int(entrada)
+entrada=input("Informe a segunda nota: ")
+n2=int(entrada)
+entrada=input("informe a terceira nota: ")
+n3=int(entrada)
+print("\033[H\033[J")
+r = (n1+n2+n3)/3
+print("A media aritmética é: ", r)
+if(r>=6):
+	print("Apto")
+
+else:
+	print("Não Apto")
