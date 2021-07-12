@@ -1,41 +1,27 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
-#Teste basico de codigo em {Nos}
-#Calcule a média aritmética das 3 notas de um aluno e mostre, além do valor da média, uma mensagem de "Aprovado",
-#caso a média seja igual ou superior a 6, ou a mensagem "reprovado", caso contrário.
 
-int n1;
-int n2;
-int n3;
-int r;
-var entrada;
+int n;
 
-entrada = leia("Informe a primeira nota: ");
-n1 = toInt(entrada);
-entrada = leia("Informe a segunda nota: ");
-n2 = toInt(entrada);
-entrada = leia("informe a terceira nota: ");
-n3 = toInt(entrada);
+n = leia("Informe o número a ser multiplicado ");
 
-Terminal.limpaTela();
-
-r = (n1+n2+n3)/3;
-
-mostre("A media aritmética é: ", r);
-
-se(r>=6){
-    mostre("Apto");
-}
-senao{
-    mostre("Não Apto");
+para (x in [1,2,3,4,5,6,7,8,9,10,11,12]){
+    mostre(n,"X",x,"=",paraInt(n)*paraInt(x));
 }
 
+funcao cacular (){
+    teste = leia("Vamos la ver");
+}
 `;
 
 
 window.NOS = {
     Transpile(code){
-        var ncode = code.replace(/^\s*\n/gm,'').split("\n"); //Removendo todas as linhas em branco (sem comandos) do código informado pelo user.
+        //var ncode = code.split("\n"); //Removendo todas as linhas em branco (sem comandos) do código informado pelo user.
+        code = JSON.stringify(code).split("\\n").join('\n').split('\\"').join('"').split('\\r').join(' ');
+        var ncode = code.replace(/^\s*\n/gm,''); //Removendo todas as linhas em branco (sem comandos) do código informado pelo user.
+        ncode = ncode.replace(/^\s*/gm, "").replace(/^\t*/gm, "").split("\n");
+        console.log("codigo=",ncode);
         var pyCode_final = "";
         var insideFunction = false; //Esta variavel define se o transpilador esta lendo uma função ou está lendo comandos no escopo global.
         //Percorrendo cada linha de comando ser processado
@@ -60,6 +46,7 @@ window.NOS = {
                         tabsTime+=1;
                         pyCode_final +="def " +element.substring(6,element.lastIndexOf(")")+1).trim() +":";
                         userFunctions.push(element.substring(6,element.indexOf("(")).trim())
+                        userFunctions.push(element.substring(6,element.indexOf("(")).trim())
                        // console.log(userFunctions)
                     }
                     else
@@ -69,10 +56,11 @@ window.NOS = {
                             pyCode_final += (v[1].replace(";","")+"="+dType.default);
                 }else{
                     var cmd = element.trim().match(/^([^(]+)/gm);
-                   if(cmd){
+                   if(Array.isArray(cmd)){
                         
                         if(cmd[0].includes("=")){
-                            cmd = cmd[0].split(" ")[2].trim();
+                            cmd = cmd[0].trim().split("=")[1].trim();
+                            
                         }else{
                             cmd = cmd[0].trim();
                         }
@@ -95,7 +83,8 @@ window.NOS = {
                         if(command){
                             if(command.type == "function"){
                                 if(!command.input){
-                                    var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
+                                    //var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
+                                    var result = command.pyCode + element.match(/\(([^)].*)\)/gm); //Este regex deve ser revisto porque permite expressções do tipo: para(x em nomes)(outro para){}
                                     if(insideFunction)
                                         pyCode_final += this.indent(tabsTime)+(result);
                                     else
@@ -122,18 +111,31 @@ window.NOS = {
 
 
                             if(command.type == "command"){
-                                
+
+                                        var unformatedCommand = "";
                                         if(insideFunction)
-                                        pyCode_final+=this.indent(tabsTime)+command.pyCode + element.split(cmd)[1].split(";").join("").split("{").join(":");
+                                        unformatedCommand+=this.indent(tabsTime)+command.pyCode + element.split(cmd)[1].split(";").join("").split("{").join(":");
                                         else{
                                             var formatedCommand = command.pyCode + element.split(cmd)[1].split(";").join("");
-                                            pyCode_final+=formatedCommand.substring(0,formatedCommand.lastIndexOf(")")+1) + ":"
+                                            unformatedCommand+=formatedCommand.substring(0,formatedCommand.lastIndexOf(")")+1) + ":"
                                         }
 
-                                        if(element[element.length-1] == "{"){
+
+                                        
+                                        if(element.split('\\r').join('').trim().match(/{$/gm)){
                                             insideFunction = true;
                                             tabsTime+=1;
+                                        }else{
+                                            console.log(element)
+                                            
                                         }
+
+                                        if(command.noParentheses){
+                                            unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.indexOf("(")," "); 
+                                            unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," "); 
+                                        }
+
+                                        pyCode_final +=unformatedCommand;
                             }
                             if(command.type == "endcommand"){
                                 
@@ -142,6 +144,7 @@ window.NOS = {
                                         
                                        
                                         if(element[element.length-1] == "{"){
+                                           
                                             insideFunction = true;
                                             tabsTime+=1;
                                         }
@@ -216,11 +219,14 @@ window.NOS = {
     RESERVED:{
         leia:{type:"function", pyCode:"input", input:true},
         mostre:{type:"function", pyCode:"print", input:false},
-        toInt:{type:"function", pyCode:"int", input:true},
+        paraInt:{type:"function", pyCode:"int", input:true},
         elevado:{type:"function", pyCode:"pow", input:true},
         retorna:{type:"command", pyCode:"return", input:true},
+        em:{type:"command", pyCode:"in", input:true},
         se:{type:"command", pyCode:"if", input:true},
         senao:{type:"endcommand", pyCode:"else", input:true},
+        enquanto:{type:"command", pyCode:"while", input:true},
+        para:{type:"command", noParentheses:true, pyCode:"for", input:true},
         Terminal:{
             type:"class",
             limpaTela(tabTimes){
@@ -240,6 +246,11 @@ window.NOS = {
     DEBUGGER:{
         undefinedFunction(functionName){
             return `Nenhuma função ${functionName} foi definida neste documento`;
+        }
+    },
+    UTILITY:{
+        replaceAt (str,index, replacement) {
+            return str.substr(0, index) + replacement + str.substr(index + replacement.length);
         }
     }
     
