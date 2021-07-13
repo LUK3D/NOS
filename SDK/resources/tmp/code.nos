@@ -1,0 +1,20 @@
+texto nome;
+
+int n1;
+int n2;
+int n3;
+var i;
+
+nome = leia("Informe um nome")
+
+i = leia("Informe o valor de N1 ");
+n1 = paraInt(i);
+
+i = leia("Informe o valor de N2 ");
+n2 = paraInt(i);
+
+i = leia("Informe o valor de N3 ");
+n3 = paraInt(i);
+
+
+mostre("A édia é", (n1+n2+n3)/3)
