@@ -22,7 +22,7 @@ int n2;
 
 mostre("Informe o primeiro Numero");
 n1 = leia();
-mostre("Informe o Segundo Numero");
+mostre("Informe o Numero");
 n2 = leia();
 
 n1 = toInt(n1);
@@ -40,13 +40,4 @@ console.dir(NOS.Transpile(code))
 `
 >{Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em js podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python. 
 
-### TODO LIST
-
-|TAREFA| DESCRIÇÃO| STATUS |
-|------|----------|-------|
-|Documentação| Criar o website oficial para a documentação do {Nos} e para a comunidade poder submeter projectos feitos com ela assim como reportar bug ou pedir alguma funcionalidade nova  | Em Curso |
-|Tipos de dados primitivos (Inteiro, Real, Boleano e texto)| Suportar a declaração de variáveis do tipo primitivo | Em Curso |
-|Suporte a funcoes | Adicionar suporte de funções (blocos de códigos) e as suas invocações|Em Curso|
-|Constantes da matemática| Criar constantes comuns da matemática (Euler's number, PI, square root of 2, square root of 1/2, natural logarithm of 2, natural logarithm of 10, base 2 logarithm of E, base 10 logarithm of E)|
-
-
+## Veja mais em [{Nos} Introdução](https://www.nos.luk3d.com/introduction.html)
