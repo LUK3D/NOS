@@ -40,7 +40,7 @@ Diferente de alguma linguagens de programação, nós não possue restrições n
 
 ## VARIÁVEIS:
 
-### Declaração
+### Declaração de Variável
 
 Em Nós, as variáveis são declaradas da seguinte forma:
 
@@ -63,3 +63,27 @@ A sintaxe de atribuição de valor é a seguinte:
 Onde `[VARIAVEL]` é o identificador ou nome da variável, o `[OPERADOR_DE_ATRIBUICAO]` é um [Operador de Atribuição](http://www.nos.luk3d.com/operadores#atribuição) e o `[VALOR]` é o valor a ser atribuido à essa variável.
 
 ## FUNÇÕES
+### Declaração de Função
+Sendo uma função um bloco de comandos que executa uma tarefa espercífica, é necessário todos os comandos inerentes a essa função, estejam dentro de seus [delimitadores](http://www.nos.luk3d.com/funcoes#delimitadores).
+
+```javascript
+[ESCOPO] funcao [NOME_DA_FUNCAO] ([PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N]){
+
+    
+}
+```
+Onde o `[ESCOPO]` representa a região da aplicação (programa) em que ela é vista/utilizável. É seguido pela [palavra reservada](http://www.nos.luk3d.com/vocabulario#palavra_reservada) `funcao` que informa para o interpretador que este comando declara um a função. O `[NOME_DA_FUNCAO]` é o nome da sua função. `[PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N]` são os argumentos detas função, representam os dados nessessários para a execução dos comandos dentro da função.
+
+::: warning Obs:
+Os argumentos são opcionais assim como outros comandos que afetam as características de uma função.
+:::
+
+```javascript
+Exemplo de uma função
+
+funcao calcular(){
+    
+}
+```
+
+### Invocação de função
