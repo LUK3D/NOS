@@ -1,20 +1,12 @@
-texto nome;
 
-int n1;
-int n2;
-int n3;
-var i;
+texto entrada;
+int i;
 
-nome = leia("Informe um nome")
+entrada = leia("Informe um valor qualquer: ");
 
-i = leia("Informe o valor de N1 ");
-n1 = paraInt(i);
+i = 0;
+enquanto(i< 12){
+    mostre(i,"=>", entrada);
+    i+=1;
+}
 
-i = leia("Informe o valor de N2 ");
-n2 = paraInt(i);
-
-i = leia("Informe o valor de N3 ");
-n3 = paraInt(i);
-
-
-mostre("A édia é", (n1+n2+n3)/3)
