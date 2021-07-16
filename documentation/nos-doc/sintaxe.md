@@ -2,7 +2,7 @@
 
 ## Sintaxe de Execução 🚀️
 
-O código **{Nos}** pode ser executado atravês da Linha de Comando de {Nos} [Nos-CLI](http://www.nos.luk3d.com/nos-cli).
+O arquivo contendo o código **{Nos}** pode ser executado atravês da Linha de Comando de {Nos} [Nos-CLI](http://www.nos.luk3d.com/nos-cli).
 
 Crie um arquivo com o nome `teste.nos` e coloque o código a baixo nele.
 
@@ -22,13 +22,13 @@ mostre("O resultado da soma de", n1,"e",n2,"é:", (n1+n2));
 
 ```
 
-Em seguida, abra a Linha de Comandos (cmd) aportando para o diretório onde o arquivo `teste.nos` se encontra
+Em seguida, abra a Linha de Comando (cmd) aportando para o diretório onde o arquivo `teste.nos` se encontra
 
 > Ex:
 > C:/users/nos/documentos/pasta_do_projecto
 
-Em seguida execute o comando `nos`. Este comando irá inicializar o **nos-cli**. Feito isso digite o comando  `nos->teste.nos`
-O comando a cima, informa para o **nos-cli** que pretendemos apenas rodar o código.
+Em seguida execute o comando `nos`. Este comando irá inicializar o **nos-cli**. Feito isso digite o comando  `run->teste.nos`
+O comando a cima, informa para o **nos-cli** que pretendemos apenas executar o código.
 
 Suponhamos que o utilizador entre com os valores 2 e 5, respectivamente. Quando o código a cima for compilado e executado, irá reproduzir o seguinte resultado:
 
@@ -81,9 +81,19 @@ Os argumentos são opcionais assim como outros comandos que afetam as caracterí
 ```javascript
 Exemplo de uma função
 
-funcao calcular(){
+funcao calcular(n1, n2){
     
 }
 ```
 
 ### Invocação de função
+
+A função pode ser invocada escrevendo o nome da função e em seguida abrir e fechar parenteses seguinto a seguinte sintaxe:
+
+` [NOME_DA_FUNCAO] ( [PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N] ); `
+```javascript
+Ex: 
+calcular(23,10);
+
+```
+>Nota que mesmo na invocação de uma função, é recomendado terminar o comando com o ponto e vírgula " ; "
