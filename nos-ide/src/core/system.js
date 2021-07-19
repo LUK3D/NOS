@@ -1,17 +1,20 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
-int n;
 
-n = leia("Informe o número a ser multiplicado ");
+int n1;
 
-para (x in [1,2,3,4,5,6,7,8,9,10,11,12]){
-    mostre(n,"X",x,"=",paraInt(n)*paraInt(x));
+n1 = leia("Informe o multiplicador: ");
+int c;
+c = 0;
+enquanto (c<paraInt(n1)paraInt(n2)){
+
+mostre(c);
+
+c+=2;
+
 }
 
-funcao cacular (){
-    teste = leia("Vamos la ver");
-}
 `;
 
 
@@ -81,8 +84,28 @@ window.NOS = {
                         var command = this.translate(cmd); 
                         
                         if(command){
+
+                            var inside = element.trim()
+                            inside = inside.match(/(?<=\()[^]+(?=\))/gm)[0];
+                            var commands = inside.match(/([^\()]+)/g);
+                            
+                            commands.forEach(el => {
+                                var word = el.match(/[a-zA-Z0-9_]+$/gm)
+                                if(word){
+                                    var ncode = NOS.translate(word[0].trim());
+                                    if(ncode){
+                                        element =element.replace(word[0],ncode.pyCode)
+                                        
+                                    }
+                                   
+
+                                }
+                            });
+                            
                             if(command.type == "function"){
+
                                 if(!command.input){
+                                    
                                     //var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
                                     var result = command.pyCode + element.match(/\(([^)].*)\)/gm); //Este regex deve ser revisto porque permite expressções do tipo: para(x em nomes)(outro para){}
                                     if(insideFunction)

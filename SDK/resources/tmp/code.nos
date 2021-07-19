@@ -1,12 +1,3 @@
 
-texto entrada;
-int i;
-
-entrada = leia("Informe um valor qualquer: ");
-
-i = 0;
-enquanto(i< 12){
-    mostre(i,"=>", entrada);
-    i+=1;
-}
-
+mostre(1+n3)
+leia("Pressione alguma tecla para continuar")

@@ -5,12 +5,23 @@ import glob
 
 class cls(object):
     def __repr__(self):
-        import os
         os.system('cls' if os.name == 'nt' else 'clear')
         return ''
 
 
 class noscli:
+
+
+    # define our clear function
+    def clear():
+    
+        # for windows
+        if os.name == 'nt':
+            _ = os.system('cls')
+    
+        # for mac and linux(here, os.name is 'posix')
+        else:
+            _ = os.system('clear')
     
     def run(file):
         
@@ -38,6 +49,7 @@ class noscli:
             #print("Finalizamos..............................................................")
             cls()
             subprocess.call( "\""+finalPycodePath+"\"", shell=True)
+            cls()
         except:
             print("Oo.. Ouve um erro inesperado")
             print("DETALHES DO ERRO:")
@@ -74,7 +86,8 @@ class noscli:
             run(cm[1].strip())
         if cm[0].strip().lower() =="i":
             vrsion()
-        else:
-            print("Nenhum comando!")
+        if cm[0].strip().lower() =="c":
+            clear()
+        
 
     

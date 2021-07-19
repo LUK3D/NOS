@@ -36,7 +36,7 @@ Suponhamos que o utilizador entre com os valores 2 e 5, respectivamente. Quando 
 
 ## Estrutura de um arquivo .nos
 
-Diferente de alguma linguagens de programação, nós não possue restrições na organização do código, mas existem algumas regras de lógica que devem ser levadas em consideração.
+Diferente de algumas linguagens de programação, nós não possue restrições na organização do código, mas existem algumas regras de lógica que devem ser levadas em consideração.
 
 ## VARIÁVEIS:
 

@@ -88,18 +88,18 @@ if (isDevelopment) {
 }
 var fs = require("fs");
 ipcMain.handle('getCode', async (event, someArgument) => {
-  console.log("--------------------------------------------------------------")
-  console.log("---------------------TRADUZINDO O CÓDIGO----------------------")
-  console.log("--------------------------------------------------------------")
+  //console.log("--------------------------------------------------------------")
+  //console.log("---------------------TRADUZINDO O CÓDIGO----------------------")
+  //console.log("--------------------------------------------------------------")
 
   var code =  await fs.readFileSync(process.resourcesPath+"\\tmp\\code.nos");
   return code.toString();  
 })
 
 ipcMain.handle('savePyCode', async (event, pyCode) => {
-  console.log("--------------------------------------------------------------")
-  console.log("--------------------EXECUTANDO O PROGRAMA---------------------")
-  console.log("--------------------------------------------------------------")
+  //console.log("--------------------------------------------------------------")
+  //console.log("--------------------EXECUTANDO O PROGRAMA---------------------")
+  //console.log("--------------------------------------------------------------")
 
   var code =  await fs.writeFileSync(process.resourcesPath+"\\tmp\\code.py",pyCode);
   app.quit();
