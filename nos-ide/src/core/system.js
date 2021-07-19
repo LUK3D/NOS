@@ -1,19 +1,18 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
+va numeros;
+int totla;
 
-int n1;
+numeros = leia("Informe os valores: ");
 
-n1 = leia("Informe o multiplicador: ");
-int c;
-c = 0;
-enquanto (c<paraInt(n1)paraInt(n2)){
-
-mostre(c);
-
-c+=2;
-
+para (letra em numeros){
+	int n = paraInt(letra);
+	
+	totla += n;
 }
+
+mostre(n);
 
 `;
 
@@ -31,6 +30,7 @@ window.NOS = {
         var userFunctions = [];
         var tabsTime = 0;
         ncode.forEach(element => {
+            
                 var v = element.trimStart().split(" "); //Dividindo o comando em duas parte, onde a primeira deve corresponder à instrução e a segunda parte corresponder ao valor.
                 var dType = this.typeOf(v[0].trim());
                 var classFunction = ""; // variavel para armazenar a funcao da classe invocada
@@ -152,13 +152,25 @@ window.NOS = {
                                             console.log(element)
                                             
                                         }
+                                        
 
                                         if(command.noParentheses){
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.indexOf("(")," "); 
-                                            unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," "); 
+                                            unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," ");
+                                            
+                                            var el = unformatedCommand.split(" ");
+                                            console.log(el)
+                                            el.forEach(elIn => {
+                                                var elTraduzido = NOS.translate(elIn.trim());
+                                                if(elTraduzido){
+                                                    unformatedCommand = unformatedCommand.replace(elIn,elTraduzido.pyCode);
+                                                    
+                                                }
+                                            });
+                                            
                                         }
 
-                                        pyCode_final +=unformatedCommand;
+                                        pyCode_final +=unformatedCommand.split("\\t").join("");
                             }
                             if(command.type == "endcommand"){
                                 
@@ -173,6 +185,7 @@ window.NOS = {
                                         }
                             }
                         }else{
+                            
                             var customFunc = element.split("(")[0];
                             //console.log(userFunctions.indexOf(customFunc))
 

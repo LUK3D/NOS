@@ -1,3 +1,12 @@
+va numeros;
+int total;
+int n;
 
-mostre(1+n3)
-leia("Pressione alguma tecla para continuar")
+numeros = leia("Informe os valores: ");
+
+para (letra em numeros){
+n = paraInt(letra);
+total += n;
+}
+
+mostre(total);

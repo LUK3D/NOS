@@ -1,3 +1,9 @@
 
-print(1+n3)
-leia=input("Pressione alguma tecla para continuar")
+total=0
+n=0
+numeros=input("Informe os valores: ")
+for  letra in numeros :
+	n=int(letra)
+	total += n 
+
+print(total)

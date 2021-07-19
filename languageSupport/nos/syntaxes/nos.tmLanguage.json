@@ -3,10 +3,23 @@
 	"name": "{Nos}",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#comments"
 		},
 		{
+			"include": "#operators"
+		}
+		,
+		{
 			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#reserved-words"
+		},
+		{
+			"include": "#ctrl-statements"
 		}
 	],
 	"repository": {
@@ -15,6 +28,19 @@
 				"name": "keyword.control.nos",
 				"match": "\\b(if|while|for|return)\\b"
 			}]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"begin":"\\\\",
+					"beginCaptures":{
+						"0":{
+							"name":"punctuation.definition.comment.tpl"
+						}
+					},"end":"\\n",
+					"name":"comment.line.number-sign.tpl"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.nos",
