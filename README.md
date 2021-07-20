@@ -1,3 +1,7 @@
+<center>
+<img src="./assets/logo.png" width="400px"/>
+</center>
+
 # {Nos}
 
 {Nos} (Nós), é uma linguagem de programação escrita em javascript, baseada no Python e desenvolvida pela [LUK3D](http://www.luk3d.com)
