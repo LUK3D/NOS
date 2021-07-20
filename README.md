@@ -1,5 +1,5 @@
 <center>
-<img src="./assets/logo.png" width="400px"/>
+<img src="./logo.png" width="400px"/>
 </center>
 
 # {Nos}
