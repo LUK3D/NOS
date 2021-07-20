@@ -1,15 +1,17 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
-va numeros;
-int totla;
+
+classe Teste {
+
+}
+var numeros = 10;
+int total;
 
 numeros = leia("Informe os valores: ");
 
 para (letra em numeros){
-	int n = paraInt(letra);
-	
-	totla += n;
+	total += paraInt(letra);
 }
 
 mostre(n);
@@ -52,11 +54,26 @@ window.NOS = {
                         userFunctions.push(element.substring(6,element.indexOf("(")).trim())
                        // console.log(userFunctions)
                     }
-                    else
-                        if(insideFunction)
-                            pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+dType.default);
-                        else
-                            pyCode_final += (v[1].replace(";","")+"="+dType.default);
+                    else{
+                        var splitedLine = element.split("=");
+                        console.log(splitedLine)
+                        if(insideFunction){
+                            
+                            if(splitedLine.length>1){
+                                pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+splitedLine[1]);
+                            }else{
+                                pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+dType.default);
+                            }
+                        }
+                        else{
+                            if(splitedLine.length>1){
+                                pyCode_final += (v[1].replace(";","")+"="+splitedLine[1]);
+                            }else{
+                                pyCode_final += (v[1].replace(";","")+"="+dType.default);
+                            }
+                        }
+                    }
+                        
                 }else{
                     var cmd = element.trim().match(/^([^(]+)/gm);
                    if(Array.isArray(cmd)){
@@ -79,9 +96,20 @@ window.NOS = {
                         if(cmTmp == "senao"){
                           cmd = cmTmp;
                         }
+
+                        var command;
+                        var cmtClass = cmTmp.match(/(^[classe])\w+/g)
+                            if(cmtClass){
+//TODO Adicionar suporte a criacao de classes
+                                command= this.translate(cmd); 
+                            //command = this.translate("classe"); 
+                           // console.log("Entramos", command)
+                           }else{
+                            command= this.translate(cmd); 
+
+                           }
                         
                        
-                        var command = this.translate(cmd); 
                         
                         if(command){
 
@@ -101,6 +129,7 @@ window.NOS = {
 
                                 }
                             });
+
                             
                             if(command.type == "function"){
 
@@ -109,28 +138,20 @@ window.NOS = {
                                     //var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
                                     var result = command.pyCode + element.match(/\(([^)].*)\)/gm); //Este regex deve ser revisto porque permite expressções do tipo: para(x em nomes)(outro para){}
                                     if(insideFunction)
-                                        pyCode_final += this.indent(tabsTime)+(result);
+                                        pyCode_final += this.indent(tabsTime)+(result) 
                                     else
                                         pyCode_final+=(result);
                                         
                                 }else{
                                     var result = v[0].trim().split("(")[0] + "=" + command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
                                     if(insideFunction)
-                                    pyCode_final+=this.indent(tabsTime)+(result);
+                                    pyCode_final+=this.indent(tabsTime)+(result.split("\\t").join(""));
                                     else
                                     pyCode_final+=(result);
                                 }
                             }
 
-                            if(command.type == "class"){
-
                             
-                                    pyCode_final+=this.indent(tabsTime);
-                                    pyCode_final += (command[classFunction](tabsTime).toString());
-                              
-                                        
-                                    
-                            }
 
 
                             if(command.type == "command"){
@@ -141,6 +162,7 @@ window.NOS = {
                                         else{
                                             var formatedCommand = command.pyCode + element.split(cmd)[1].split(";").join("");
                                             unformatedCommand+=formatedCommand.substring(0,formatedCommand.lastIndexOf(")")+1) + ":"
+                                            console.log(command.pyCode)
                                         }
 
 
@@ -154,7 +176,7 @@ window.NOS = {
                                         }
                                         
 
-                                        if(command.noParentheses){
+                                        if(command.noParentheses && !command.noCurlyBrackets){
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.indexOf("(")," "); 
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," ");
                                             
@@ -170,6 +192,9 @@ window.NOS = {
                                             
                                         }
 
+                                        if (command.noCurlyBrackets){
+                                            
+                                        }
                                         pyCode_final +=unformatedCommand.split("\\t").join("");
                             }
                             if(command.type == "endcommand"){
@@ -263,6 +288,7 @@ window.NOS = {
         senao:{type:"endcommand", pyCode:"else", input:true},
         enquanto:{type:"command", pyCode:"while", input:true},
         para:{type:"command", noParentheses:true, pyCode:"for", input:true},
+        classe:{type:"command", noParentheses:true, noCurlyBrackets:true, pyCode:"class", input:false},
         Terminal:{
             type:"class",
             limpaTela(tabTimes){

@@ -1,6 +1,11 @@
 #  {Nos}
 
-<p class="title"> Uma linguagem de programação para todos!</p>
+
+<center>
+<img src="./assets/logo.png" width="400px"/>
+</center>
+
+<p  style="text-align:center; font-size: 15px"> Uma linguagem de programação para todos!</p>
 
 Seja bem-vindo à documentação oficial da linguagem de programação angolana {Nos}.
 
@@ -23,7 +28,7 @@ Construa programas ricos em funcionaliade aproveitando todo o poder de uma lingu
 Este projecto encontra-se em desenvolvimento, não é recomendável usa-lo em produção
 ::::
 
-### 🔺 VERSÃO 0.0.1 SERÁ DISPONIBILIZADA NO DIA 17 DE JULHO DE 2021🔺
+### 🔺 VERSÃO 0.0.1 SERÁ DISPONIBILIZADA NO DIA 01 DE AGOSTO DE 2021🔺
 
 
 <style>

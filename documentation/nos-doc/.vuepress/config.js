@@ -5,6 +5,7 @@ module.exports = {
         themeConfig: {
             overrideTheme: 'dark',
             prefersTheme: 'dark',
+            logo: '/logo.png',
           },
         nav:[
             {
