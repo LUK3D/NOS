@@ -2,19 +2,27 @@
 window.code=`
 
 
-classe Teste {
+descreva Teste{
 
+
+funcao teste(nome){
+mostre("Estamos aqui");
 }
+
 var numeros = 10;
 int total;
 
 numeros = leia("Informe os valores: ");
 
 para (letra em numeros){
-	total += paraInt(letra);
+total = total + paraInt(letra);
 }
 
-mostre(n);
+mostre(total);
+
+}
+
+
 
 `;
 
@@ -41,15 +49,15 @@ window.NOS = {
                 *Caso o comando for um tipo de dado, então trata-se de declaração de uma variavel
                 Então neste bloco inicializamos uma variavel em python e removemos o delimitador ";"
                 */
-               if(insideFunction && element.trim() == "}"){
+               if(tabsTime>0 && element.match(/}$/g)){
                 insideFunction = false;
                 tabsTime-=1;
                }
+               
                 if(dType && element!=""){
-                    if(dType.type == "Function"){
-                        insideFunction = true;
-                        tabsTime+=1;
-                        pyCode_final +="def " +element.substring(6,element.lastIndexOf(")")+1).trim() +":";
+                    if(element.match(/{$/g)){
+                       
+                        pyCode_final += this.indent(tabsTime)+("def " +element.substring(6,element.lastIndexOf(")")+1).trim() +":");
                         userFunctions.push(element.substring(6,element.indexOf("(")).trim())
                         userFunctions.push(element.substring(6,element.indexOf("(")).trim())
                        // console.log(userFunctions)
@@ -57,21 +65,13 @@ window.NOS = {
                     else{
                         var splitedLine = element.split("=");
                         console.log(splitedLine)
-                        if(insideFunction){
                             
                             if(splitedLine.length>1){
                                 pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+splitedLine[1]);
                             }else{
                                 pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+dType.default);
                             }
-                        }
-                        else{
-                            if(splitedLine.length>1){
-                                pyCode_final += (v[1].replace(";","")+"="+splitedLine[1]);
-                            }else{
-                                pyCode_final += (v[1].replace(";","")+"="+dType.default);
-                            }
-                        }
+                       
                     }
                         
                 }else{
@@ -98,14 +98,14 @@ window.NOS = {
                         }
 
                         var command;
-                        var cmtClass = cmTmp.match(/(^[classe])\w+/g)
+                        var cmtClass = element.split("\t").join("").trim().match(/(^[descreva])\w+/g)
                             if(cmtClass){
-//TODO Adicionar suporte a criacao de classes
-                                command= this.translate(cmd); 
-                            //command = this.translate("classe"); 
-                           // console.log("Entramos", command)
+                                //TODO Adicionar suporte a criacao de classes
+                                command= this.translate("descreva"); 
+                               
+                            
                            }else{
-                            command= this.translate(cmd); 
+                                command= this.translate(cmd); 
 
                            }
                         
@@ -114,22 +114,27 @@ window.NOS = {
                         if(command){
 
                             var inside = element.trim()
-                            inside = inside.match(/(?<=\()[^]+(?=\))/gm)[0];
-                            var commands = inside.match(/([^\()]+)/g);
-                            
-                            commands.forEach(el => {
-                                var word = el.match(/[a-zA-Z0-9_]+$/gm)
-                                if(word){
-                                    var ncode = NOS.translate(word[0].trim());
-                                    if(ncode){
-                                        element =element.replace(word[0],ncode.pyCode)
-                                        
+                            inside = inside.match(/(?<=\()[^]+(?=\))/gm)
+                            if(inside){
+                                inside = inside[0];
+                                
+                                var commands = inside.match(/([^\()]+)/g);
+                                
+                                commands.forEach(el => {
+                                    var word = el.match(/[a-zA-Z0-9_]+$/gm)
+                                    if(word){
+                                        var ncode = NOS.translate(word[0].trim());
+                                        if(ncode){
+                                            element =element.replace(word[0],ncode.pyCode)
+                                            
+                                        }
+                                       
+    
                                     }
-                                   
-
-                                }
-                            });
-
+                                });
+    
+                            }
+                           
                             
                             if(command.type == "function"){
 
@@ -137,17 +142,13 @@ window.NOS = {
                                     
                                     //var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
                                     var result = command.pyCode + element.match(/\(([^)].*)\)/gm); //Este regex deve ser revisto porque permite expressções do tipo: para(x em nomes)(outro para){}
-                                    if(insideFunction)
                                         pyCode_final += this.indent(tabsTime)+(result) 
-                                    else
-                                        pyCode_final+=(result);
+                                    
                                         
                                 }else{
                                     var result = v[0].trim().split("(")[0] + "=" + command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
-                                    if(insideFunction)
                                     pyCode_final+=this.indent(tabsTime)+(result.split("\\t").join(""));
-                                    else
-                                    pyCode_final+=(result);
+                                    
                                 }
                             }
 
@@ -156,27 +157,23 @@ window.NOS = {
 
                             if(command.type == "command"){
 
+
                                         var unformatedCommand = "";
-                                        if(insideFunction)
-                                        unformatedCommand+=this.indent(tabsTime)+command.pyCode + element.split(cmd)[1].split(";").join("").split("{").join(":");
-                                        else{
-                                            var formatedCommand = command.pyCode + element.split(cmd)[1].split(";").join("");
-                                            unformatedCommand+=formatedCommand.substring(0,formatedCommand.lastIndexOf(")")+1) + ":"
-                                            console.log(command.pyCode)
-                                        }
+                                        
+                                            if(command.mainScope){
+                                                unformatedCommand = command.pyCode + " "+element.split(" ")[1].replace("{","") + ":"; 
+                                            }else{
+                                                unformatedCommand+=this.indent(tabsTime)+command.pyCode + element.split(cmd)[1].split(";").join("").split("{").join(":");
+                                            }
+                                       
+
 
 
                                         
-                                        if(element.split('\\r').join('').trim().match(/{$/gm)){
-                                            insideFunction = true;
-                                            tabsTime+=1;
-                                        }else{
-                                            console.log(element)
-                                            
-                                        }
+                                       
                                         
 
-                                        if(command.noParentheses && !command.noCurlyBrackets){
+                                        if(command.noParentheses  && !command.noCurlyBrackets){
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.indexOf("(")," "); 
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," ");
                                             
@@ -192,9 +189,7 @@ window.NOS = {
                                             
                                         }
 
-                                        if (command.noCurlyBrackets){
-                                            
-                                        }
+                                        
                                         pyCode_final +=unformatedCommand.split("\\t").join("");
                             }
                             if(command.type == "endcommand"){
@@ -203,11 +198,7 @@ window.NOS = {
                                             pyCode_final+=this.indent(tabsTime)+command.pyCode + ":";
                                         
                                        
-                                        if(element[element.length-1] == "{"){
-                                           
-                                            insideFunction = true;
-                                            tabsTime+=1;
-                                        }
+                                       
                             }
                         }else{
                             
@@ -219,25 +210,19 @@ window.NOS = {
                                 //console.error(this.DEBUGGER.undefinedFunction(customFunc));
                                 var commandParts = element.trim().split("=");
                                 if(commandParts.length>1){
-                                    if(insideFunction)
                                         pyCode_final+=this.indent(tabsTime)+ element.split(";").join("");
-                                    else
-                                        pyCode_final+=element.split(";").join("");
+                                   
                                 }else{
                                     var cmd = element.trimStart().split("(")[0].trim;
                                     if(this.translate(cmd)){
-                                        if(insideFunction)
                                         pyCode_final+=this.indent(tabsTime)+cmd + element.split(cmd)[1].split(";").join("");
-                                        else
-                                        pyCode_final+=cmd + element.split(cmd)[1].split(";").join("");
                                     }
                                 }
                             }
                             else{
-                                if(insideFunction)
+                              
                                 pyCode_final+=this.indent(tabsTime)+element.split(";").join("");
-                                else
-                                pyCode_final+=element.split(";").join("");
+                               
                             }
                         }
                         
@@ -249,6 +234,10 @@ window.NOS = {
                    }
                 }
                 pyCode_final+= "\n";
+
+                if(element.match(/{$/g)){
+                    tabsTime+=1;
+                }
         });
 
         return pyCode_final;
@@ -278,17 +267,17 @@ window.NOS = {
     },
    
     RESERVED:{
+        descreva:{type:"command", noParentheses:true, mainScope:true, noCurlyBrackets:true, pyCode:"class", input:false},
+        em:{type:"command", pyCode:"in", input:true},
+        retorna:{type:"command", pyCode:"return", input:true},
+        se:{type:"command", pyCode:"if", input:true},
+        senao:{type:"endcommand", pyCode:"else", input:true},
+        para:{type:"command", noParentheses:true, pyCode:"for", input:true},
         leia:{type:"function", pyCode:"input", input:true},
         mostre:{type:"function", pyCode:"print", input:false},
         paraInt:{type:"function", pyCode:"int", input:true},
         elevado:{type:"function", pyCode:"pow", input:true},
-        retorna:{type:"command", pyCode:"return", input:true},
-        em:{type:"command", pyCode:"in", input:true},
-        se:{type:"command", pyCode:"if", input:true},
-        senao:{type:"endcommand", pyCode:"else", input:true},
         enquanto:{type:"command", pyCode:"while", input:true},
-        para:{type:"command", noParentheses:true, pyCode:"for", input:true},
-        classe:{type:"command", noParentheses:true, noCurlyBrackets:true, pyCode:"class", input:false},
         Terminal:{
             type:"class",
             limpaTela(tabTimes){
