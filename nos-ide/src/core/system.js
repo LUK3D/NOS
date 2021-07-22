@@ -71,7 +71,6 @@ window.NOS = {
                             }else{
                                 pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+dType.default);
                             }
-                       
                     }
                         
                 }else{
@@ -109,8 +108,6 @@ window.NOS = {
 
                            }
                         
-                       
-                        
                         if(command){
 
                             var inside = element.trim()
@@ -134,7 +131,6 @@ window.NOS = {
                                 });
     
                             }
-                           
                             
                             if(command.type == "function"){
 
@@ -152,9 +148,6 @@ window.NOS = {
                                 }
                             }
 
-                            
-
-
                             if(command.type == "command"){
 
 
@@ -165,13 +158,7 @@ window.NOS = {
                                             }else{
                                                 unformatedCommand+=this.indent(tabsTime)+command.pyCode + element.split(cmd)[1].split(";").join("").split("{").join(":");
                                             }
-                                       
-
-
-
-                                        
-                                       
-                                        
+  
 
                                         if(command.noParentheses  && !command.noCurlyBrackets){
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.indexOf("(")," "); 
@@ -197,7 +184,6 @@ window.NOS = {
                                         
                                             pyCode_final+=this.indent(tabsTime)+command.pyCode + ":";
                                         
-                                       
                                        
                             }
                         }else{
