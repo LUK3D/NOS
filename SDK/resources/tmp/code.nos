@@ -1,12 +1,5 @@
-va numeros;
-int total;
 int n;
-
-numeros = leia("Informe os valores: ");
-
-para (letra em numeros){
-n = paraInt(letra);
-total += n;
+int c;
+para (n em 12){
+	mostre(n);
 }
-
-mostre(total);

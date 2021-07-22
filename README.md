@@ -1,6 +1,4 @@
-<center>
 <img src="./logo.png" width="400px"/>
-</center>
 
 # {Nos}
 
