@@ -1,25 +1,22 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
+importa [nome, teste, basico]:modulos;
+importa sistema;
 
-descreva Teste{
+inteiro n = 10;
+lista l = ["Teste1","Teste2","Teste3"];
 
+lista l = l,["Teste1","Teste2","Teste3"];
 
-funcao teste(nome){
-mostre("Estamos aqui");
-}
+inteiro a,b = 0,10;
 
-var numeros = 10;
-int total;
+n = leia("Informe o valor: ");
 
-numeros = leia("Informe os valores: ");
+n = paraInt(n);
 
-para (letra em numeros){
-total = total + paraInt(letra);
-}
-
-mostre(total);
-
+para(i em intervalo(120,158)){
+              mostre( tamanho(paraTexto(i)) );
 }
 
 
@@ -186,6 +183,7 @@ window.NOS = {
                                         
                                        
                             }
+                            
                         }else{
                             
                             var customFunc = element.split("(")[0];
@@ -210,6 +208,25 @@ window.NOS = {
                                 pyCode_final+=this.indent(tabsTime)+element.split(";").join("");
                                
                             }
+
+                            
+                                command = element.trim().match(/^importa/g);
+                                if(command){
+                                    cm = NOS.translate(command[0].trim())
+                                    if(cm){
+                                        if(cm.type=="importer"){
+                                            var cmInside = element.match(/\[(.*)\]/g);
+                                            if(cmInside){
+                                                pyCode_final += "from " + element.split(":")[1].split("/").join(".").replace(";","") + " import " +  cmInside[0].replace("[","").replace("]","");
+                                            }
+                                        }
+                                    }
+                                    console.log("Importando",cm)
+                                }
+                                
+                            
+                           
+                
                         }
                         
                    }else{
@@ -253,17 +270,21 @@ window.NOS = {
     },
    
     RESERVED:{
+        mostre:{type:"function", pyCode:"print", input:false},
+        intervalo:{type:"function", pyCode:"range", input:false},
+        leia:{type:"function", pyCode:"input", input:true},
+        paraInt:{type:"function", pyCode:"int", input:true},
+        paraTexto:{type:"function", pyCode:"str", input:true},
+        elevado:{type:"function", pyCode:"pow", input:true},
+        importa:{type:"importer", pyCode:"import", input:true},
         descreva:{type:"command", noParentheses:true, mainScope:true, noCurlyBrackets:true, pyCode:"class", input:false},
-        em:{type:"command", pyCode:"in", input:true},
+        para:{type:"command", noParentheses:true, pyCode:"for", input:true},
         retorna:{type:"command", pyCode:"return", input:true},
+        em:{type:"command", pyCode:"in", input:true},
         se:{type:"command", pyCode:"if", input:true},
         senao:{type:"endcommand", pyCode:"else", input:true},
-        para:{type:"command", noParentheses:true, pyCode:"for", input:true},
-        leia:{type:"function", pyCode:"input", input:true},
-        mostre:{type:"function", pyCode:"print", input:false},
-        paraInt:{type:"function", pyCode:"int", input:true},
-        elevado:{type:"function", pyCode:"pow", input:true},
         enquanto:{type:"command", pyCode:"while", input:true},
+        tamanho:{type:"command", pyCode:"len", input:true},
         Terminal:{
             type:"class",
             limpaTela(tabTimes){
@@ -272,12 +293,13 @@ window.NOS = {
         }
     },
     DATATYPES:{
-        float:{type:"Decimal", default:0.0},
-        int:{type:"Integer", default:0},
-        bool:{type:"Boolean", default:"True"},
+        decimal:{type:"Decimal", default:0.0},
+        inteiro:{type:"Integer", default:0},
+        booleano:{type:"Boolean", default:"True"},
         texto:{type:"String", default:`""`},
-        var:{type:"Any", default:`""`},
+        dinamico:{type:"Any", default:`""`},
         objecto:{type:"Object", default:"{}"},
+        lista:{type:"List", default:"[]"},
         funcao:{type:"Function", default:null},
     },
     DEBUGGER:{
