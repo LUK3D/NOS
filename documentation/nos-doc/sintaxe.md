@@ -8,26 +8,27 @@ Crie um arquivo com o nome `teste.nos` e coloque o código a baixo nele.
 
 ```Javascript
 
-int n1;
-int n2;
-text entrada;
-entrada = leia("Informe o primeiro valor: ");
-n1 = paraInt(entrada);
 
-entrada = leia("Informe o segundo valor: ");
-n2 = paraInt(entrada);
+inteiro n1;
 
-mostre("O resultado da soma de", n1,"e",n2,"é:", (n1+n2));
+inteiro n2;
+
+n1 = paraInt(leia("Informe o primeiro valor: "));
+n2 = paraInt(leia("Informe o segundo valor: "));
+
+mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
+
 
 
 ```
 
-Em seguida, abra a Linha de Comando (cmd) aportando para o diretório onde o arquivo `teste.nos` se encontra
+Em seguida, abra a Linha de Comando (cmd) apontando para o diretório onde o arquivo `teste.nos` se encontra
 
 > Ex:
 > C:/users/nos/documentos/pasta_do_projecto
 
 Em seguida execute o comando `nos`. Este comando irá inicializar o **nos-cli**. Feito isso digite o comando  `run->teste.nos`
+
 O comando a cima, informa para o **nos-cli** que pretendemos apenas executar o código.
 
 Suponhamos que o utilizador entre com os valores 2 e 5, respectivamente. Quando o código a cima for compilado e executado, irá reproduzir o seguinte resultado:
@@ -52,7 +53,7 @@ Onde `[TIPO]` é o [Tipo de dado](http://www.nos.luk3d.com/tipo_de_dados) e o `[
 
 ### Atribuição de valores
 
-uma vez declarada a variável a atrabuição do valor pode ser feito em qualquer parte do código, desde que seja depois da sua declaração.
+uma vez declarada a variável, a atrabuição do valor pode ser feito em qualquer parte do código, desde que seja depois da sua declaração.
 
 A sintaxe de atribuição de valor é a seguinte:
 
@@ -64,7 +65,7 @@ Onde `[VARIAVEL]` é o identificador ou nome da variável, o `[OPERADOR_DE_ATRIB
 
 ## FUNÇÕES
 ### Declaração de Função
-Sendo uma função um bloco de comandos que executa uma tarefa espercífica, é necessário todos os comandos inerentes a essa função, estejam dentro de seus [delimitadores](http://www.nos.luk3d.com/funcoes#delimitadores).
+Sendo uma função um bloco de comandos que executa uma tarefa espercífica, é necessário que todos os comandos inerentes a essa função, estejam dentro de seus [delimitadores](http://www.nos.luk3d.com/funcoes#delimitadores).
 
 ```javascript
 [ESCOPO] funcao [NOME_DA_FUNCAO] ([PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N]){
@@ -72,7 +73,7 @@ Sendo uma função um bloco de comandos que executa uma tarefa espercífica, é 
     
 }
 ```
-Onde o `[ESCOPO]` representa a região da aplicação (programa) em que ela é vista/utilizável. É seguido pela [palavra reservada](http://www.nos.luk3d.com/vocabulario#palavra_reservada) `funcao` que informa para o interpretador que este comando declara um a função. O `[NOME_DA_FUNCAO]` é o nome da sua função. `[PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N]` são os argumentos detas função, representam os dados nessessários para a execução dos comandos dentro da função.
+Onde o `[ESCOPO]` representa a região da aplicação (programa) em que ela é vista/utilizável. É seguido pela [palavra reservada](http://www.nos.luk3d.com/vocabulario#palavra_reservada) `funcao` que informa para o interpretador que este comando declara uma função. O `[NOME_DA_FUNCAO]` é o nome da sua função. `[PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_n]` são os argumentos deta função, representam os dados necessários para a execução dos comandos dentro da função.
 
 ::: warning Obs:
 Os argumentos são opcionais assim como outros comandos que afetam as características de uma função.
@@ -88,7 +89,7 @@ funcao calcular(n1, n2){
 
 ### Invocação de função
 
-A função pode ser invocada escrevendo o nome da função e em seguida abrir e fechar parenteses seguinto a seguinte sintaxe:
+A função pode ser invocada escrevendo o nome da função e em seguida abrir e fechar parenteses seguindo a seguinte sintaxe:
 
 ` [NOME_DA_FUNCAO] ( [PARAMETRO_1], [PARAMETRO_2],..., [PARAMETRO_N] ); `
 ```javascript

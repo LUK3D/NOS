@@ -1,4 +1,3 @@
-#  {Nos}
 
 
 <center>
@@ -27,8 +26,6 @@ Construa programas ricos em funcionaliade aproveitando todo o poder de uma lingu
 :::: warning Atenção!!
 Este projecto encontra-se em desenvolvimento, não é recomendável usa-lo em produção
 ::::
-
-### 🔺 VERSÃO 0.0.1 SERÁ DISPONIBILIZADA NO DIA 01 DE AGOSTO DE 2021🔺
 
 
 <style>

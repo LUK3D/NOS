@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
@@ -273,7 +275,7 @@ window.NOS = {
         mostre:{type:"function", pyCode:"print", input:false},
         intervalo:{type:"function", pyCode:"range", input:false},
         leia:{type:"function", pyCode:"input", input:true},
-        paraInt:{type:"function", pyCode:"int", input:true},
+        paraInteiro:{type:"function", pyCode:"int", input:true},
         paraTexto:{type:"function", pyCode:"str", input:true},
         elevado:{type:"function", pyCode:"pow", input:true},
         importa:{type:"importer", pyCode:"import", input:true},
@@ -295,8 +297,9 @@ window.NOS = {
     DATATYPES:{
         decimal:{type:"Decimal", default:0.0},
         inteiro:{type:"Integer", default:0},
-        booleano:{type:"Boolean", default:"True"},
+        boleano:{type:"Boolean", default:"True"},
         texto:{type:"String", default:`""`},
+        caractere:{type:"String", default:`""`},
         dinamico:{type:"Any", default:`""`},
         objecto:{type:"Object", default:"{}"},
         lista:{type:"List", default:"[]"},
