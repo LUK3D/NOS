@@ -3,42 +3,76 @@
 //Codigo {NOS} de teste que e usado para testar o transpilador
 window.code=`
 
-importa [nome, teste, basico]:modulos;
-importa sistema;
+// importa [nome, teste, basico]:modulos;
+// importa sistema;
 
-inteiro n = 10;
-lista l = ["Teste1","Teste2","Teste3"];
+// inteiro n = 10;
+// lista l = ["Teste1","Teste2","Teste3"];
 
-lista l = l,["Teste1","Teste2","Teste3"];
+// lista l = l,["Teste1","Teste2","Teste3"];
 
-inteiro a,b = 0,10;
+// inteiro a,b = 0,10;
 
-n = leia("Informe o valor: ");
+// n = leia("Informe o valor: ");
 
-n = paraInt(n);
+// n = paraInt(leia("Informe o valor: "));
+// //n = paraInt(n);
 
-para(i em intervalo(120,158)){
-              mostre( tamanho(paraTexto(i)) );
+// para(i em intervalo(120,158)){
+//               mostre( tamanho(paraTexto(i)) );
+// }
+
+
+inteiro multiplicador  = 0;
+
+
+multiplicador = paraInt(leia("Informe o valor do multiplicador: "));
+
+
+funcao tabuada(valor){
+    para(i em intervalo(1,12)){
+        mostre(paraTexto (paraTexto(i)+ "x"+ paraTexto(valor) +"="  +  paraTexto(i*valor)));
+    }
+
+
 }
 
+tabuada(multiplicador);
+
+
+inteiro n = 0;
+
+enquanto (n<20){
+    mostre(n);
+    n++;
+}
+
+variavel = leia("pressione qualquer telca para sair...");
 
 
 `;
 
 
 window.NOS = {
+   
+
     Transpile(code){
         //var ncode = code.split("\n"); //Removendo todas as linhas em branco (sem comandos) do código informado pelo user.
         code = JSON.stringify(code).split("\\n").join('\n').split('\\"').join('"').split('\\r').join(' ');
         var ncode = code.replace(/^\s*\n/gm,''); //Removendo todas as linhas em branco (sem comandos) do código informado pelo user.
         ncode = ncode.replace(/^\s*/gm, "").replace(/^\t*/gm, "").split("\n");
-        console.log("codigo=",ncode);
         var pyCode_final = "";
         var insideFunction = false; //Esta variavel define se o transpilador esta lendo uma função ou está lendo comandos no escopo global.
         //Percorrendo cada linha de comando ser processado
         var userFunctions = [];
         var tabsTime = 0;
+        this.STOP = false;
+
         ncode.forEach(element => {
+
+            if(this.STOP){
+                return
+            }
             
                 var v = element.trimStart().split(" "); //Dividindo o comando em duas parte, onde a primeira deve corresponder à instrução e a segunda parte corresponder ao valor.
                 var dType = this.typeOf(v[0].trim());
@@ -54,6 +88,10 @@ window.NOS = {
                }
                
                 if(dType && element!=""){
+                   
+
+                    this.defineVariable(v[1].split("(")[0], dType);
+
                     if(element.match(/{$/g)){
                        
                         pyCode_final += this.indent(tabsTime)+("def " +element.substring(6,element.lastIndexOf(")")+1).trim() +":");
@@ -63,7 +101,6 @@ window.NOS = {
                     }
                     else{
                         var splitedLine = element.split("=");
-                        console.log(splitedLine)
                             
                             if(splitedLine.length>1){
                                 pyCode_final += this.indent(tabsTime)+(v[1].replace(";","")+"="+splitedLine[1]);
@@ -74,10 +111,16 @@ window.NOS = {
                         
                 }else{
                     var cmd = element.trim().match(/^([^(]+)/gm);
+
+                    
+                    if(element.includes("retorna")){ //Verificando se o comando atual é o Retorna
+                        cmd = element.trimStart().split(" ");
+                    }
+
                    if(Array.isArray(cmd)){
                         
-                        if(cmd[0].includes("=")){
-                            cmd = cmd[0].trim().split("=")[1].trim();
+                        if(cmd[0].match(/\+=|-=|=|\+\+|\-\-/gm)){
+                            cmd = cmd[0].trim().split(/\+=|-=|=|\+\+|\-\-/gm)[1].trim();
                             
                         }else{
                             cmd = cmd[0].trim();
@@ -96,32 +139,38 @@ window.NOS = {
                         }
 
                         var command;
-                        var cmtClass = element.split("\t").join("").trim().match(/(^[descreva])\w+/g)
+                        var cmtClass = element.split("\t").join("").trim().match(/^descreva/g)
                             if(cmtClass){
                                 //TODO Adicionar suporte a criacao de classes
                                 command= this.translate("descreva"); 
                                
                             
                            }else{
+                              
                                 command= this.translate(cmd); 
 
                            }
                         
                         if(command){
-
+                            
+                            
                             var inside = element.trim()
                             inside = inside.match(/(?<=\()[^]+(?=\))/gm)
+                           // console.log("TRADUZINDO", inside);
                             if(inside){
                                 inside = inside[0];
-                                
                                 var commands = inside.match(/([^\()]+)/g);
+                                //console.log("TRADUZINDO2", commands);
                                 
                                 commands.forEach(el => {
                                     var word = el.match(/[a-zA-Z0-9_]+$/gm)
+                                   // console.log("TRADUZINDO2-Palavra", word);
                                     if(word){
                                         var ncode = NOS.translate(word[0].trim());
+                                       // console.log("TRADUZINDO2-Traducao", ncode);
                                         if(ncode){
-                                            element =element.replace(word[0],ncode.pyCode)
+                                            //TODO Esta instrução traduz todas as palavras mesmo que não sejam comandos. Deve se rever isso e ignorar comandos representados como strings.
+                                            element =element.split(word[0]).join(ncode.pyCode) 
                                             
                                         }
                                        
@@ -133,6 +182,8 @@ window.NOS = {
                             
                             if(command.type == "function"){
 
+                               
+
                                 if(!command.input){
                                     
                                     //var result = command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
@@ -141,7 +192,7 @@ window.NOS = {
                                     
                                         
                                 }else{
-                                    var result = v[0].trim().split("(")[0] + "=" + command.pyCode + element.match(/\(([\s\S]*?)\)/gm);
+                                    var result = v[0].trim().split("(")[0] + this.getOperador(element) + command.pyCode + element.match(/\(([^)].*)\)/gm);
                                     pyCode_final+=this.indent(tabsTime)+(result.split("\\t").join(""));
                                     
                                 }
@@ -164,7 +215,7 @@ window.NOS = {
                                             unformatedCommand =NOS.UTILITY.replaceAt(unformatedCommand,unformatedCommand.lastIndexOf(")")," ");
                                             
                                             var el = unformatedCommand.split(" ");
-                                            console.log(el)
+                                           // console.log(el)
                                             el.forEach(elIn => {
                                                 var elTraduzido = NOS.translate(elIn.trim());
                                                 if(elTraduzido){
@@ -210,8 +261,6 @@ window.NOS = {
                                 pyCode_final+=this.indent(tabsTime)+element.split(";").join("");
                                
                             }
-
-                            
                                 command = element.trim().match(/^importa/g);
                                 if(command){
                                     cm = NOS.translate(command[0].trim())
@@ -223,12 +272,8 @@ window.NOS = {
                                             }
                                         }
                                     }
-                                    console.log("Importando",cm)
+                                   // console.log("Importando",cm)
                                 }
-                                
-                            
-                           
-                
                         }
                         
                    }else{
@@ -245,7 +290,7 @@ window.NOS = {
                 }
         });
 
-        return pyCode_final;
+        return pyCode_final.replace(/;\s*$/gm, "").replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm, ""); //Removendo os comentarios e os ponto e virgulas finais.
     },
     /** Função que determina o tipo de dado da variavel passada como parâmetro
      * @param  {any} value
@@ -270,6 +315,27 @@ window.NOS = {
        
         return tabs;
     },
+
+    error(r){
+
+        console.log("ERRO: ", r["message"]);
+        this.STOP = true;
+    },
+    defineVariable(key, value){
+        if(this.variableExists(key)){
+            var erro = new ERRO("Ja definido","Já existe uma variável " + key + " declarada neste escopo.");
+            this.error(erro)
+        }else{
+            this.VARIABLES[key] = value;
+        }
+    },
+
+    variableExists(key){
+        return this.VARIABLES[key]==null?false:true;
+    },
+    STOP:false,
+    VARIABLES:{},
+    
    
     RESERVED:{
         mostre:{type:"function", pyCode:"print", input:false},
@@ -287,6 +353,9 @@ window.NOS = {
         senao:{type:"endcommand", pyCode:"else", input:true},
         enquanto:{type:"command", pyCode:"while", input:true},
         tamanho:{type:"command", pyCode:"len", input:true},
+
+        capitaliza:{type:"command", pyCode:"capitalize", input:true},
+
         Terminal:{
             type:"class",
             limpaTela(tabTimes){
@@ -295,7 +364,7 @@ window.NOS = {
         }
     },
     DATATYPES:{
-        decimal:{type:"Decimal", default:0.0},
+        decimal:{type:"Decimal", default:0.0,},
         inteiro:{type:"Integer", default:0},
         boleano:{type:"Boolean", default:"True"},
         texto:{type:"String", default:`""`},
@@ -314,8 +383,37 @@ window.NOS = {
         replaceAt (str,index, replacement) {
             return str.substr(0, index) + replacement + str.substr(index + replacement.length);
         }
+    },
+    /** Função para detectar o operador de atribiução utilizada nesta linha e adicionar no comando final.
+     * @param  {} el
+     */
+    getOperador(el){
+
+        if(el.includes("+="))
+            return "+=";
+        if(el.includes("-="))
+            return "-=";
+        if(el.includes("++"))
+            return "++";
+        if(el.includes("--"))
+            return "--";
+        if(el.includes("="))
+            return "=";
     }
     
 
     
 };
+
+
+class ERRO{
+    /** Classe que determinar os tipos de erros
+     * @param  {} type
+     * @param  {} message
+     */
+    constructor(type, message){
+        this.type = type;
+        this.message = message;
+    }
+    
+}
