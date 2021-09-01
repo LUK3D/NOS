@@ -9,27 +9,16 @@
 ## Exemplo de código escrito em {Nos}
 ```JavaScript
 
-var nome;
-texto sobrenome;
-int idade;
-bool sexo; //true para masculino
 
+inteiro n1;
 
-nome = leia();
+inteiro n2;
 
-mostre("o seu nome e " ,  nome);
+n1 = paraInt(leia("Informe o primeiro valor: "));
+n2 = paraInt(leia("Informe o segundo valor: "));
 
-int n1;
-int n2;
+mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 
-mostre("Informe o primeiro Numero");
-n1 = leia();
-mostre("Informe o Numero");
-n2 = leia();
-
-n1 = toInt(n1);
-n2 = toInt(n2);
-mostre("O resultado da some e " , n1+n2);
 
 ```
 
