@@ -1,5 +1,0 @@
-int n;
-int c;
-para (n em 12){
-	mostre(n);
-}
