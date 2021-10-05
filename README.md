@@ -23,6 +23,7 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 
 ```
 
+
 ## Como Usar?
 
 Para ver a versão atual do **{Nos}** em funcionamento, basta fazer o download do código, abrir o arquivo index.html num navegador e executar o seguinte comando:
