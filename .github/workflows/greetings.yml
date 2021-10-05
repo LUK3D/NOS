@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: 'Muito obrigado, o primeiro erro a gente nunca esquece! Vamos trabalhar com bastante afinco para supera-lo..'
+        pr-message: 'Muito obrigado, toda ajuda é muito bem-vinda! Agradecemos imenso pela contribuição e que se torne um hábito por favor..'
