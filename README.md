@@ -2,7 +2,8 @@
 
 # {Nos}
 
-{Nos} (Nós), é uma linguagem de programação escrita em javascript, baseada no Python e desenvolvida pela [LUK3D](http://www.luk3d.com)
+{Nos} (Nós), é uma linguagem de programação escrita em javascript, baseada no Python e desenvolvida pela [LUK3D](http://www.luk3d.com).
+O seu foco principal consiste em facilitar o processo de aprendizagem no ramo da programação. Ao invés de se usar um pseodocódigo (muito limitado), com o {Nos} você cria programas em seu idioma de preferência que podem ser compilados enquanto aprende a lógica de programação e os comandos da linguagem. A sua IDE permite ao programador escolher entre programação Visual (Diagramas de Fluxo) ou Escrita.
 
 >O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento.
 
