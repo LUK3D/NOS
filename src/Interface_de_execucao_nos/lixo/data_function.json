@@ -1,0 +1,29 @@
+[
+    {
+        "label": "Ismael Clever",
+        "type": "text",
+        "value": {
+            "label": "show",
+            "type": "internalFunction",
+            "value": "'Ismael Clever'"
+            
+        }
+    },
+    {
+            "label": "show",
+            "type": "internalFunction",
+            "value": "'Ismael Clever'"
+            
+        },
+    
+    {
+        "label": "name",
+        "type": "var",
+        "value": {
+            "label": "show",
+            "type": "internalFunction",
+            "value": "'Clever Clever'"
+            
+        }
+    }
+]

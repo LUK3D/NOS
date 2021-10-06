@@ -1,0 +1,95 @@
+[
+    {
+        "label": "use",
+        "type": "injection",
+        "value": "nos->math"
+    },
+    {
+        "label": "nome.",
+        "type": "var",
+        "value": ""
+    },
+    {
+        "label": "read",
+        "type": "internalFunction",
+        "value": "\"Insira Um nome\""
+    },
+    {
+        "label": "show",
+        "type": "internalFunction",
+        "value": "nome"
+    },
+    {
+        "label": "read",
+        "type": "internalFunction",
+        "value": "nome"
+    },
+    {
+        "label": "faca",
+        "type": "function",
+        "value": [
+            {
+                "label": "username.",
+                "type": "var",
+                "value": ""
+            },
+            {
+                "label": "read",
+                "type": "internalFunction",
+                "value": "nome"
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": "'Informe o nome'"
+            }
+        ]
+    },
+    {
+        "label": "meio",
+        "type": "function",
+        "value": [
+            {
+                "label": "filipe.",
+                "type": "var",
+                "value": ""
+            },
+            {
+                "label": "read",
+                "type": "internalFunction",
+                "value": "nome"
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": "'Informe o nome'"
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": "add"
+            },
+            {
+                "label": "add",
+                "type": "internalFunction",
+                "value": "1+23"
+            }
+        ]
+    },
+    {
+        "label": "comeco",
+        "type": "function",
+        "value": [
+            {
+                "label": "read",
+                "type": "internalFunction",
+                "value": "nome"
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": "'Informe o nome'"
+            }
+        ]
+    }
+]

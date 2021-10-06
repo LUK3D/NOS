@@ -1,0 +1,105 @@
+[
+    {
+        "label": "nos.math",
+        "type": "use",
+        "value": "nos->math"
+    },
+    {
+        "label": "name",
+        "type": "var",
+        "value": ""
+    },
+    {
+        "label": "inicio",
+        "type": "function",
+        "value": [
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "",
+                        "value": "'Insira um nome'"
+                    }
+                ]
+            },
+            {
+                "label": "read",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "read"
+                    }
+                ]
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "nome"
+                    }
+                ]
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "nome"
+                    }
+                ]
+            }
+        ]
+    },
+    
+    {
+        "label": "fim",
+        "type": "function",
+        "value": [
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "",
+                        "value": "'Insira um nome'"
+                    }
+                ]
+            },
+            {
+                "label": "read",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "read"
+                    }
+                ]
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "nome"
+                    }
+                ]
+            },
+            {
+                "label": "show",
+                "type": "internalFunction",
+                "value": [
+                    {
+                        "label": "nome",
+                        "value": "nome"
+                    }
+                ]
+            }
+        ]
+    }
+]
