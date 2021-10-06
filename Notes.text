@@ -1,2 +1,0 @@
-REGEX para selecionar um conjunto de texto entre caracteres
-{([\s\S]*?)}

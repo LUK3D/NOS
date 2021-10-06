@@ -22,13 +22,17 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 
 
 ```
-
+# NOS-IDE
 
 ## Como Usar?
 
-Para ver a versão atual do **{Nos}** em funcionamento, basta fazer o download do código, abrir o arquivo index.html num navegador e executar o seguinte comando:
+Deve ter o Nodejs e Python de preferência a versão mais atualizada Instalado em sua máquina.
+
+Na linha de comando (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
 `
-console.dir(NOS.Transpile(code))
+npm install
+
+npm run electron:serve
 `
 >{Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em js podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python. 
 

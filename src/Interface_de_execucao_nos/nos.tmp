@@ -1,0 +1,1 @@
+[{"label":"int","type":"int","value":"nome;"},{"label":"","type":"","value":"sobrenome;"},{"label":"","type":"","value":"= leia 'Mensagem: ' ;"},{"label":"show","type":"internalFunction","value":"(i*2);"},{"label":"","type":"","value":"}"}]
