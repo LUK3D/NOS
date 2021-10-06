@@ -26,9 +26,9 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 
 ## Como Usar?
 
-Deve ter o Nodejs e Python de prefereência a verção amsi atualizada Instalado em sua máquina.
+Deve ter o Nodejs e Python de preferência a versão mais atualizada Instalado em sua máquina.
 
-Na linha de comando navegue até a pasta do projecto e execute os seguintes comandos:
+Na linha de comando (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
 `
 npm install
 
