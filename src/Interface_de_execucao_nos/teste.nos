@@ -1,0 +1,15 @@
+//Delcare as suas variaveis aqui
+var n1.
+var n2.
+
+//Comece o seu algoritmo aqui
+mostre("Informe o primeiro valor").
+leia(n1).
+mostre("Informe o segundo valor").
+leia(n2).
+
+mostre("O resultador e" , ((n1+n2)*2)).
+mostre("A divisao e" , (((n1+n2)*2)/2)).
+leia(value).
+
+//Fim do algoritmo
