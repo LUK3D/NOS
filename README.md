@@ -51,7 +51,7 @@ Esta é a IDE oficial de nós. possui todas as ferramentas necessárias para se 
 
 **Como Usar?**
 
-Antes de mais, baixe a versão mais resente em [NOS-IDE](https://github.com/LUK3D/Nos_IDE)
+Antes de mais, baixe a versão mais resente em [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE)
 
 Deve ter o Nodejs e Python de preferência a versão mais atualizada Instalado em sua máquina. \
 No terminal de comandos (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
