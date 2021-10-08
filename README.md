@@ -52,19 +52,17 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 
 ## NOS-IDE
 
-Esta é a IDE oficial de nós. possui todas as ferramentas necessárias para se programar em nós. Caso seja um programador menos experiente com ambiente de linha de comandos, esta é a solução ideal para você.
+Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se programar em `.nos`. Caso seja um programador menos experiente com ambiente de linha de comandos, esta é a solução ideal para você.
 
 **Como Usar?**
 
-Antes de mais, baixe a versão mais resente em [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE)
+- Baixe a versão atualizada em [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE)
+  - Deve ter o [Nodejs](https://nodejs.org/en/download/) e [Python](https://www.python.org/downloads/) de preferência as versões recentes, Instaladas em sua máquina.
+- No terminal de comandos (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
+  - `npm install`
+  - `npm run electron:serve`
 
-Deve ter o Nodejs e Python de preferência a versão mais atualizada Instalado em sua máquina. \
-No terminal de comandos (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
-
-- `npm install`
-- `npm run electron:serve`
-
-> {Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em js podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python.
+> {Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em javascript podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python.
 
 **Veja mais em [{Nos} Introdução](https://www.nos.luk3d.com/introduction.html)**
 
