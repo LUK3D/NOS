@@ -12,7 +12,7 @@ O presente repositório está estruturado da seguinte forma:
 
 ## Transpilator
 
-{NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA, neste diretório, encontram-se todos os códigos responsável por analizar e traduzir o o código `.nos` para `.py`.
+{NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA, neste diretório, encontram-se todos os códigos responsável por analizar e traduzir o código `.nos` para `.py`.
 
 Caso você tenha domínio de Javascript ou Typescript e queira contribui, é aqui onde você deve se dirigir.
 
