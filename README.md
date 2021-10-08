@@ -22,7 +22,7 @@ Aqui você encontra todo o código do compilador que tem a função de transform
 
 Se você tem domínio de Python e quer de alguma forma contribuir, é aqui onde você deve se dirigir.
 
-## IExec-nos
+## IExec-nos (Interface Execução NOS)
 
 Este é o directório onde contem toda a lógica do nos-cli.
 
@@ -30,9 +30,9 @@ Este é o directório onde contem toda a lógica do nos-cli.
 
 Desta forma o programador pode usar a linguagem mesmo fora do ambiente nós.
 
-## SDK
+## SDK (Software Development Kit)
 
-Este é o Software Development Kit de {NOS}, é onde você encontra tudo acima descrito,  já organizado para os programadores {NOS} começarem a "Codar".
+É neste directório onde você encontra tudo acima descrito,  já organizado para os programadores {NOS} começarem a "Codar".
 
 Caso queira apenas programar em {NOS}, baixe o SDK siga os passos e estarás pronto para começar.
 
@@ -50,7 +50,7 @@ n2 = paraInt(leia("Informe o segundo valor: "));
 mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 ```
 
-# NOS-IDE
+## NOS-IDE
 
 Esta é a IDE oficial de nós. possui todas as ferramentas necessárias para se programar em nós. Caso seja um programador menos experiente com ambiente de linha de comandos, esta é a solução ideal para você.
 
