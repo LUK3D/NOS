@@ -32,7 +32,7 @@ Este é o Software Development Kit de NÓS, é onde você encontra tudo descrito
 
 > O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento!
 
-## Exemplo de código escrito em {Nos}
+## Exemplo de código escrito em {NOS}
 
 ```JavaScript
 inteiro n1;
