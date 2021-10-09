@@ -1,0 +1,11 @@
+
+//A área de uma figura geométrica é calculada pela fórmula área =  largura X altura
+
+
+decimal altura;
+altura =  paraInteiro(leia("Digite a altura: "));
+decimal largura;
+largura = paraInteiro(leia("Digite a largura: "));
+mostre("A área é: ", altura*largura);
+
+Sistema.pause();
