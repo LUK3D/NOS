@@ -15,7 +15,7 @@
     },
     "texto": {
         "type": "data_t",
-        "command": "string",
+        "command": "str",
         "end": null,
         "ignore_on_translate": true,
         "ignore_all": false
