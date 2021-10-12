@@ -1,155 +1,172 @@
-
 import json
 import re
+from pprint import pprint
+from typing import Tuple, List
+from sys import argv, exit
 
-f = open('./core/dictionary.json',)
-RESERVED = json.load(f) #LENDO O DICIONARIO COM AS PALAVRAS RESERVADAS DE {NOS}
-f.close()
-
-# METODO PARA SALVAR O CODIGO PYTHON GERADO EM UM ARQUIVO
-def save_final_code(code):
-    f = open("output.py", "w")
-    f.write(code)
-    f.close()
-    return "Arquivo gerado em: output.py"
-
-# CALCULAR A QUANTIDADE DE VEZES QUE O CODIGO DEVE SER IDENTADO
-def indent_code (_times:int):
-    return ("\t"*_times) if(_times>0) else ""
+from debugger import DBG
 
 
-# function that converts tuple to string
-def join_tuple_string(strings_tuple) -> str:
-   return ' '.join(strings_tuple)
+def save_final_code(code: str):
+    """método para salvar o código python gerado em um arquivo"""
+    with open("output.py", "w") as py_file:
+        py_file.write(code)
+        return "Arquivo gerado em: output.py"
 
 
-# MÉTODO PARA CONVERSÃO DO CÓDIGO NÓS PARA PYTHON
-# TODO refazer toda a logica de traducao, porque aora ja temos tudo informado. so precisamos traduzir
-def nos_to_python(_commands:list):
+def indent_code(_times: int):
+    """calcular a quantidade de vezes que o código deve ser indentado"""
+    return "\t" * _times if _times > 0 else ""
+
+
+def join_tuple_string(strings_tuple: Tuple) -> str:
+    """function that converts tuple to string"""
+    return ' '.join(strings_tuple)
+
+
+# TODO refazer toda a lógica de tradução,
+#  porque agora ja temos tudo informado. so precisamos traduzir
+def nos_to_python(_commands: List):
+    """método para conversão do código nós para python"""
     script = []
     indentationSteps = 0
     for commad in _commands:
-        print("Linha-> ", commad)
+        DBG().debug(f"{commad}")
         code_line = ""
-        if(commad["description"]!=None):
-            if(commad["description"]["ignore_on_translate"] !=True):
-                code_line = (indent_code(indentationSteps)+commad["description"]["command"] + commad["instructions"])
-            if(commad["description"]["end"]!=None):
+        if commad["description"] is not None:
+            if not commad["description"]["ignore_on_translate"]:
+                code_line = (
+                        indent_code(indentationSteps) +
+                        commad["description"]["command"] +
+                        commad["instructions"]
+                )
+            if commad["description"]["end"] is not None:
                 code_line += commad["description"]["end"]
         else:
-            code_line = (indent_code(indentationSteps)+commad["command"] +commad["instructions"])
+            code_line = (
+                    indent_code(indentationSteps) +
+                    commad["command"] +
+                    commad["instructions"]
+            )
         command = str(commad["command"]).strip()
 
-# VERIFICANDO SE ESTAMOS A ENTRAR NO ESCOPO DE UMA FUNÇÃO, OU ESTAMOS A SAIR DO ESCOPO DE UMA.
-        if(len(command)>0):
-            if(commad["description"]==None or command[-1]=="{"):
-                if(command == "{"):
-                    code_line=""
-                    indentationSteps +=1
-            if(command == "}" or command[-1]=="}"):
-                indentationSteps -=1
-                code_line=""
+        # verificando se estamos a entrar ou sair no escopo de uma função.
+        if len(command) > 0:
+            if commad["description"] is None or command[-1] == "{":
+                if command == "{":
+                    code_line = ""
+                    indentationSteps += 1
+            if command == "}" or command[-1] == "}":
+                indentationSteps -= 1
+                code_line = ""
 
-        # REMOVENDO O ; DO CODIGO
-        if(len(code_line)>0):
-                if(code_line[-1]==";"):
-                    code_line = code_line[:-1]
+        # removendo o ';' do código
+        if len(code_line) > 0:
+            if code_line[-1] == ";":
+                code_line = code_line[:-1]
+        else:
+            continue
 
-        # ADICIONANDO O COMANDO FINAL NA LISTA
+        # adicionando o comando final a lista
         script.append(code_line)
 
-    print(script)
+    DBG().debug(f"{script}")
     return "\n".join(script)
 
 
-# PROCESSA O COMANDO E RETORNA O OBJECTO QUE O REPRESENTA NO DICIONARIO DO {NOS}
 def verify_command(_noscode: str):
-    spl_cmd = _noscode.split(" ")
-    _noscmd =  spl_cmd[0] if (len(spl_cmd)>1) else _noscode
+    """processa o comando e retorna o objecto que o representa no dicionário do {NOS}"""
+    cmd_listados = _noscode.split(" ")
+    _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
     no_code_split = _noscode.split(_noscmd)
 
-    # TODOD: Adicionar suporte a variaveis internas e funcoes
-    # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])" 
-    regex = "(([aA-z_Z ]*(\(|\(\)|\( *)))" #Pega todos os comandos que terminam em (),(, 
-    formated_command_1 = map(join_tuple_string, re.findall(regex, _noscode)) #O regex a cima retorna tupulas, entao precisa ser convertido para lista
-    regex2 = "[A-Za-z_]*" #Pegando apenas palavras e ignorando qualquer caracter especial
-    formated_command_1 =" ".join(formated_command_1)
+    # TODO: Adicionar suporte a variáveis internas e funções
+    # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])"
+    # Pega todos os comandos que terminam em (),(,
+    regex = re.compile(r"([aA-z_Z ]*(\(|\(\)|\( *))")
+    # O regex acima retorna tuples, então precisa ser convertido para lista
+    formated_command_1 = map(join_tuple_string, regex.findall(_noscode))
+    formated_command_1 = " ".join(formated_command_1)
 
-    formated_command_2 = re.findall(regex2,formated_command_1)
-    final_formated_commands = [x for x in formated_command_2 if x] # Limpando a lista e deixando apenas os valores nao nulos ou vasios.
+    # Pegando apenas palavras e ignorando qualquer carácter especial
+    regex2 = re.compile("[A-Za-z_]*")
+    formated_command_2 = regex2.findall(formated_command_1)
 
+    # Limpando a lista e deixando apenas os valores nao nulos ou vazios.
+    final_formated_commands = [x for x in formated_command_2 if x]
 
     final = {
-        "command":_noscmd,
-        "description":None,
-        "instructions":no_code_split[1],
-        "original":_noscode,
-        "translation_origins":formated_command_1,
-        "commands":[]
-        }
+        "command": _noscmd,
+        "commands": [],
+        "description": None,
+        "instructions": no_code_split[1],
+        "original": _noscode,
+        "translation_origins": formated_command_1
+    }
+
     for command in final_formated_commands:
         try:
             search = RESERVED[command]
-            if(search):
+            if search:
                 final["commands"].append(search)
-        except Exception as erro:
-            print(erro)
+        except Exception as _erro:
+            print(_erro)
 
-    print("FINAL----------",final)
+    DBG().debug(f"FINAL ----------> {final}")
 
-    if(len(spl_cmd)>1):
+    if len(cmd_listados) > 1:
         try:
             search = RESERVED[_noscmd]
-            if(search):
+            if search:
                 final["description"] = search
             else:
                 final["description"] = None
-        except Exception as erro:
-            print(erro)
-        
-    return (final)
+        except Exception as _erro:
+            print(_erro)
+
+    return final
 
 
-# FUNCAO PARA EXECUTAR UM ARQUIVO NOS
 def run_file(file):
+    """FUNCAO PARA EXECUTAR UM ARQUIVO NOS"""
     code_nos = open(file).readlines()
     code_py = []
     for linha in code_nos:
         linha = linha.strip()
-        if(linha!=""):
+        if linha != "":
             vc = verify_command(linha)
-            if(len(vc)>1):
+            if len(vc) > 1:
                 code_py.append(vc)
-                
-        
-    
     return code_py
 
-# FUNCAO PRINCIPAL
+
 def run():
-    while(True):
-        output = ""
-        cmd = input("NOS->")
-        cmd_process = cmd.split(" ")
-        if(cmd_process[0] == "run"):
-            print("--------------------------------")
-            analised = run_file(cmd_process[1])  
-
-            print("--------------------ANALISE--------------------------")
-            print(analised)
-            print("--------------------Traduzido--------------------------")
+    """FUNCAO PRINCIPAL"""
+    while True:
+        cmd_process = input("{NOS} -> ").split(" ")
+        if cmd_process[0] == "run":
+            print("-" * 50)
+            analised = run_file(cmd_process[1])
+            print("-------------------------[ ANALISE ]-------------------------")
+            pprint(analised)
+            print("-------------------------[ Traduzido ]-------------------------")
             saved = save_final_code(nos_to_python(analised))
-            print("Output: ", saved)    
-    return "Programa finalizado"  
-
-
-
+            print("Output: ", saved)
+            print("Programa finalizado...\n\n")
+        elif cmd_process[0] == "q" or "exit":
+            print("Terminando o programa...")
+            exit(0)
+        elif KeyboardInterrupt:
+            print("Terminando o programa...")
+            exit(0)
 
 
 if __name__ == '__main__':
-    try:
+    # perdão tirei o try daqui para puder capturar melhor as falhas!
+    print("""
+""")
+
+    # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
+    with open('./core/dictionary.json', ) as f:
+        RESERVED = json.load(f)
         run()
-       
-        # print("Output: ",run())
-    except Exception as erro:
-        print(erro)
