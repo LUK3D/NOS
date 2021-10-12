@@ -1,0 +1,17 @@
+
+funcao nome ()
+{
+    texto nome;
+    inteiro idade;
+    inteiro n1;
+    inteiro n2;
+
+    n1 = leia ("Informe o primeiro valor: ");
+    n2 = leia ("Informe o segundo valor: ");
+    soma = n1+n2;
+    multiplicado = n1*n2;
+    dividido = n1/n2;
+    mostre (f"A soma e {soma}");
+    mostre (f"A multiplicacao e {multiplicado}");
+    mostre (f"A divisao e {dividido}");
+}

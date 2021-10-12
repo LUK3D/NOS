@@ -1,0 +1,135 @@
+{
+    "inteiro": {
+        "type": "data_t",
+        "command": "int",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "decimal": {
+        "type": "data_t",
+        "command": "float",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "texto": {
+        "type": "data_t",
+        "command": "string",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "intervalo": {
+        "type": "func",
+        "command": "range",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "mostre": {
+        "type": "func",
+        "command": "print",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "leia": {
+        "type": "func",
+        "command": "input",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraInteiro": {
+        "type": "func",
+        "command": "int",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraTexto": {
+        "type": "func",
+        "command": "str",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "importa": {
+        "type": "cmd",
+        "command": "import",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "para": {
+        "type": "bloc",
+        "command": "for",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "retorna": {
+        "type": "cmd",
+        "command": "return",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "em": {
+        "type": "cmd",
+        "command": "in",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "se": {
+        "type": "bloc",
+        "command": "if",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "senao": {
+        "type": "bloc",
+        "command": "else",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "enquanto": {
+        "type": "bloc",
+        "command": "while",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "funcao": {
+        "type": "bloc",
+        "command": "def",
+        "end": ":",
+        "ignore_on_translate": false
+    },
+    "tamanho": {
+        "type": "func",
+        "command": "len",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "capitaliza": {
+        "type": "func",
+        "command": "capitalize",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "attrib_operadores":{
+        "type":"compiler_command",
+        "command":["=","+=","-=","++","--","/"],
+        "command_scaped":["\\=","\\+\\=","\\-\\=","\\+\\+","\\-\\-\\*\\\\","\/"],
+        "end":null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    }
+}
