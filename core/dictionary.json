@@ -65,7 +65,7 @@
     "para": {
         "type": "bloc",
         "command": "for",
-        "end": null,
+        "end": ":",
         "ignore_on_translate": false,
         "ignore_all": false
     },
@@ -124,11 +124,18 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "attrib_operadores":{
-        "type":"compiler_command",
-        "command":["=","+=","-=","++","--","/"],
-        "command_scaped":["\\=","\\+\\=","\\-\\=","\\+\\+","\\-\\-\\*\\\\","\/"],
-        "end":null,
+    "paraInt": {
+        "type": "func",
+        "command": "int",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "attrib_operadores": {
+        "type": "compiler_command",
+        "command": ["=", "+=", "-=", "++", "--", "/"],
+        "command_scaped": ["\\=", "\\+\\=", "\\-\\=", "\\+\\+", "\\-\\-\\*\\\\", "\/"],
+        "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     }

@@ -6,8 +6,8 @@ funcao nome ()
     inteiro n1;
     inteiro n2;
 
-    n1 = leia ("Informe o primeiro valor: ");
-    n2 = leia ("Informe o segundo valor: ");
+    n1 = paraInt(leia ("Informe o primeiro valor: "));
+    n2 = paraInt(leia ("Informe o segundo valor: "));
     soma = n1+n2;
     multiplicado = n1*n2;
     dividido = n1/n2;
@@ -15,3 +15,16 @@ funcao nome ()
     mostre (f"A multiplicacao e {multiplicado}");
     mostre (f"A divisao e {dividido}");
 }
+
+para (e =0, e<tamanho(intervalo(0,valor)), e++){
+    escreva(e)
+}
+
+
+funcao contar_ate_x (valor){
+
+}
+
+inteiro val = leia("Inform o valor a ser contado");
+
+contar_ate_x(intervalo);
