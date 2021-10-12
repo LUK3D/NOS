@@ -76,6 +76,9 @@ def nos_to_python(_commands: List):
 
 def verify_command(_noscode: str):
     """processa o comando e retorna o objecto que o representa no dicionário do {NOS}"""
+
+    # TODO: temos outro problema aqui nesta linha,
+    #  ela apenas captura os comandos se estiverem separados por espaços!
     cmd_listados = _noscode.split(" ")
     _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
     no_code_split = _noscode.split(_noscmd)
