@@ -67,7 +67,8 @@
         "command": "for",
         "end": ":",
         "ignore_on_translate": false,
-        "ignore_all": false
+        "ignore_all": false,
+        "no_parentheses": true
     },
     "retorna": {
         "type": "cmd",

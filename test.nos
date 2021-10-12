@@ -16,7 +16,7 @@ funcao nome ()
     mostre (f"A divisao e {dividido}");
 }
 
-para (e =0, e<tamanho(intervalo(0,valor)), e++){
+para (e em intervalo(0,valor)){
     escreva(e)
 }
 

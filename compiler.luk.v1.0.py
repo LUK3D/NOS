@@ -1,5 +1,6 @@
 from functools import cache
 import json
+from logging import exception
 import re
 from pprint import pprint
 from typing import Tuple, List
@@ -99,16 +100,31 @@ def nos_to_python(_commands: List):
                 continue
             
             #Verificando se o comando deve terminar com algum caractere definido no dicionario
-            if  n_cmd["description"]:
-                if(n_cmd["description"]["type"] == "bloc"): #Caso essa codicao seja verdadeira deve se remover os parenteses iniciais na funcao
-                    code_line = re.split(r'[\(]', code_line).join("")
+            try:
+                if  n_cmd["description"]:
+                    if(n_cmd["description"]["no_parentheses"] == True): #Caso essa codicao seja verdadeira deve se remover os parenteses iniciais na funcao
+                        code_line = "".join(code_line.split("(",1))
+                        code_line = "".join(code_line.split(r"?!.*\).*"))
+                   
+            except Exception as _erro:
+                print(_erro)
+
+            if n_cmd["description"]:
                 if (n_cmd["description"]["end"] is not None):
                     code_line += n_cmd["description"]["end"]
-            code_line =":".join(code_line.split("{:"))
-            script.append(code_line)
+                
             
-
             # adicionando o comando final a lista
+            code_line =":".join(code_line.split("{:"))
+            if(len(code_line)>1):
+                code_line =":".join(code_line.split("):")) if code_line[-2] ==")" else code_line
+
+            if n_cmd["description"]:
+                if (n_cmd["description"]["type"] == "func"):
+                    code_line += "):"
+
+            script.append(code_line)
+
             print(f"{code_line}")
 
             print(f"-------------------------------------------------------------------------------------------------------------------------")
