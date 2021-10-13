@@ -24,19 +24,17 @@ n1 = paraInteiro(leia("Informe o primeiro valor: "));
 n2 = paraInteiro(leia("Informe o segundo valor: "));
 
 mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
-
+```
 
 # COMPILADOR DE NOS
 
 Para executar um script em nós, basta executar o arquivo `compiler.luk.v1.0.py` e executr o comando: 
-```
+```JavaScript
 run caminho/absoluto/nome_do_arquivo.nos
 ```
 
 
 
-
-```
 <!-- - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media -->
