@@ -79,7 +79,6 @@ def nos_to_python(_commands: List):
                     local_operators = RESERVED[op]
                     if local_operators:
                         code_line = local_operators["command"].join(code_line.split(op))
-                    print("OPERADORES: ", code_line)
                 except Exception as _erro:
                     print(_erro)
 
@@ -89,7 +88,6 @@ def nos_to_python(_commands: List):
                 for cmd in n_cmd["commands"]:
                     for cmd_op in cmd["internals"]:
                         code_line = cmd_op["command"].join(code_line.split(cmd_op["key"]))
-                        print("SUBSTITUIMOS", cmd_op["command"],cmd_op["key"], "AQUI:",code_line )
                     try:
                         # Removendo os parenteses dos comandos com esta regra gramatical
                         if cmd["no_parentheses"] == True:
@@ -154,7 +152,6 @@ def nos_to_python(_commands: List):
 
 
             
-            print("FINAL COD->", "\n".join(script))
     DBG().debug(f"{script}")
     return "\n".join(script)
 
@@ -172,7 +169,6 @@ def verify_command(_noscode: str):
             elif len(cmd_in_tmp)>0:
                  tmp_cmd_listados.append(cmd_in_tmp[0])
 
-    print("ATRIBUICAO ENCONTRADOS: ", tmp_cmd_listados)
 
     cmd_listados = _noscode.split(" ")
     _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
