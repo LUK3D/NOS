@@ -10,37 +10,47 @@ A sua IDE permite ao programador escolher entre programação Visual (Diagramas 
 
 O presente repositório está estruturado da seguinte forma:
 
-## Transpilator
+### Transpilator
 
+```txt
 {NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA, neste diretório, encontram-se todos os códigos responsável por analizar e traduzir o código `.nos` para `.py`.
 
 Caso você tenha domínio de Javascript ou Typescript e queira contribui, é aqui onde você deve se dirigir.
+```
 
-## Compiler
+### Compiler
 
+```txt
 Aqui você encontra todo o código do compilador que tem a função de transformar o código {NOS} já traduzido em Python, para um programa executável fora do ambiente de desenvolvimento.
 
 Se você tem domínio de Python e quer de alguma forma contribuir, é aqui onde você deve se dirigir.
+```
 
 ## IExec-nos (Interface Execução NOS)
 
+```txt
 Este é o directório onde contem toda a lógica do nos-cli.
 
 É uma pequena aplicação de console (console aplication) que possibilita ao utilizador executar processos relacionados a linguagem NÓS.
 
 Desta forma o programador pode usar a linguagem mesmo fora do ambiente nós.
+```
 
-## SDK (Software Development Kit)
+### SDK (Software Development Kit)
 
+```txt
 É neste directório onde você encontra tudo acima descrito,  já organizado para os programadores {NOS} começarem a "Codar".
 
 Caso queira apenas programar em {NOS}, baixe o SDK siga os passos e estarás pronto para começar.
+```
 
 > O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento!
 
+---
+
 ## Exemplo de código escrito em {NOS}
 
-```JavaScript
+```javascript
 inteiro n1;
 inteiro n2;
 
@@ -49,19 +59,16 @@ n2 = paraInt(leia("Informe o segundo valor: "));
 
 mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 ```
+
 <!-- - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media -->
-### TODO:
-
-| TAREFA      | DESCRIÇÃO |
-| ----------- | ----------- |
-| Atribuição de constantes      | Atualmente o compilador utiliza o início da abertura de parenteses para identificar um comada. Deve se implementar uma logica para os comandos após os operadores de atribuição       |
-| Compilar e distribuir a versão estável do SDK  |       |
 
 ## NOS-IDE
 
+```txt
 Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se programar em `.nos`. Caso seja um programador menos experiente com ambiente de linha de comandos, esta é a solução ideal para você.
+```
 
 **Como Usar?**
 
@@ -75,14 +82,23 @@ Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se
 
 **Veja mais em [{Nos} Introdução](https://www.nos.luk3d.com/introduction.html)**
 
-# COMPILADOR DE NOS
+## COMPILADOR NOS.py
 
+```txt
 Seja bem-vindo caro dev.
-para rodar um script em nós, basta executar o arquivo `compiler.luk.v1.0.py` e executr o comando: 
-```
-run caminho/absoluto/nome_do_arquivo.nos
+Para executar um script `.nos`, basta executar o script `compiler/compilador.py` e executar o comando:
 ```
 
+```sh
+run localizacao/do/script.nos
+```
+
+## TODO (tarefas por completar)
+
+| TAREFA | DESCRIÇÃO |
+| --- | --- |
+| Atribuição de constantes | Atualmente o compilador utiliza o início da abertura de parenteses para identificar um comada. Deve se implementar uma logica para os comandos após os operadores de atribuição |
+| Compilar e distribuir a versão estável do SDK  | ... |
 
 ---
 
