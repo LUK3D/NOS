@@ -21,9 +21,9 @@ altura = paraInteiro("24")
 /*
 
 But what if your HTML has a quoted string, comment, 
-JavaScript, or CDATA containing </html>? Or what if the garbage at
+NOS, or CDATA containing </html>? Or what if the garbage at
  the end itself has a </html>? Unless you can guarantee that none of those etc. c
- an happen, you either need to fully parse the HTML or have some other way of knowing how muc
+ an happen, you either need to fully parse the NOS CODE or have some other way of knowing how muc
  h data you have (e.g. a
 
 */
