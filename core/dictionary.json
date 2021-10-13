@@ -160,7 +160,7 @@
 
     "attrib_operadores": {
         "type": "compiler_command",
-        "command": ["=", "+=", "-=", "++", "--", "/"],
+        "command": ["=", "+=", "-=", "++", "--", "/","%="],
         "command_scaped": ["\\=", "\\+\\=", "\\-\\=", "\\+\\+", "\\-\\-\\*\\\\", "\/"],
         "end": null,
         "ignore_on_translate": false,

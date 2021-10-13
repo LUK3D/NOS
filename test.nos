@@ -1,7 +1,7 @@
 funcao teste(){
-    
-decimal altura;
-altura =  paraInteiro(leia("Digite a altura: "));
+ //Teste basico de comentario de outro teste   
+decimal altura = paraInteiro(leia("Digite a altura)); //Vamos la ver nesse tipo de caso
+altura =  paraInteiro(leia("Digite a altura: ")); //Mesmo aqui??
 
 se(altura>5 || altura>10 && altura == 100){
     mostre("Muito Curto!");
@@ -13,5 +13,17 @@ mostre("A área é: ", altura*largura);
 teste();
 
 para(i => intervalo(0,15)){
-    mostre(i);
+    mostre(i /*teste basico*/ );
 }
+
+altura = paraInteiro("24")
+
+/*
+
+But what if your HTML has a quoted string, comment, 
+JavaScript, or CDATA containing </html>? Or what if the garbage at
+ the end itself has a </html>? Unless you can guarantee that none of those etc. c
+ an happen, you either need to fully parse the HTML or have some other way of knowing how muc
+ h data you have (e.g. a
+
+*/

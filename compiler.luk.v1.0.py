@@ -162,13 +162,25 @@ def nos_to_python(_commands: List):
 def verify_command(_noscode: str):
     """processa o comando e retorna o objecto que o representa no dicionário do {NOS}"""
 
-    # TODO: temos outro problema aqui nesta linha,
-    #  ela apenas captura os comandos se estiverem separados por espaços!
+    tmp_cmd_listados = []
+    for operator in RESERVED["attrib_operadores"]["command"]:
+        # for cmd_in in re.split(f'({",".join(RESERVED["command_scaped"])})', _noscode):
+        for cmd_in in _noscode.split(operator):
+            cmd_in_tmp = cmd_in.strip().split(" ")
+            if len(cmd_in_tmp)>1:
+                tmp_cmd_listados.append(cmd_in_tmp[1])
+            elif len(cmd_in_tmp)>0:
+                 tmp_cmd_listados.append(cmd_in_tmp[0])
+
+    print("ATRIBUICAO ENCONTRADOS: ", tmp_cmd_listados)
+
     cmd_listados = _noscode.split(" ")
     _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
+
+
     no_code_split = _noscode.split(_noscmd)
 
-    # TODO: Adicionar suporte a variáveis internas e funções
+
     # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])"
     # Pega todos os comandos que terminam em (),(,
     regex = re.compile(r"([aA-z_Z ]*(\(|\(\)|\( *))")
@@ -218,12 +230,35 @@ def run_file(file):
     """funcao para executar um arquivo nos"""
     code_nos = open(file).readlines()
     code_py = []
+
+    commenting = False
     for linha in code_nos:
         linha = linha.strip()
-        if linha != "":
+
+        """Removendo os comentarios de uma unica linha"""
+        try:
+            print("REMOVENDO ESSA LINHA:",linha, re.match("([^\\:]|^)\/\/.*$",linha) )
+            linha = re.sub("([^\\:]|^)\/\/.*$","",linha)
+        except Exception as _erro:
+            print(_erro)
+            
+        """Removendo os comentarios com multiplas linhas"""
+        if re.match("\/\*[\s\S]*?",linha):
+            commenting = True
+        if re.match("\*\/$",linha):
+            commenting = False
+            try:
+                linha = re.sub("\*\/$","",linha)
+            except Exception as _erro:
+                print(_erro)
+
+
+        if linha != "" and not commenting:
             vc = verify_command(linha)
             if len(vc) > 1:
                 code_py.append(vc)
+        
+
     return code_py
 
 
