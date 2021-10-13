@@ -13,7 +13,7 @@ mostre("A área é: ", altura*largura);
 teste();
 
 para(i => intervalo(0,15)){
-    mostre(i /*teste basico*/ );
+    mostre(i);
 }
 
 altura = paraInteiro("24")
