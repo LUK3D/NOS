@@ -78,19 +78,18 @@ def nos_to_python(_commands: List):
             
             
         
-            command = str(code_line).strip()
 
             # verificando se estamos a entrar ou sair no escopo de uma função.
-            if len(command) > 0:
-                if n_cmd["description"] is None or command[-1] == "{" or  command[-1] == "{:":
-                    if command == "{" or  command[-1] == "{:":
-                        code_line = code_line.rstrip()[:-1]
-                        indentationSteps += 1
-                if command == "}" or command.rstrip()[-1] == "}":
-                    if command == "}":
-                        code_line = code_line.rstrip()[:-1]
-                        indentationSteps -= 1
-                    
+            
+            if re.match("(.*{)$",code_line):
+                indentationSteps += 1
+            if re.match("(.*})$",code_line):
+                indentationSteps -= 1
+                # if command == "}" or command.rstrip()[-1] == "}":
+                #     if command == "}":
+                #         code_line = code_line.rstrip()[:-1]
+                #         indentationSteps -= 1
+            
 
             # removendo o ';' do código
             if len(code_line) > 0:
@@ -109,19 +108,24 @@ def nos_to_python(_commands: List):
             except Exception as _erro:
                 print(_erro)
 
+
+
+            code_line = re.sub(r"(\(\:)|(\{\:)|({)|(\:\:)$",":",code_line)
+            code_line = re.sub(r"(\})$","",code_line)
+            # adicionando o comando final a lista
             if n_cmd["description"]:
                 if (n_cmd["description"]["end"] is not None):
                     code_line += n_cmd["description"]["end"]
+            # code_line = ":".join()
                 
             
-            # adicionando o comando final a lista
-            code_line =":".join(code_line.split("{:"))
-            if(len(code_line)>1):
-                code_line =":".join(code_line.split("):")) if code_line[-2] ==")" else code_line
+            # code_line =":".join(code_line.split("{:"))
+            # if(len(code_line)>1):
+            #     code_line =":".join(code_line.split("):")) if code_line[-2] ==")" else code_line
 
-            if n_cmd["description"]:
-                if (n_cmd["description"]["type"] == "func"):
-                    code_line += "):"
+            # if n_cmd["description"]:
+            #     if (n_cmd["description"]["type"] == "func"):
+            #         code_line += "):"
 
             script.append(code_line)
 

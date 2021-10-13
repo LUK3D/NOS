@@ -108,7 +108,7 @@
     "funcao": {
         "type": "bloc",
         "command": "def",
-        "end": ":",
+        "end": "",
         "ignore_on_translate": false
     },
     "tamanho": {
