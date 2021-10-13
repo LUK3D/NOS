@@ -13,17 +13,23 @@ O presente repositório está estruturado da seguinte forma:
 ### Transpilator
 
 ```txt
-{NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA, neste diretório, encontram-se todos os códigos responsável por analizar e traduzir o código `.nos` para `.py`.
+{NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA,
+neste diretório, encontram-se todos os códigos responsáveis
+por analizar e traduzir o código `.nos` para `.py`.
 
-Caso você tenha domínio de Javascript ou Typescript e queira contribui, é aqui onde você deve se dirigir.
+Caso você tenha domínio de Javascript ou Typescript e queira contribuir,
+é aqui aonde você deve se dirigir.
 ```
 
 ### Compiler
 
 ```txt
-Aqui você encontra todo o código do compilador que tem a função de transformar o código {NOS} já traduzido em Python, para um programa executável fora do ambiente de desenvolvimento.
+Aqui você encontra todo o código do compilador
+que tem a função de transformar o código {NOS} já traduzido em Python,
+para um programa executável fora do ambiente de desenvolvimento.
 
-Se você tem domínio de Python e quer de alguma forma contribuir, é aqui onde você deve se dirigir.
+Se você tem domínio de Python e quer de alguma forma contribuir,
+é aqui aonde você deve se dirigir.
 ```
 
 ## IExec-nos (Interface Execução NOS)
@@ -31,7 +37,8 @@ Se você tem domínio de Python e quer de alguma forma contribuir, é aqui onde 
 ```txt
 Este é o directório onde contem toda a lógica do nos-cli.
 
-É uma pequena aplicação de console (console aplication) que possibilita ao utilizador executar processos relacionados a linguagem NÓS.
+É uma pequena aplicação de console (console aplication)
+que possibilita ao utilizador executar processos relacionados a linguagem NÓS.
 
 Desta forma o programador pode usar a linguagem mesmo fora do ambiente nós.
 ```
@@ -39,12 +46,14 @@ Desta forma o programador pode usar a linguagem mesmo fora do ambiente nós.
 ### SDK (Software Development Kit)
 
 ```txt
-É neste directório onde você encontra tudo acima descrito,  já organizado para os programadores {NOS} começarem a "Codar".
+É neste directório onde você encontra tudo acima descrito,
+já organizado para os programadores {NOS} começarem a "Codar".
 
-Caso queira apenas programar em {NOS}, baixe o SDK siga os passos e estarás pronto para começar.
+Caso queira apenas programar em {NOS},
+baixe o SDK siga os passos e estarás pronto para começar.
 ```
 
-> O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento!
+> ***O projecto encontra-se em desenvolvimento e não temos uma versão de produção no momento!***
 
 ---
 
@@ -67,7 +76,11 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 ## NOS-IDE
 
 ```txt
-Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se programar em `.nos`. Caso seja um programador menos experiente com ambiente de linha de comandos, esta é a solução ideal para você.
+Esta é a IDE oficial de {NOS},
+possui todas as ferramentas necessárias para se programar em `.nos`.
+
+Caso seja um programador menos experiente com ambiente de linha de comandos,
+esta é a solução ideal para você aprender e dominar o NOS.
 ```
 
 **Como Usar?**
@@ -78,7 +91,7 @@ Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se
   - `npm install`
   - `npm run electron:serve`
 
-> {Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em javascript podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python.
+> ***{Nos} não é uma linguagem que é executada no navegador, apenas o seu transpilador (conversor) é que foi escrito em javascript podendo ser executado num navegador ou no ambiente nodejs. Ela é multiplataforma como seu pai (Python) e pode ser executado em qualquer abiente que tenha suporte ao python.***
 
 **Veja mais em [{Nos} Introdução](https://www.nos.luk3d.com/introduction.html)**
 
@@ -86,7 +99,9 @@ Esta é a IDE oficial de {NOS}, possui todas as ferramentas necessárias para se
 
 ```txt
 Seja bem-vindo caro dev.
-Para executar um script `.nos`, basta executar o script `compiler/compilador.py` e executar o comando:
+Para executar um script `.nos`,
+basta executar o script `compiler/compilador.py`
+e executar o comando:
 ```
 
 ```sh
