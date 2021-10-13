@@ -70,12 +70,41 @@ def nos_to_python(_commands: List):
                 print("ERRO! ",_erro)
 
 
-
-            
+            # traduzindo os operadores logicos
             code_line = (indent_code(indentationSteps) +cmd_tmp)
-        
+            rex = re.compile("(\|\|)|(\&\&)|((\!)[a-zA-Z\(\)].*)")
+            for item in rex.findall(code_line):
+                try:
+                    op = join_tuple_string(item).strip()
+                    local_operators = RESERVED[op]
+                    if local_operators:
+                        code_line = local_operators["command"].join(code_line.split(op))
+                    print("OPERADORES: ", code_line)
+                except Exception as _erro:
+                    print(_erro)
+
+            # Traduzindo tesmos internos reservados do comando ou da funcao
             
-            
+            try:
+                for cmd in n_cmd["commands"]:
+                    for cmd_op in cmd["internals"]:
+                        code_line = cmd_op["command"].join(code_line.split(cmd_op["key"]))
+                        print("SUBSTITUIMOS", cmd_op["command"],cmd_op["key"], "AQUI:",code_line )
+                    try:
+                        # Removendo os parenteses dos comandos com esta regra gramatical
+                        if cmd["no_parentheses"] == True:
+                            code_line = code_line.replace("("," ",1)
+                            last_char_index = code_line.rfind(")")
+                            code_line = code_line[:last_char_index] + " " + code_line[last_char_index+1:]
+                    
+                    except Exception as _erro:
+                        print (_erro)
+
+            except Exception as _erro:
+                print(_erro)
+                    
+
+
             
         
 
@@ -98,18 +127,8 @@ def nos_to_python(_commands: List):
             else:
                 continue
             
-            #Verificando se o comando deve terminar com algum caractere definido no dicionario
-            try:
-                if  n_cmd["description"]:
-                    if(n_cmd["description"]["no_parentheses"] == True): #Caso essa codicao seja verdadeira deve se remover os parenteses iniciais na funcao
-                        code_line = "".join(code_line.split("(",1))
-                        code_line = "".join(code_line.split(r"?!.*\).*"))
-                   
-            except Exception as _erro:
-                print(_erro)
 
-
-
+            #Removendo as chaves e qualquer tipo de finalizacao da linha sem suporte.. EX ({, }, {:, (, :),})
             code_line = re.sub(r"(\(\:)|(\{\:)|({)|(\:\:)$",":",code_line)
             code_line = re.sub(r"(\})$","",code_line)
             # adicionando o comando final a lista
