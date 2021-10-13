@@ -49,6 +49,15 @@ n2 = paraInt(leia("Informe o segundo valor: "));
 
 mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 ```
+<!-- - [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media -->
+### TODO:
+
+| TAREFA      | DESCRIÇÃO |
+| ----------- | ----------- |
+| Atribuição de constantes      | Atualmente o compilador utiliza o início da abertura de parenteses para identificar um comada. Deve se implementar uma logica para os comandos após os operadores de atribuição       |
+| Compilar e distribuir a versão estável do SDK  |       |
 
 ## NOS-IDE
 

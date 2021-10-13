@@ -66,9 +66,17 @@
         "type": "bloc",
         "command": "for",
         "end": ":",
+        "internals": [{ "key": "=>", "command": "in" }],
         "ignore_on_translate": false,
         "ignore_all": false,
         "no_parentheses": true
+    },
+    "enquanto": {
+        "type": "bloc",
+        "command": "while",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
     },
     "retorna": {
         "type": "cmd",
@@ -98,17 +106,11 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "enquanto": {
-        "type": "bloc",
-        "command": "while",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
+
     "funcao": {
         "type": "bloc",
         "command": "def",
-        "end": ":",
+        "end": "",
         "ignore_on_translate": false
     },
     "tamanho": {
@@ -132,6 +134,30 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
+    "||": {
+        "type": "operator",
+        "command": "or",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "&&": {
+        "type": "operator",
+        "command": "and",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "!": {
+        "type": "operator",
+        "command": "not",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+
+
+
     "attrib_operadores": {
         "type": "compiler_command",
         "command": ["=", "+=", "-=", "++", "--", "/"],
