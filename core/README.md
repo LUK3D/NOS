@@ -2,12 +2,13 @@
 
 Este arquivo serve para explicar e tomar notas sobre alguns pontos impotantes nos relacionados ao compilador
 
-# DICTIONARY OBJECT SYNTAX
+## DICTIONARY OBJECT SYNTAX
 
-## Basic nos-compiler dictionarys word syntax
+### Basic nos-compiler dictionary's word syntax
 
-This is how each word/command that must be translited should look.
- ```JSONC
+This is how each word/command that will be translated should look.
+
+ ```json
  "nos_command": {
         "type": String,
         "command": String,
@@ -39,10 +40,3 @@ This is how each word/command that must be translited should look.
 |no_parentheses|This option tels to the compiler to remo the first pair of parentheses in case we are making a function, because python functions does not need to have parentheses|NULL|YES if dealing with function ou commands that python supports only without parentheses|
 
 Now you have the knowledge on how to build your own {NOS} dictionary, go on and make a try.
-
-
-
-
-
-
-
