@@ -10,37 +10,14 @@ A sua IDE permite ao programador escolher entre programação Visual (Diagramas 
 
 O presente repositório está estruturado da seguinte forma:
 
-### Transpilator
+### IExec (Interface Execução `CLI + Compilador + Debugger`)
 
 ```txt
-{NOS} é uma linguagem traduzida e compilada, em outras palavras TRASNPILADA,
-neste diretório, encontram-se todos os códigos responsáveis
-por analizar e traduzir o código `.nos` para `.py`.
+Este é o directório onde contem toda a lógica de execução e compilação do NOS.
 
-Caso você tenha domínio de Javascript ou Typescript e queira contribuir,
-é aqui aonde você deve se dirigir.
-```
+É uma pequena aplicação de console (console aplication) que possibilita ao utilizador executar processos relacionados a linguagem NÓS.
 
-### Compiler
-
-```txt
-Aqui você encontra todo o código do compilador
-que tem a função de transformar o código {NOS} já traduzido em Python,
-para um programa executável fora do ambiente de desenvolvimento.
-
-Se você tem domínio de Python e quer de alguma forma contribuir,
-é aqui aonde você deve se dirigir.
-```
-
-## IExec-nos (Interface Execução NOS)
-
-```txt
-Este é o directório onde contem toda a lógica do nos-cli.
-
-É uma pequena aplicação de console (console aplication)
-que possibilita ao utilizador executar processos relacionados a linguagem NÓS.
-
-Desta forma o programador pode usar a linguagem mesmo fora do ambiente nós.
+E tambem contem o código do compilador que tem a função de traduzir o código {NOS} em Python, e também compilar para um programa executável fora do ambiente de desenvolvimento.
 ```
 
 ### SDK (Software Development Kit)
@@ -73,7 +50,7 @@ mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 - [ ] Update the website
 - [ ] Contact the media -->
 
-## NOS-IDE
+## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE 'repositorio oficial da IDE')
 
 ```txt
 Esta é a IDE oficial de {NOS},
@@ -85,7 +62,8 @@ esta é a solução ideal para você aprender e dominar o NOS.
 
 **Como Usar?**
 
-- Baixe a versão atualizada em [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE)
+- Baixe a versão atualizada no repositorio oficial da [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE)
+- Dependencias:
   - Deve ter o [Nodejs](https://nodejs.org/en/download/) e [Python](https://www.python.org/downloads/) de preferência as versões recentes, Instaladas em sua máquina.
 - No terminal de comandos (cmd) navegue até a pasta do projecto e execute os seguintes comandos:
   - `npm install`
@@ -107,13 +85,6 @@ e executar o comando:
 ```sh
 run localizacao/do/script.nos
 ```
-
-## TODO (tarefas por completar)
-
-| TAREFA | DESCRIÇÃO |
-| --- | --- |
-| Atribuição de constantes | Atualmente o compilador utiliza o início da abertura de parenteses para identificar um comada. Deve se implementar uma logica para os comandos após os operadores de atribuição |
-| Compilar e distribuir a versão estável do SDK  | ... |
 
 ---
 
