@@ -1,4 +1,4 @@
-# ![nos-logo](logo.png)
+# ![nos-logo](img/logo.png)
 
 ## Seja bem-vindo ao projecto {NOS}
 
@@ -8,13 +8,13 @@ O seu foco principal consiste em facilitar o processo de aprendizagem no ramo da
 
 A sua IDE permite ao programador escolher entre programação Visual (Diagramas de Fluxo) ou Escrita.
 
-## Compiler
+### Compiler
 
 Aqui você encontra todo o código do compilador que tem a função de transformar o código {NOS} já traduzido em Python, para um programa executável fora do ambiente de desenvolvimento.
 
 Se você tem domínio de Python e quer de alguma forma contribuir, é aqui onde você deve se dirigir.
 
-## Exemplo de código escrito em {NOS}
+### Exemplo de código escrito em {NOS}
 
 ```JavaScript
 inteiro n1;
@@ -26,25 +26,24 @@ n2 = paraInteiro(leia("Informe o segundo valor: "));
 mostre("O resultado da soma de ", n1, "e", n2, "é:", (n1+n2));
 ```
 
-# COMPILADOR DE NOS
+## COMPILADOR DE NOS
 
-Para executar um script em nós, basta executar o arquivo `compiler.luk.v1.0.py` e executr o comando: 
-```JavaScript
+Para executar um script em nós, basta executar o arquivo `compiler.luk.v1.0.py` e executr o comando:
+
+```sh
 run caminho/absoluto/nome_do_arquivo.nos
 ```
-
-
 
 <!-- - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media -->
-### TODO:
+
+## TODO
 
 | TAREFA      | DESCRIÇÃO |
 | ----------- | ----------- |
 | Importação de módulos | Criar regra de importação de códigos localizados em outros arquivos.       |
 |  SDK  |   Compilar e distribuir a versão estável    |
-
 
 ---
 
