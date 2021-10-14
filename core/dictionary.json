@@ -21,7 +21,13 @@
         "ignore_on_translate": true,
         "ignore_all": false
     },
-
+    "boleano": {
+        "type": "data_t",
+        "command": "bool",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
     // commands
     "importa": {
         "type": "cmd",
@@ -58,7 +64,6 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-
     // conditional blocks
     "se": {
         "type": "bloc",
@@ -84,7 +89,12 @@
         "type": "bloc",
         "command": "for",
         "end": ":",
-        "internals": [{ "key": "=>", "command": "in" }],
+        "internals": [
+            {
+                "key": "=>",
+                "command": "in"
+            }
+        ],
         "ignore_on_translate": false,
         "ignore_all": false,
         "no_parentheses": true
@@ -99,15 +109,43 @@
     "enumerar": {
         "type": "bloc",
         "command": "enumerate",
-        "internals": {
+        "internals": [
+            {
                 "key": "inicio",
                 "command": "start"
-            },
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-
+    "tenta": {
+        "type": "bloc",
+        "command": "try",
+        "internals": [],
+        "end": ":",
+        "ignore_on_translate": false,
+        "ignore_all": false,
+        "no_parentheses": true
+    },
+    "excepto": {
+        "type": "bloc",
+        "command": "except",
+        "internals": [
+            {
+                "key": "Excepcao",
+                "command": "Exception"
+            },
+            {
+                "key": "como",
+                "command": "as"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false,
+        "no_parentheses": true
+    },
     // functions
     "tamanho": {
         "type": "func",
@@ -123,16 +161,23 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "paraInt": {
-        "type": "func",
-        "command": "int",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
     "intervalo": {
         "type": "func",
         "command": "range",
+        "internals": [
+            {
+                "key":"inicio",
+                "command": "start"
+            },
+            {
+                "key":"final",
+                "command":"stop"
+            },
+            {
+                "key":"pular",
+                "command":"step"
+            }
+        ],
         "end": null,
         "ignore_on_translate": true,
         "ignore_all": false
@@ -182,10 +227,12 @@
     "maiorValor": {
         "type": "func",
         "command": "max",
-        "internals": {
+        "internals": [
+            {
                 "key": "lista",
                 "command": "iterable"
-            },
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -193,15 +240,68 @@
     "menorValor": {
         "type": "func",
         "command": "min",
-        "internals": {
+        "internals": [
+            {
                 "key": "lista",
                 "command": "iterable"
-            },
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "revertida": {
+        "type": "func",
+        "command": "reversed",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "seq"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "arredondar": {
+        "type": "func",
+        "command": "round",
+        "internals": [
+            {
+                "key": "numero",
+                "command": "number"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "ordenada": {
+        "type": "func",
+        "command": "sorted",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "agrupar": {
+        "type": "func",
+        "command": "zip",
+        "internals": [
+            {
+                "key": "listas",
+                "command": "*iterables"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     }
-
     // logical operators
     "||": {
         "type": "operator",
@@ -224,32 +324,47 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "V": {
-        "type": "operator",
+    // constants
+    "verdadeiro": {
+        "type": "const",
         "command": "True",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "F": {
-        "type": "operator",
+    "falso": {
+        "type": "const",
         "command": "False",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "N": {
-        "type": "operator",
+    "nulo": {
+        "type": "const",
         "command": "None",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-
     "attrib_operadores": {
         "type": "compiler_command",
-        "command": ["=", "+=", "-=", "++", "--", "/","%="],
-        "command_scaped": ["\\=", "\\+\\=", "\\-\\=", "\\+\\+", "\\-\\-\\*\\\\", "\/"],
+        "command": [
+            "=",
+            "+=",
+            "-=",
+            "++",
+            "--",
+            "/",
+            "%="
+        ],
+        "command_scaped": [
+            "\\=",
+            "\\+\\=",
+            "\\-\\=",
+            "\\+\\+",
+            "\\-\\-\\*\\\\",
+            "\/"
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
