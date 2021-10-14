@@ -317,6 +317,6 @@ if __name__ == '__main__':
  """)
 
     # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
-    with open('./core/dictionary.json', ) as f:
+    with open('../core/dictionary.json') as f:
         RESERVED = json.load(f)
         run()
