@@ -87,7 +87,12 @@
         "type": "bloc",
         "command": "for",
         "end": ":",
-        "internals": [{ "key": "=>", "command": "in" }],
+        "internals": [
+            {
+                "key": "=>",
+                "command": "in"
+            }
+        ],
         "ignore_on_translate": false,
         "ignore_all": false,
         "no_parentheses": true
@@ -139,13 +144,21 @@
     "excepto": {
         "type": "bloc",
         "command": "except",
-        "internals": [{ "key": "Excepcao", "command": "Exception" }, { "key": "como", "command": "as" }],
+        "internals": [
+            {
+                "key": "Excepcao",
+                "command": "Exception"
+            },
+            {
+                "key": "como",
+                "command": "as"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false,
         "no_parentheses": true
     },
-
     "funcao": {
         "type": "bloc",
         "command": "def",
@@ -194,13 +207,25 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-
-
-
     "attrib_operadores": {
         "type": "compiler_command",
-        "command": ["=", "+=", "-=", "++", "--", "/", "%="],
-        "command_scaped": ["\\=", "\\+\\=", "\\-\\=", "\\+\\+", "\\-\\-\\*\\\\", "\/"],
+        "command": [
+            "=",
+            "+=",
+            "-=",
+            "++",
+            "--",
+            "/",
+            "%="
+        ],
+        "command_scaped": [
+            "\\=",
+            "\\+\\=",
+            "\\-\\=",
+            "\\+\\+",
+            "\\-\\-\\*\\\\",
+            "\/"
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
