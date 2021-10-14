@@ -1,4 +1,5 @@
 {
+    // data-typos
     "inteiro": {
         "type": "data_t",
         "command": "int",
@@ -18,6 +19,115 @@
         "command": "str",
         "end": null,
         "ignore_on_translate": true,
+        "ignore_all": false
+    },
+
+    // commands
+    "importa": {
+        "type": "cmd",
+        "command": "import",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "retorna": {
+        "type": "cmd",
+        "command": "return",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "em": {
+        "type": "cmd",
+        "command": "in",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "terminar": {
+        "type": "cmd",
+        "command": "quit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "sair": {
+        "type": "cmd",
+        "command": "exit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+
+    // conditional blocks
+    "se": {
+        "type": "bloc",
+        "command": "if",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "senao": {
+        "type": "bloc",
+        "command": "else",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "funcao": {
+        "type": "bloc",
+        "command": "def",
+        "end": "",
+        "ignore_on_translate": false
+    },
+    "para": {
+        "type": "bloc",
+        "command": "for",
+        "end": ":",
+        "internals": [{ "key": "=>", "command": "in" }],
+        "ignore_on_translate": false,
+        "ignore_all": false,
+        "no_parentheses": true
+    },
+    "enquanto": {
+        "type": "bloc",
+        "command": "while",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "enumerar": {
+        "type": "bloc",
+        "command": "enumerate",
+        "internals": {
+                "key": "inicio",
+                "command": "start"
+            },
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+
+    // functions
+    "tamanho": {
+        "type": "func",
+        "command": "len",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "capitaliza": {
+        "type": "func",
+        "command": "capitalize",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraInt": {
+        "type": "func",
+        "command": "int",
+        "end": null,
+        "ignore_on_translate": false,
         "ignore_all": false
     },
     "intervalo": {
@@ -55,85 +165,44 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "importa": {
-        "type": "cmd",
-        "command": "import",
+    "paraDecimal": {
+        "type": "func",
+        "command": "float",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "para": {
-        "type": "bloc",
-        "command": "for",
-        "end": ":",
-        "internals": [{ "key": "=>", "command": "in" }],
-        "ignore_on_translate": false,
-        "ignore_all": false,
-        "no_parentheses": true
-    },
-    "enquanto": {
-        "type": "bloc",
-        "command": "while",
+    "paraHex": {
+        "type": "func",
+        "command": "hex",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "retorna": {
-        "type": "cmd",
-        "command": "return",
+    "maiorValor": {
+        "type": "func",
+        "command": "max",
+        "internals": {
+                "key": "lista",
+                "command": "iterable"
+            },
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "em": {
-        "type": "cmd",
-        "command": "in",
+    "menorValor": {
+        "type": "func",
+        "command": "min",
+        "internals": {
+                "key": "lista",
+                "command": "iterable"
+            },
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
-    },
-    "se": {
-        "type": "bloc",
-        "command": "if",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "senao": {
-        "type": "bloc",
-        "command": "else",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
+    }
 
-    "funcao": {
-        "type": "bloc",
-        "command": "def",
-        "end": "",
-        "ignore_on_translate": false
-    },
-    "tamanho": {
-        "type": "func",
-        "command": "len",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "capitaliza": {
-        "type": "func",
-        "command": "capitalize",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "paraInt": {
-        "type": "func",
-        "command": "int",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
+    // logical operators
     "||": {
         "type": "operator",
         "command": "or",
@@ -155,8 +224,27 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-
-
+    "V": {
+        "type": "operator",
+        "command": "True",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "F": {
+        "type": "operator",
+        "command": "False",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "N": {
+        "type": "operator",
+        "command": "None",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
 
     "attrib_operadores": {
         "type": "compiler_command",
