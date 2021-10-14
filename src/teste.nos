@@ -1,0 +1,17 @@
+funcao teste(){
+    
+decimal altura;
+altura =  paraInteiro(leia("Digite a altura: "));
+
+se(altura>5 || altura>10 && altura == 100){
+    mostre("Muito Curto!");
+}
+decimal largura;
+largura = paraInteiro(leia("Digite a largura: "));
+mostre("A área é: ", altura*largura);
+}
+teste();
+
+para(i => intervalo(0,15)){
+    mostre(i);
+}
