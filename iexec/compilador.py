@@ -29,8 +29,7 @@ def remove_empty_from_list(_list: list) -> list:
     """function that removes whitespaces values from lists"""
     return [x for x in _list if x.strip()]
 
-# TODO refazer toda a lógica de tradução,
-#  porque agora ja temos tudo informado. so precisamos traduzir
+
 def nos_to_python(_commands: List):
     """método para conversão do código nós para python"""
     script = []
@@ -94,6 +93,10 @@ def nos_to_python(_commands: List):
                             code_line = code_line.replace("("," ",1)
                             last_char_index = code_line.rfind(")")
                             code_line = code_line[:last_char_index] + " " + code_line[last_char_index+1:]
+                            
+                        if cmd["type"] == "bloc":
+                            print("BUGOU-----------------------------------", cmd)
+                            
                     
                     except Exception as _erro:
                         print (_erro)
@@ -130,9 +133,10 @@ def nos_to_python(_commands: List):
             code_line = re.sub(r"(\(\:)|(\{\:)|({)|(\:\:)$",":",code_line)
             code_line = re.sub(r"(\})$","",code_line)
             # adicionando o comando final a lista
-            if n_cmd["description"]:
-                if (n_cmd["description"]["end"] is not None):
-                    code_line += n_cmd["description"]["end"]
+            try:
+                code_line += n_cmd["description"]["end"]
+            except Exception as _erro:
+                print("ERRO: ", _erro)
             # code_line = ":".join()
                 
             
@@ -165,9 +169,20 @@ def verify_command(_noscode: str):
         for cmd_in in _noscode.split(operator):
             cmd_in_tmp = cmd_in.strip().split(" ")
             if len(cmd_in_tmp)>1:
-                tmp_cmd_listados.append(cmd_in_tmp[1])
+                print("OPCOES:", cmd_in_tmp, "".join(re.split("\;$", cmd_in_tmp[len(cmd_in_tmp)-1])))
+                tmp_cmd_listados.append("".join(re.split("\;$", cmd_in_tmp[len(cmd_in_tmp)-1])))
             elif len(cmd_in_tmp)>0:
-                 tmp_cmd_listados.append(cmd_in_tmp[0])
+                 tmp_cmd_listados.append("".join(re.split("\;$", cmd_in_tmp[0])))
+
+    try:
+        tmp_cmd_listados = list(set(tmp_cmd_listados))
+        constante = RESERVED[tmp_cmd_listados[0].strip()]
+        print("CONSTATE TETSE:", constante)
+        if constante:
+            print("CONSTANTE:", constante)
+            
+    except Exception as _erro:
+        print(_erro)
 
 
     cmd_listados = _noscode.split(" ")
@@ -179,7 +194,7 @@ def verify_command(_noscode: str):
 
     # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])"
     # Pega todos os comandos que terminam em (),(,
-    regex = re.compile(r"([aA-z_Z ]*(\(|\(\)|\( *))")
+    regex = re.compile(r"([aA-z_Z ]*(\(|\(\)|\(|\{ *))")
     # O regex acima retorna tuples, então precisa ser convertido para lista
     formated_command_1 = map(join_tuple_string, regex.findall(_noscode))
     formated_command_1 = " ".join(formated_command_1)[:-1]
@@ -187,6 +202,8 @@ def verify_command(_noscode: str):
     # Pegando apenas palavras e ignorando qualquer caracter especial
     regex2 = re.compile("[A-Za-z_]*")
     formated_command_2 = regex2.findall(formated_command_1)
+
+
 
     # Limpando a lista e deixando apenas os valores nao nulos ou vazios.
     final_formated_commands = remove_empty_from_list (formated_command_2) 
@@ -208,15 +225,17 @@ def verify_command(_noscode: str):
         except Exception as _erro:
             print(_erro)
 
-    if len(cmd_listados) > 1:
-        try:
+    try:
+        
+        if len(cmd_listados) > 1:
             search = RESERVED[_noscmd]
             if search:
                 final["description"] = search
             else:
                 final["description"] = None
-        except Exception as _erro:
-            print(_erro)
+    except Exception as _erro:
+                print(_erro)
+            
 
     DBG().debug(f"FINAL ----------> {final}")
     return final
@@ -317,6 +336,6 @@ if __name__ == '__main__':
  """)
 
     # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
-    with open('../core/dictionary.json') as f:
+    with open('./core/dictionary.json') as f:
         RESERVED = json.load(f)
         run()

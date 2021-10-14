@@ -1,3 +1,16 @@
+//REVER A identificar a tribuição dos valores das variaveis e constantes.
+teste = verdadeiro;
+teste2 = falso;
+
+
+//Rever o suporte do comando try catch
+tenta( ){
+    teste = 2+'5';
+}
+excepto(Excepcao como _erro){
+    mostre("Deu bug!!");
+}
+
 funcao teste(){
  //Teste basico de comentario de outro teste   
 decimal altura = paraInteiro(leia("Digite a altura)); //Vamos la ver nesse tipo de caso

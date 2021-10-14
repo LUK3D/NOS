@@ -1,4 +1,11 @@
 {
+    "boleano": {
+        "type": "data_t",
+        "command": "bool",
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
     "inteiro": {
         "type": "data_t",
         "command": "int",
@@ -18,6 +25,20 @@
         "command": "str",
         "end": null,
         "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "verdadeiro": {
+        "type": "const",
+        "command": "True",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "falso": {
+        "type": "const",
+        "command": "False",
+        "end": null,
+        "ignore_on_translate": false,
         "ignore_all": false
     },
     "intervalo": {
@@ -106,6 +127,24 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
+    "tenta": {
+        "type": "bloc",
+        "command": "try",
+        "internals": [],
+        "end": ":",
+        "ignore_on_translate": false,
+        "ignore_all": false,
+        "no_parentheses": true
+    },
+    "excepto": {
+        "type": "bloc",
+        "command": "except",
+        "internals": [{ "key": "Excepcao", "command": "Exception" }, { "key": "como", "command": "as" }],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false,
+        "no_parentheses": true
+    },
 
     "funcao": {
         "type": "bloc",
@@ -160,7 +199,7 @@
 
     "attrib_operadores": {
         "type": "compiler_command",
-        "command": ["=", "+=", "-=", "++", "--", "/","%="],
+        "command": ["=", "+=", "-=", "++", "--", "/", "%="],
         "command_scaped": ["\\=", "\\+\\=", "\\-\\=", "\\+\\+", "\\-\\-\\*\\\\", "\/"],
         "end": null,
         "ignore_on_translate": false,
