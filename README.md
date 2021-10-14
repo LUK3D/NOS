@@ -1,4 +1,4 @@
-# ![nos-logo](logo.png)
+# ![nos-logo](img/logo.png)
 
 ## Seja bem-vindo ao projecto {NOS}
 
