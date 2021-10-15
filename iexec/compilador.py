@@ -287,5 +287,7 @@ if __name__ == '__main__':
 |_____________________________________________________________________________________________________________|
 """)
     run()
-elif len(argv) > 1:
+elif len(argv) > 1 and argv[1].endswith(".no"):
     run_file(argv[1])
+else:
+    print("Falha ao executar o compilador {NOS}, verifique se definiu os comandos corretos!")
