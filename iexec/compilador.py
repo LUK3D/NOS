@@ -2,13 +2,14 @@ import json
 import os
 import re
 from pprint import pprint
-from sys import exit, argv
+from sys import argv, exit
 from typing import Tuple, List
 
+from builder import BUILDER
 from debugger import DBG
 
 # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
-with open('../core/dictionary.json') as f:
+with open('core/dictionary.json') as f:
     RESERVED = json.load(f)
 
 
@@ -17,7 +18,7 @@ def save_final_code(code: str):
     os.makedirs(".temp", exist_ok=True)
     with open(".temp/output.py", "w") as py_file:
         py_file.write(code)
-        return "Arquivo gerado em: output.py"
+        return "Arquivo gerado em: .temp/output.py"
 
 
 def indent_code(_times: int):
@@ -65,11 +66,10 @@ def nos_to_python(_commands: List):
                 for idx, val in enumerate(final_to_replce):
                     if val:
                         cmd_tmp = commands[idx]["command"].join(final_to_be_replaced[idx].strip().split(val)).join(cmd_tmp.split(val))
-
-                        if re.match(r"^([aA-z_Z])+( )+([aA-z_Z])+( )+([aA-z_Z])+", cmd_tmp):
-                            cmd_tmp = (commands[idx]["command"] + ([x for x in re.split(r'^([aA-z_Z])+( )+([aA-z_Z])+', cmd_tmp.strip()) if len(x) > 1])[0])
+                        if re.match("^([aA-z_Z0-9])+( )+([aA-z_Z0-9])+( )+([aA-z_Z0-9])+", cmd_tmp):
+                            cmd_tmp = (commands[idx]["command"] + ([x for x in re.split(r'^([aA-z_Z0-9])+( )+([aA-z_Z0-9])+', cmd_tmp.strip()) if len(x) > 1])[0])
             except Exception as _erro:
-                print("ERRO! ", _erro)
+                print("[ ERRO ]: ", _erro)
 
             # traduzindo os operadores logicos
             code_line = (indent_code(indentationSteps) + cmd_tmp)
@@ -82,7 +82,7 @@ def nos_to_python(_commands: List):
                     if local_operators:
                         code_line = local_operators["command"].join(code_line.split(op))
                 except Exception as _erro:
-                    print(_erro)
+                    print("[ ERRO ]: ", _erro)
 
             try:
                 # Traduzindo termos internos reservados do comando ou da funcao
@@ -96,21 +96,17 @@ def nos_to_python(_commands: List):
                             last_char_index = code_line.rfind(")")
                             code_line = code_line[:last_char_index] + " " + code_line[last_char_index + 1:]
                         elif cmd["type"] == "bloc":
-                            print("[ FALHA ]-----------------------------------\n", cmd)
+                            print("[ FALHA ]:\n\t", cmd)
                     except Exception as _erro:
-                        print(_erro)
+                        print("[ ERRO ]: ", _erro)
             except Exception as _erro:
-                print(_erro)
+                print("[ ERRO ]: ", _erro)
 
             # verificando se estamos a entrar ou sair no escopo de uma função.
             if re.match("(.*{)$", code_line):
                 indentationSteps += 1
             elif re.match("(.*})$", code_line):
                 indentationSteps -= 1
-                # if command == "}" or command.rstrip()[-1] == "}":
-                #     if command == "}":
-                #         code_line = code_line.rstrip()[:-1]
-                #         indentationSteps -= 1
             # removendo o ';' do código
             elif len(code_line) > 0:
                 if code_line[-1] == ";":
@@ -125,11 +121,11 @@ def nos_to_python(_commands: List):
             try:
                 code_line += n_cmd["description"]["end"]
             except Exception as _erro:
-                print("ERRO: ", _erro)
+                print("[ ERRO ]: ", _erro)
 
             script.append(code_line)
-            print(f"{code_line}")
-            print('-' * 100)
+            print(code_line)
+            print("-" * 100)
 
     DBG().debug(f"{script}")
     return "\n".join(script)
@@ -142,29 +138,29 @@ def verify_command(_noscode: str):
         for cmd_in in _noscode.split(operator):
             cmd_in_tmp = cmd_in.strip().split(" ")
             if len(cmd_in_tmp) > 1:
-                print("OPCOES:", cmd_in_tmp, "".join(re.split(r";$", cmd_in_tmp[len(cmd_in_tmp) - 1])))
+                print("[ OPCOES ]:\n\t", cmd_in_tmp, "".join(re.split(r";$", cmd_in_tmp[len(cmd_in_tmp) - 1])))
                 tmp_cmd_listados.append("".join(re.split(r";$", cmd_in_tmp[len(cmd_in_tmp) - 1])))
             elif len(cmd_in_tmp) > 0:
                 tmp_cmd_listados.append("".join(re.split(r";$", cmd_in_tmp[0])))
     try:
         tmp_cmd_listados = list(set(tmp_cmd_listados))
         constante = RESERVED[tmp_cmd_listados[0].strip()]
-        print("CONSTATE TETSE:", constante)
+        print("[ CONSTANTE TESTE ]:\n\t", constante)
         if constante:
-            print("CONSTANTE:", constante)
+            print("[ CONSTANTE ]:\n\t", constante)
     except Exception as _erro:
-        print(_erro)
+        print("[ ERRO ]: ", _erro)
 
     cmd_listados = _noscode.split(" ")
     _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
     no_code_split = _noscode.split(_noscmd)
 
-    regex = re.compile(r"([aA-z_Z ]*((|\()|\(|{ *))")
+    regex = re.compile(r"([aA-z_Z0-9 ]*((|\()|\(|{ *))")
     formated_command_1 = map(join_tuple_string, regex.findall(_noscode))
     formated_command_1 = " ".join(formated_command_1)[:-1]
 
     # Pegando apenas palavras e ignorando qualquer caracter especial
-    regex2 = re.compile("[A-Za-z_]*")
+    regex2 = re.compile("[A-Za-z_0-9]*")
     formated_command_2 = regex2.findall(formated_command_1)
 
     # Limpando a lista e deixando apenas os valores nao nulos ou vazios.
@@ -185,7 +181,7 @@ def verify_command(_noscode: str):
             if search:
                 final["commands"].append(search)
         except Exception as _erro:
-            print(_erro)
+            print("[ ERRO ]: ", _erro)
     try:
         if len(cmd_listados) > 1:
             search = RESERVED[_noscmd]
@@ -194,15 +190,66 @@ def verify_command(_noscode: str):
             else:
                 final["description"] = None
     except Exception as _erro:
-        print(_erro)
+        print("[ ERRO ]: ", _erro)
 
     DBG().debug(f"FINAL ----------> {final}")
     return final
 
 
+# TODO Esse metodo precisa ser recursivo para buscar dependencias infinitas vezes,
+#  desde que elas estejam definidas no codigo retornado
+def include_dependencies(file: str):
+    """Resolvendo o comando inclua"""
+    print("--------------[ INCLUINDO DEPENDENCIAS ]--------------")
+    linhas = open(file).readlines()
+    dependecias = []
+    linhas_finais = []
+    remover_do_script_principal = []
+    project_path = os.path.abspath(file)  # remove_empty_from_list(file.rsplit("/", 1))[0]
+
+    for (i, linha) in enumerate(linhas):
+        try:
+            if re.match(r"^[a-zA-Z0-9 ]*.[^ =]*\"$", linha.strip()):
+                remover_do_script_principal.append(i)
+
+                arquivo = linha.strip().split(" ")[1].strip()
+                arquivo = remove_empty_from_list(arquivo.rsplit("/"))
+                arquivo_nome = ""
+                if len(arquivo) > 1:
+                    arq = arquivo
+                    nome_tmp = arquivo[len(arquivo) - 1]
+                    print("ESTRANHO ", arq.remove(nome_tmp), arquivo, nome_tmp)
+                    caminho = "".join("/".join(arq).split('"')) + "/"
+                    nome_tmp = "".join(nome_tmp.split('"')) + ".nos"
+                    final_path = caminho + nome_tmp
+                else:
+                    arquivo_nome = "".join(arquivo[0].split('"'))
+                    final_path = "".join(arquivo[0].split('"')) + ".nos"
+                dependecias.append({"path": final_path, "nome": arquivo_nome})
+            elif linha.strip() != "":
+                for trash in remover_do_script_principal:
+                    print("IMPORTACAO REMOVIDA:", linhas[trash])
+                    linhas.pop(trash)
+                break
+        except Exception as _erro:
+            print(_erro)
+
+    for arquivo in dependecias:
+        if os.path.isfile(project_path + "/" + arquivo["path"]):
+            dependencia_lida = open(project_path + "/" + arquivo["path"]).readlines()
+            linhas_finais.extend(dependencia_lida)
+        else:
+            print(("Dependencia " + arquivo["nome"] + " não encontrada em: " + project_path + "/" + arquivo["path"]))
+
+    linhas_finais.extend(linhas)
+    print("CARREGAMENTO DE DEPENDENCIAS FILIZADA...", remover_do_script_principal)
+
+    return linhas_finais
+
+
 def run_file(_file: str):
     """funcao para executar um arquivo nos"""
-    code_nos = open(_file).readlines()
+    code_nos = include_dependencies(file)
     code_py = []
 
     commenting = False
@@ -211,10 +258,10 @@ def run_file(_file: str):
 
         # Removendo os comentarios de uma unica linha
         try:
-            print("REMOVENDO ESSA LINHA:", linha, re.match(r"([^:]|^)//.*$", linha))
+            print("[ REMOVENDO ESSA LINHA ]:\n\t", linha, re.match(r"([^:]|^)//.*$", linha))
             linha = re.sub(r"([^\\:]|^)//.*$", "", linha)
         except Exception as _erro:
-            print(_erro)
+            print("[ ERRO ]: ", _erro)
 
         # Removendo os comentarios com multiplas linhas
         if re.match(r"/\*[\s\S]*?", linha):
@@ -224,7 +271,7 @@ def run_file(_file: str):
             try:
                 linha = re.sub(r"\*/$", "", linha)
             except Exception as _erro:
-                print(_erro)
+                print("[ ERRO ]: ", _erro)
         elif linha != "" and not commenting:
             vc = verify_command(linha)
             if len(vc) > 1:
@@ -232,19 +279,35 @@ def run_file(_file: str):
     return code_py
 
 
+def execute(_file: str):
+    print("-" * 50)
+    analised = run_file(_file)
+    print("-------------------------[ ANALISE ]-------------------------")
+    pprint(analised)
+    print("-------------------------[ Traduzido ]-------------------------")
+    saved = save_final_code(nos_to_python(analised))
+    print("Output: ", saved)
+    print("Programa finalizado...\n\n")
+
+
 def run():
     """funcao principal"""
     while True:
-        cmd_process = input("{NOS} -> ").split(" ")
-        if cmd_process[0] == "run":
-            print("-" * 50)
-            analised = run_file(cmd_process[1])
-            print("-------------------------[ ANALISE ]-------------------------")
-            pprint(analised)
-            print("-------------------------[ Traduzido ]-------------------------")
-            saved = save_final_code(nos_to_python(analised))
-            print("Output: ", saved)
-            print("Programa finalizado...\n\n")
+        cmd_process = input("{NOS} -> ")
+        cmd_process_base = cmd_process.split(" ")
+        if cmd_process_base[0] == "run":
+            execute(cmd_process_base[1])
+        elif cmd_process_base[0] == "build":
+            project_path = "".join(cmd_process_base[1].split('"'))
+            tmp_name = cmd_process.split("--name=")
+            print("NOMES...", tmp_name)
+            nome_da_app = "app"
+            if len(tmp_name) > 1:
+                nome_da_app = "".join(nome_da_app.split('"'))
+            execute(project_path)
+            print("Compilando o programa...", tmp_name)
+            BUILDER().build(nome_da_app, project_path)
+            print("Fim da compilação", nome_da_app)
         elif cmd_process[0] == "q" or "exit":
             print("Terminando o programa...")
             exit(0)
