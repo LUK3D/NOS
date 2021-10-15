@@ -37,20 +37,20 @@ def nos_to_python(_commands: List):
     # NOVA LOGICA DE TRADUCAO
     for n_cmd in _commands:
         if(len(n_cmd)>0):
-            print(f"-------------------------------------------------------------------------------------------------------------------------")
+            print("-"*100)
             code_line = ""
-            """Bloco de codigo para traduzir os comandos reconhecidos pelo sistem, ou seja, que se encontram no dicionário. """
+            # Bloco de codigo para traduzir os comandos reconhecidos pelo sistem, ou seja, que se encontram no dicionário.
             if  n_cmd["description"]:
                 if(n_cmd["description"]["ignore_on_translate"]):
                     continue
+
             cmd_tmp = n_cmd["original"]
             commands = n_cmd["commands"]
             command = n_cmd["command"]
             replace_pos = n_cmd["translation_origins"]
+
             final_comands_list = "(".join(replace_pos.split("( (")).split("(")
-
             final_to_be_replaced = remove_empty_from_list(replace_pos.split("("))
-
             final_to_replce = []
 
             for idx, val in enumerate(final_comands_list):
@@ -64,14 +64,13 @@ def nos_to_python(_commands: List):
 
                         if(re.match("^([aA-z_Z])+( )+([aA-z_Z])+( )+([aA-z_Z])+", cmd_tmp)):
                             cmd_tmp = (commands[idx]["command"] + ([x for x in re.split(r'^([aA-z_Z])+( )+([aA-z_Z])+', cmd_tmp.strip()) if len(x)>1])[0])
-            
             except Exception as _erro:
                 print("ERRO! ",_erro)
-
 
             # traduzindo os operadores logicos
             code_line = (indent_code(indentationSteps) +cmd_tmp)
             rex = re.compile("(\|\|)|(\&\&)|((\!)[a-zA-Z\(\)].*)")
+
             for item in rex.findall(code_line):
                 try:
                     op = join_tuple_string(item).strip()
@@ -81,8 +80,7 @@ def nos_to_python(_commands: List):
                 except Exception as _erro:
                     print(_erro)
 
-            # Traduzindo tesmos internos reservados do comando ou da funcao
-            
+            # Traduzindo termos internos reservados do comando ou da funcao
             try:
                 for cmd in n_cmd["commands"]:
                     for cmd_op in cmd["internals"]:
@@ -93,42 +91,29 @@ def nos_to_python(_commands: List):
                             code_line = code_line.replace("("," ",1)
                             last_char_index = code_line.rfind(")")
                             code_line = code_line[:last_char_index] + " " + code_line[last_char_index+1:]
-                            
-                        if cmd["type"] == "bloc":
+                        elif cmd["type"] == "bloc":
                             print("BUGOU-----------------------------------", cmd)
-                            
-                    
                     except Exception as _erro:
                         print (_erro)
-
             except Exception as _erro:
                 print(_erro)
-                    
-
-
-            
-        
 
             # verificando se estamos a entrar ou sair no escopo de uma função.
-            
             if re.match("(.*{)$",code_line):
                 indentationSteps += 1
-            if re.match("(.*})$",code_line):
+            elif re.match("(.*})$",code_line):
                 indentationSteps -= 1
                 # if command == "}" or command.rstrip()[-1] == "}":
                 #     if command == "}":
                 #         code_line = code_line.rstrip()[:-1]
                 #         indentationSteps -= 1
-            
-
             # removendo o ';' do código
-            if len(code_line) > 0:
+            elif len(code_line) > 0:
                 if code_line[-1] == ";":
                     code_line = code_line[:-1]
             else:
                 continue
             
-
             #Removendo as chaves e qualquer tipo de finalizacao da linha sem suporte.. EX ({, }, {:, (, :),})
             code_line = re.sub(r"(\(\:)|(\{\:)|({)|(\:\:)$",":",code_line)
             code_line = re.sub(r"(\})$","",code_line)
@@ -149,13 +134,9 @@ def nos_to_python(_commands: List):
             #         code_line += "):"
 
             script.append(code_line)
-
             print(f"{code_line}")
+            print('-'*100)
 
-            print(f"-------------------------------------------------------------------------------------------------------------------------")
-
-
-            
     DBG().debug(f"{script}")
     return "\n".join(script)
 
@@ -172,7 +153,7 @@ def verify_command(_noscode: str):
                 print("OPCOES:", cmd_in_tmp, "".join(re.split("\;$", cmd_in_tmp[len(cmd_in_tmp)-1])))
                 tmp_cmd_listados.append("".join(re.split("\;$", cmd_in_tmp[len(cmd_in_tmp)-1])))
             elif len(cmd_in_tmp)>0:
-                 tmp_cmd_listados.append("".join(re.split("\;$", cmd_in_tmp[0])))
+                tmp_cmd_listados.append("".join(re.split("\;$", cmd_in_tmp[0])))
 
     try:
         tmp_cmd_listados = list(set(tmp_cmd_listados))
@@ -180,17 +161,12 @@ def verify_command(_noscode: str):
         print("CONSTATE TETSE:", constante)
         if constante:
             print("CONSTANTE:", constante)
-            
     except Exception as _erro:
         print(_erro)
 
-
     cmd_listados = _noscode.split(" ")
     _noscmd = cmd_listados[0] if (len(cmd_listados) > 1) else _noscode
-
-
     no_code_split = _noscode.split(_noscmd)
-
 
     # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])"
     # Pega todos os comandos que terminam em (),(,
@@ -202,8 +178,6 @@ def verify_command(_noscode: str):
     # Pegando apenas palavras e ignorando qualquer caracter especial
     regex2 = re.compile("[A-Za-z_]*")
     formated_command_2 = regex2.findall(formated_command_1)
-
-
 
     # Limpando a lista e deixando apenas os valores nao nulos ou vazios.
     final_formated_commands = remove_empty_from_list (formated_command_2) 
@@ -250,30 +224,27 @@ def run_file(file):
     for linha in code_nos:
         linha = linha.strip()
 
-        """Removendo os comentarios de uma unica linha"""
+        # Removendo os comentarios de uma unica linha
         try:
-            print("REMOVENDO ESSA LINHA:",linha, re.match("([^\\:]|^)\/\/.*$",linha) )
+            print("REMOVENDO ESSA LINHA:", linha, re.match("([^\\:]|^)\/\/.*$", linha) )
             linha = re.sub("([^\\:]|^)\/\/.*$","",linha)
         except Exception as _erro:
             print(_erro)
             
-        """Removendo os comentarios com multiplas linhas"""
+        # Removendo os comentarios com multiplas linhas
         if re.match("\/\*[\s\S]*?",linha):
             commenting = True
-        if re.match("\*\/$",linha):
+        elif re.match("\*\/$",linha):
             commenting = False
             try:
                 linha = re.sub("\*\/$","",linha)
             except Exception as _erro:
                 print(_erro)
-
-
-        if linha != "" and not commenting:
+        elif linha != "" and not commenting:
             vc = verify_command(linha)
             if len(vc) > 1:
                 code_py.append(vc)
         
-
     return code_py
 
 
@@ -300,40 +271,38 @@ def run():
 
 if __name__ == '__main__':
     # perdão tirei o try daqui para puder capturar melhor as falhas!
-    print(""" 
- ┌=============================================================================================================┐
- |                                      ##                               ##                                    |
- |                                     #     ##     ##   #####    ####     #                                   |
- |                                     #     ####   ##  ##   ##  ##        #                                   |
- |                                    ##     ##  ## ##  ##   ##   ###      ##                                  |
- |                                     #     ##    ###  ##   ##     ##     #                                   |
- |                                     #     ##     ##   #####   ####      #                                   |
- |                                      ##                               ##                                    |
- |                                                                                                             |
- |                   #####   #####  ###    ###        ##   ##  ##  ##     ##  ####     #####                   |
- |                   ##  ##  ##     ## #  # ##        ##   ##  ##  ####   ##  ##  ##  ##   ##                  |
- |                   #####   #####  ##  ##  ##  ####  ##   ##  ##  ##  ## ##  ##  ##  ##   ##                  |
- |                   ##  ##  ##     ##      ##         ## ##   ##  ##    ###  ##  ##  ##   ##                  |
- |                   #####   #####  ##      ##          ###    ##  ##     ##  ####     #####                   |
- └=============================================================================================================┘
- ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- │ Linguagem de programação {Nos}                                                                              |
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Versão 0.0.1                                                                                                |
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Data de lançamento: 13-Julho-2021 21:40                                                                     |
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Author e mantainer: Filipe Lukebana                                                                         |
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ website:https://www.nos.luk3d.com                                                                           │
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Colaborador e mantainer: Nurul-GC   website:https://github.com/Nurul-GC                                     |
- ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- |                                  [ COMANDOS USADOS NO COMPILADOR ]                                          |
- |   EXECUTAR UM SCRIPT NOS: [ run nome_do_script.nos ]                                                        |
- |   TERMINAR O COMPILADOR:  [ q ] OU [ exit ]                                                                 |
- |_____________________________________________________________________________________________________________|
- """)
+    print("""
+┌=============================================================================================================┐
+|                                      ##                               ##                                    |
+|                                     #     ##     ##   #####    ####     #                                   |
+|                                     #     ####   ##  ##   ##  ##        #                                   |
+|                                    ##     ##  ## ##  ##   ##   ###      ##                                  |
+|                                     #     ##    ###  ##   ##     ##     #                                   |
+|                                     #     ##     ##   #####   ####      #                                   |
+|                                      ##                               ##                                    |
+|                                                                                                             |
+|                   #####   #####  ###    ###        ##   ##  ##  ##     ##  ####     #####                   |
+|                   ##  ##  ##     ## #  # ##        ##   ##  ##  ####   ##  ##  ##  ##   ##                  |
+|                   #####   #####  ##  ##  ##  ####  ##   ##  ##  ##  ## ##  ##  ##  ##   ##                  |
+|                   ##  ##  ##     ##      ##         ## ##   ##  ##    ###  ##  ##  ##   ##                  |
+|                   #####   #####  ##      ##          ###    ##  ##     ##  ####     #####                   |
+└=============================================================================================================┘
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                       Linguagem de programação {Nos}                                        |
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│   [ Versão ]: 0.0.1                                                                                         |
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│   [ Data de lançamento ]: 13-Julho-2021 21:40                                                               |
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│   [ Author e mantainer ]: Filipe Lukebana                                                                   |
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│   [ website ]: https://www.nos.luk3d.com                                                                    │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+|                                      [ COMANDOS USADOS NO COMPILADOR ]                                      |
+|   EXECUTAR UM SCRIPT NOS: [ run nome_do_script.nos ]                                                        |
+|   TERMINAR O COMPILADOR:  [ q ] OU [ exit ]                                                                 |
+|_____________________________________________________________________________________________________________|
+""")
 
     # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
     with open('./core/dictionary.json') as f:
