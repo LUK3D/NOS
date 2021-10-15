@@ -34,6 +34,20 @@ Para executar um script em nós, basta executar o arquivo `compiler.luk.v1.0.py`
 run caminho/absoluto/nome_do_arquivo.nos
 ```
 
+## CRIANDO UM EXECUTÁVEL
+
+O nos-cli (Interface de Linha de Comandos de NOS) torna o processo de construção (empacotar) de um executáve muito simples.
+Você pode compilar a sua aplicação para Windows, MAC ou LINUX, basta que você esteja a rodar o código num desses ambientes.
+
+Execute o seguinte comando para compilar a aplicação:
+
+```sh
+build caminha/absoluto/nome_do_arquivo.nos --name="escreva aqui o nome da aplicação"
+```
+
+Para adicionar um icon personalizado para o seu programa, basta colocar um arquivo de icon (.ico) no diretório do projecto. Ou seja, qualquer arquivo com o nome de icon.ico na pasta do projecto, será utilizado como icon do programa.
+
+
 <!-- - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media -->

@@ -7,6 +7,7 @@ from typing import Tuple, List
 from sys import argv, exit
 
 from debugger import DBG
+from builder import BUILDER
 
 
 def save_final_code(code: str):
@@ -246,22 +247,42 @@ def run_file(file):
                 code_py.append(vc)
         
     return code_py
-
+def execute(_file:str):
+    print("-" * 50)
+    analised = run_file(_file)
+    print("-------------------------[ ANALISE ]-------------------------")
+    pprint(analised)
+    print("-------------------------[ Traduzido ]-------------------------")
+    saved = save_final_code(nos_to_python(analised))
+    print("Output: ", saved)
+    print("Programa finalizado...\n\n")
 
 def run():
     """FUNCAO PRINCIPAL"""
     while True:
-        cmd_process = input("{NOS} -> ").split(" ")
-        if cmd_process[0] == "run":
-            print("-" * 50)
-            analised = run_file(cmd_process[1])
-            print("-------------------------[ ANALISE ]-------------------------")
-            pprint(analised)
-            print("-------------------------[ Traduzido ]-------------------------")
-            saved = save_final_code(nos_to_python(analised))
-            print("Output: ", saved)
-            print("Programa finalizado...\n\n")
-        elif cmd_process[0] == "q" or "exit":
+        cmd_process = input("{NOS} -> ")
+        cmd_process_base = cmd_process.split(" ")
+        if cmd_process_base[0] == "run":
+            execute(cmd_process_base[1])
+            
+            
+        elif cmd_process_base[0] == "build":
+            project_path = "".join(cmd_process_base[1].split('"'))
+
+            tmp_name =  cmd_process.split("--name=")
+
+            print("NOMES...", tmp_name)
+
+
+            nome_da_app = "app"
+            if(len(tmp_name)>1):
+                nome_da_app = "".join(nome_da_app.split('"'))
+            
+            execute(project_path)
+            print("Compilando o programa...", tmp_name)
+            BUILDER().build(nome_da_app,project_path)
+            print("Fim da compilação", nome_da_app)
+        elif cmd_process_base[0] == "q" or "exit":
             print("Terminando o programa...")
             exit(0)
         elif KeyboardInterrupt:

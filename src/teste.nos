@@ -1,15 +1,3 @@
-//REVER A identificar a tribuição dos valores das variaveis e constantes.
-teste = verdadeiro;
-teste2 = falso;
-
-
-//Rever o suporte do comando try catch
-tenta( ){
-    teste = 2+'5';
-}
-excepto(Excepcao como _erro){
-    mostre("Deu bug!!");
-}
 
 funcao teste(){
  //Teste basico de comentario de outro teste   
@@ -30,6 +18,8 @@ para(i => intervalo(0,15)){
 }
 
 altura = paraInteiro("24")
+
+leia("Esperando...")
 
 /*
 
