@@ -50,16 +50,16 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "terminar": {
+    "continuar": {
         "type": "cmd",
-        "command": "quit",
+        "command": "continue",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "sair": {
+    "pular": {
         "type": "cmd",
-        "command": "exit",
+        "command": "pass",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -68,6 +68,13 @@
     "se": {
         "type": "bloc",
         "command": "if",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "ese": {
+        "type": "bloc",
+        "command": "elif",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -147,9 +154,29 @@
         "no_parentheses": true
     },
     // functions
+    "terminar": {
+        "type": "func",
+        "command": "quit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "sair": {
+        "type": "func",
+        "command": "exit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
     "tamanho": {
         "type": "func",
         "command": "len",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -166,16 +193,16 @@
         "command": "range",
         "internals": [
             {
-                "key":"inicio",
+                "key": "inicio",
                 "command": "start"
             },
             {
-                "key":"final",
-                "command":"stop"
+                "key": "final",
+                "command": "stop"
             },
             {
-                "key":"pular",
-                "command":"step"
+                "key": "pular",
+                "command": "step"
             }
         ],
         "end": null,
@@ -185,6 +212,12 @@
     "mostre": {
         "type": "func",
         "command": "print",
+        "internals": [
+            {
+                "key": "valores",
+                "command": "*objects"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -301,7 +334,7 @@
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
-    }
+    },
     // logical operators
     "||": {
         "type": "operator",
