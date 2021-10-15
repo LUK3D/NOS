@@ -1,0 +1,33 @@
+importa "teste2"
+
+//importa "dependencias/teste3"
+
+
+f_importada_2();
+
+//f_importada_3();
+
+funcao teste(){
+ //Teste basico de comentario de outro teste
+decimal altura = paraInteiro(leia("Digite a altura)); //Vamos la ver nesse tipo de caso
+altura =  paraInteiro(leia("Digite a altura: ")); //Mesmo aqui??
+se(altura>5 || altura>10 && altura == 100){
+    mostre("Muito Curto!");
+}
+decimal largura;
+largura = paraInteiro(leia("Digite a largura: "));
+mostre("A área é: ", altura*largura);
+}
+teste();
+para(i => intervalo(0,15)){
+    mostre(i);
+}
+altura = paraInteiro("24")
+leia("Esperando...")
+/*
+But what if your HTML has a quoted string, comment,
+NOS, or CDATA containing </html>? Or what if the garbage at
+ the end itself has a </html>? Unless you can guarantee that none of those etc. c
+ an happen, you either need to fully parse the NOS CODE or have some other way of knowing how muc
+ h data you have (e.g. a
+*/
