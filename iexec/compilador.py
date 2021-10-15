@@ -227,7 +227,7 @@ def include_dependencies(file: str):
                 dependecias.append({"path": final_path, "nome": arquivo_nome})
             elif linha.strip() != "":
                 for trash in remover_do_script_principal:
-                    print("IMPORTACAO REMOVIDA:", linhas[trash])
+                    print("[ IMPORTACAO REMOVIDA ]:\n\t", linhas[trash])
                     linhas.pop(trash)
                 break
         except Exception as _erro:
