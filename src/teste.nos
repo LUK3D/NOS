@@ -1,3 +1,11 @@
+importa "teste2"
+
+//importa "dependencias/teste3"
+
+
+f_importada_2();
+
+//f_importada_3();
 
 funcao teste(){
  //Teste basico de comentario de outro teste   

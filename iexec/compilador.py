@@ -1,11 +1,12 @@
 from functools import cache
+from genericpath import isfile
 import json
-from logging import exception
+from logging import DEBUG, exception
 import re
 from pprint import pprint
 from typing import Tuple, List
 from sys import argv, exit
-
+import os
 from debugger import DBG
 from builder import BUILDER
 
@@ -63,8 +64,8 @@ def nos_to_python(_commands: List):
                     if(val):
                         cmd_tmp = commands[idx]["command"].join(final_to_be_replaced[idx].strip().split(val)).join(cmd_tmp.split(val))
 
-                        if(re.match("^([aA-z_Z])+( )+([aA-z_Z])+( )+([aA-z_Z])+", cmd_tmp)):
-                            cmd_tmp = (commands[idx]["command"] + ([x for x in re.split(r'^([aA-z_Z])+( )+([aA-z_Z])+', cmd_tmp.strip()) if len(x)>1])[0])
+                        if(re.match("^([aA-z_Z0-9])+( )+([aA-z_Z0-9])+( )+([aA-z_Z0-9])+", cmd_tmp)):
+                            cmd_tmp = (commands[idx]["command"] + ([x for x in re.split(r'^([aA-z_Z0-9])+( )+([aA-z_Z0-9])+', cmd_tmp.strip()) if len(x)>1])[0])
             except Exception as _erro:
                 print("ERRO! ",_erro)
 
@@ -171,13 +172,13 @@ def verify_command(_noscode: str):
 
     # regex = "(.*[\("+"".join(RESERVED["attrib_operadores"]["command_scaped"])+"])"
     # Pega todos os comandos que terminam em (),(,
-    regex = re.compile(r"([aA-z_Z ]*(\(|\(\)|\(|\{ *))")
+    regex = re.compile(r"([aA-z_Z0-9 ]*(\(|\(\)|\(|\{ *))")
     # O regex acima retorna tuples, então precisa ser convertido para lista
     formated_command_1 = map(join_tuple_string, regex.findall(_noscode))
     formated_command_1 = " ".join(formated_command_1)[:-1]
 
     # Pegando apenas palavras e ignorando qualquer caracter especial
-    regex2 = re.compile("[A-Za-z_]*")
+    regex2 = re.compile("[A-Za-z_0-9]*")
     formated_command_2 = regex2.findall(formated_command_1)
 
     # Limpando a lista e deixando apenas os valores nao nulos ou vazios.
@@ -216,15 +217,81 @@ def verify_command(_noscode: str):
     return final
 
 
+# TODO Esse metodo precisa ser recursivo para buscar dependencias infinitas vezes, desde que elas esteja definidas no codigo retornado
+"""Resolvendo o comando inclua"""
+def include_dependencies(file):
+    print("--------------[ INCLUINDO DEPENDENCIAS ]--------------")
+    linhas = open(file).readlines()
+    dependecias = []
+    linhas_finais =[]
+
+    remover_do_script_principal = []
+
+    project_path = remove_empty_from_list(file.rsplit("/",1))[0]
+
+    for (i, linha) in enumerate(linhas):
+        try:
+            if(re.match(r"^[a-zA-Z0-9 ]*.[^ \=]*\"$",linha.strip())):
+                remover_do_script_principal.append(i)
+
+                arquivo = linha.strip().split(" ")[1].strip()
+                arquivo = remove_empty_from_list(arquivo.rsplit("/"))
+                arquivo_nome = ""
+                if(len(arquivo)>1):
+
+                    arq = arquivo
+                    nome_tmp = arquivo[len(arquivo)-1]
+
+                    print("ESTRANHO ", arq.remove(nome_tmp),arquivo,nome_tmp )
+                    caminho = "".join("/".join(arq).split('"'))+"/"
+                    nome_tmp = "".join(nome_tmp.split('"')) +".nos"
+                    
+
+
+                    final_path = caminho+nome_tmp
+
+
+                else:
+                    arquivo_nome = "".join(arquivo[0].split('"'))
+                    final_path = "".join(arquivo[0].split('"'))+".nos"
+                    
+                
+                dependecias.append({"path":final_path, "nome":arquivo_nome})
+                
+                
+
+            elif(linha.strip()!=""):
+                
+                for trash in remover_do_script_principal:
+                    print("IMPORTACAO REMOVIDA:", linhas[trash])
+                    linhas.pop(trash)
+                break
+        except Exception as _erro:
+            print(_erro)
+    
+    for arquivo in dependecias :
+        if (os.path.isfile(project_path+"/"+arquivo["path"])):
+            dependencia_lida = open(project_path+"/"+arquivo["path"]).readlines()
+            linhas_finais.extend(dependencia_lida)
+        else:
+            print(("Dependencia "+arquivo["nome"]+" não encontrada em: " +project_path+"/"+arquivo["path"]))
+
+    linhas_finais.extend(linhas)
+    print("CARREGAMENTO DE DEPENDENCIAS FILIZADA...", remover_do_script_principal)
+
+    return linhas_finais
+
+
 def run_file(file):
     """funcao para executar um arquivo nos"""
-    code_nos = open(file).readlines()
+    code_nos = include_dependencies(file) 
     code_py = []
 
     commenting = False
     for linha in code_nos:
         linha = linha.strip()
-
+        """ verificando as dependencias """
+        
         # Removendo os comentarios de uma unica linha
         try:
             print("REMOVENDO ESSA LINHA:", linha, re.match("([^\\:]|^)\/\/.*$", linha) )
