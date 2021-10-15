@@ -27,7 +27,7 @@ This is how each word/command that will be translated should look.
 
  Como podemos ver aí em cima, o dicionário de Nós pode ser escrito de uma única forma, a qual descrevemos.
 
-|Key|Description|Possible options |Required?|
+|Key|Description| Possible options |Required?|
 |----|---|---|---|
 |nos_command|This refers to the command/word that you want to register on the compiler|Any one word string|YES|
 |type|This propertie, informs to compiler how to handle the translation of this command|`data_t` (Data type eg: int, float, string etc), `func` (Function), `cmd` (command that just need to be executed), `bloc` (Bloc, a group that will containe multiple commands or groups), `operator` (Operator dat will asign a value to a variable), `compiler_command` (This is a special command just fore the compiler)|YES|
