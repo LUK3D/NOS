@@ -205,13 +205,12 @@ def include_dependencies(file: str):
     dependecias = []
     linhas_finais = []
     remover_do_script_principal = []
-    project_path = os.path.abspath(file)  # remove_empty_from_list(file.rsplit("/", 1))[0]
+    project_path = remove_empty_from_list(file.rsplit("/", 1))[0]
 
     for (i, linha) in enumerate(linhas):
         try:
             if re.match(r"^[a-zA-Z0-9 ]*.[^ =]*\"$", linha.strip()):
                 remover_do_script_principal.append(i)
-
                 arquivo = linha.strip().split(" ")[1].strip()
                 arquivo = remove_empty_from_list(arquivo.rsplit("/"))
                 arquivo_nome = ""
