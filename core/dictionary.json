@@ -1,11 +1,5 @@
 {
-    "boleano": {
-        "type": "data_t",
-        "command": "bool",
-        "end": null,
-        "ignore_on_translate": true,
-        "ignore_all": false
-    },
+    // data-typos
     "inteiro": {
         "type": "data_t",
         "command": "int",
@@ -27,61 +21,76 @@
         "ignore_on_translate": true,
         "ignore_all": false
     },
-    "verdadeiro": {
-        "type": "const",
-        "command": "True",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "falso": {
-        "type": "const",
-        "command": "False",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "intervalo": {
-        "type": "func",
-        "command": "range",
+    "boleano": {
+        "type": "data_t",
+        "command": "bool",
         "end": null,
         "ignore_on_translate": true,
         "ignore_all": false
     },
-    "mostre": {
-        "type": "func",
-        "command": "print",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "leia": {
-        "type": "func",
-        "command": "input",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "paraInteiro": {
-        "type": "func",
-        "command": "int",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "paraTexto": {
-        "type": "func",
-        "command": "str",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
+    // commands
     "importa": {
         "type": "cmd",
         "command": "import",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
+    },
+    "retorna": {
+        "type": "cmd",
+        "command": "return",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "em": {
+        "type": "cmd",
+        "command": "in",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "continuar": {
+        "type": "cmd",
+        "command": "continue",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "pular": {
+        "type": "cmd",
+        "command": "pass",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    // conditional blocks
+    "se": {
+        "type": "bloc",
+        "command": "if",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "ese": {
+        "type": "bloc",
+        "command": "elif",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "senao": {
+        "type": "bloc",
+        "command": "else",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "funcao": {
+        "type": "bloc",
+        "command": "def",
+        "end": "",
+        "ignore_on_translate": false
     },
     "para": {
         "type": "bloc",
@@ -104,30 +113,15 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "retorna": {
-        "type": "cmd",
-        "command": "return",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "em": {
-        "type": "cmd",
-        "command": "in",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "se": {
+    "enumerar": {
         "type": "bloc",
-        "command": "if",
-        "end": null,
-        "ignore_on_translate": false,
-        "ignore_all": false
-    },
-    "senao": {
-        "type": "bloc",
-        "command": "else",
+        "command": "enumerate",
+        "internals": [
+            {
+                "key": "inicio",
+                "command": "start"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -159,15 +153,30 @@
         "ignore_all": false,
         "no_parentheses": true
     },
-    "funcao": {
-        "type": "bloc",
-        "command": "def",
-        "end": "",
-        "ignore_on_translate": false
+    // functions
+    "terminar": {
+        "type": "func",
+        "command": "quit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "sair": {
+        "type": "func",
+        "command": "exit",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
     },
     "tamanho": {
         "type": "func",
         "command": "len",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
@@ -179,13 +188,154 @@
         "ignore_on_translate": false,
         "ignore_all": false
     },
-    "paraInt": {
+    "intervalo": {
+        "type": "func",
+        "command": "range",
+        "internals": [
+            {
+                "key": "inicio",
+                "command": "start"
+            },
+            {
+                "key": "final",
+                "command": "stop"
+            },
+            {
+                "key": "pular",
+                "command": "step"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": true,
+        "ignore_all": false
+    },
+    "mostre": {
+        "type": "func",
+        "command": "print",
+        "internals": [
+            {
+                "key": "valores",
+                "command": "*objects"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "leia": {
+        "type": "func",
+        "command": "input",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraInteiro": {
         "type": "func",
         "command": "int",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
     },
+    "paraTexto": {
+        "type": "func",
+        "command": "str",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraDecimal": {
+        "type": "func",
+        "command": "float",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "paraHex": {
+        "type": "func",
+        "command": "hex",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "maiorValor": {
+        "type": "func",
+        "command": "max",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "menorValor": {
+        "type": "func",
+        "command": "min",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "revertida": {
+        "type": "func",
+        "command": "reversed",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "seq"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "arredondar": {
+        "type": "func",
+        "command": "round",
+        "internals": [
+            {
+                "key": "numero",
+                "command": "number"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "ordenada": {
+        "type": "func",
+        "command": "sorted",
+        "internals": [
+            {
+                "key": "lista",
+                "command": "iterable"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "agrupar": {
+        "type": "func",
+        "command": "zip",
+        "internals": [
+            {
+                "key": "listas",
+                "command": "*iterables"
+            }
+        ],
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    // logical operators
     "||": {
         "type": "operator",
         "command": "or",
@@ -203,6 +353,28 @@
     "!": {
         "type": "operator",
         "command": "not",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    // constants
+    "verdadeiro": {
+        "type": "const",
+        "command": "True",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "falso": {
+        "type": "const",
+        "command": "False",
+        "end": null,
+        "ignore_on_translate": false,
+        "ignore_all": false
+    },
+    "nulo": {
+        "type": "const",
+        "command": "None",
         "end": null,
         "ignore_on_translate": false,
         "ignore_all": false
