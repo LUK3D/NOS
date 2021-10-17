@@ -9,12 +9,15 @@ from sys import argv, exit
 import os
 from debugger import DBG
 from builder import BUILDER
+from pathlib import Path
 
+"""Variavel para armazenar o caminho do diretorio raiz da aplicacao"""
+_appPath = ""
 
 def save_final_code(code: str):
     """método para salvar o código python gerado em um arquivo"""
-    os.makedirs(".temp", exist_ok=True)
-    with open(".temp/output.py", "w") as py_file:
+    os.makedirs(_appPath+"/.temp", exist_ok=True)
+    with open(_appPath+"/.temp/output.py", "w") as py_file:
         py_file.write(code)
         return "Arquivo gerado em: output.py"
 
@@ -344,12 +347,12 @@ def run():
 
             nome_da_app = "app"
             if(len(tmp_name)>1):
-                nome_da_app = "".join(nome_da_app.split('"'))
+                nome_da_app = remove_empty_from_list(tmp_name[1].strip().split('"'))[0]
             
             execute(project_path)
-            print("Compilando o programa...", tmp_name)
+            print("Compilando o programa...", nome_da_app)
             BUILDER().build(nome_da_app,project_path)
-            print("Fim da compilação", nome_da_app)
+            print("Fim da compilação", nome_da_app,"em ", project_path)
         elif cmd_process_base[0] == "q" or "exit":
             print("Terminando o programa...")
             exit(0)
@@ -394,6 +397,13 @@ if __name__ == '__main__':
 """)
 
     # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
-    with open('./core/dictionary.json') as f:
-        RESERVED = json.load(f)
-        run()
+    try:
+        path = str(Path(__file__).parent.absolute())
+        _appPath = path.rsplit("\\",1)[0]
+        with open(_appPath+'\\resources\\dictionary.json') as f:
+            RESERVED = json.load(f)
+            run()
+    except Exception as _erro:
+        print("ERRO FATAL! Não foi possível carregar o dicionário.",_erro)
+        DBG().falha(f"ERRO FATAL ----------> {_erro}")
+        input()

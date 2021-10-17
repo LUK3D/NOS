@@ -2,9 +2,15 @@ import logging
 import os
 from datetime import date
 
-os.makedirs('.debug', exist_ok=True)
+from pathlib import Path
+
+path = str(Path(__file__).parent.absolute())
+_appPath = path.rsplit("\\",1)[0]
+
+
+os.makedirs(_appPath+'/.debug', exist_ok=True)
 logging.basicConfig(
-    filename=f'.debug/{date.today()}.txt',
+    filename=f'{_appPath}/.debug/{date.today()}.txt',
     level=logging.DEBUG,
     format=f'{"-"*50}\n[ %(asctime)s ] - [ %(levelname)s ]\n\t - %(message)s \n'
 )
