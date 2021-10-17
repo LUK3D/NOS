@@ -2,8 +2,8 @@ mostre("Parte 2")
 funcao f_importada_2(){
 
     para(i => intervalo(0,50)){
-        mostre("Comando Importado")
-        leia("Passar da dependencia 2 ??")
+        mostre("Comando Importado",i)
 
     }
 }
+leia("Passar da dependencia 2 ??")

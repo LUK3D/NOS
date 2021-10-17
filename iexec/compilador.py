@@ -330,11 +330,11 @@ def run():
         cmd_process = input("{NOS} -> ")
         cmd_process_base = cmd_process.split(" ")
         if cmd_process_base[0] == "run":
-            execute(cmd_process_base[1])
+            execute("".join(cmd_process_base[1].split('"')))
             
             
         elif cmd_process_base[0] == "build":
-            project_path = "".join(cmd_process_base[1].split('"'))
+            project_path = "".join("".join(cmd_process_base[1].split('"')).split('"'))
 
             tmp_name =  cmd_process.split("--name=")
 
