@@ -1,3 +1,4 @@
+import os
 from os.path import isfile
 from PyInstaller.__main__ import run
 

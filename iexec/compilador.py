@@ -13,7 +13,8 @@ from builder import BUILDER
 
 def save_final_code(code: str):
     """método para salvar o código python gerado em um arquivo"""
-    with open("output.py", "w") as py_file:
+    os.makedirs(".temp", exist_ok=True)
+    with open(".temp/output.py", "w") as py_file:
         py_file.write(code)
         return "Arquivo gerado em: output.py"
 
