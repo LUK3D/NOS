@@ -9,7 +9,7 @@ from sys import argv, exit
 import os
 from debugger import DBG
 from builder import BUILDER
-from pathlib import Path
+import utils
 
 """Variavel para armazenar o caminho do diretorio raiz da aplicacao"""
 _appPath = ""
@@ -398,8 +398,9 @@ if __name__ == '__main__':
 
     # LENDO O DICIONÁRIO COM AS PALAVRAS RESERVADAS DE {NOS}
     try:
-        path = str(Path(__file__).parent.absolute())
-        _appPath = path.rsplit("\\",1)[0]
+     
+        _appPath = utils.UTILITIES.appPath().rsplit("\\",1)[0]
+        print(_appPath)
         with open(_appPath+'\\resources\\dictionary.json') as f:
             RESERVED = json.load(f)
             run()

@@ -3,10 +3,10 @@ from os.path import isfile
 # from PyInstaller.__main__ import run
 from  garbage_collector import COLECTOR 
 from sys import platform
-from pathlib import Path
 
-path = str(Path(__file__).parent.absolute())
-_appPath = path.rsplit("\\",1)[0]
+
+import utils
+_appPath = utils.UTILITIES.appPath().rsplit("\\",1)[0]
 
 class BUILDER:
     def build(self, _appName: str, _appOutputPath: str):

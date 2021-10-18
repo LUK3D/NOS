@@ -2,10 +2,8 @@ import logging
 import os
 from datetime import date
 
-from pathlib import Path
-
-path = str(Path(__file__).parent.absolute())
-_appPath = path.rsplit("\\",1)[0]
+import utils
+_appPath = utils.UTILITIES.appPath().rsplit("\\",1)[0]
 
 
 os.makedirs(_appPath+'/.debug', exist_ok=True)
