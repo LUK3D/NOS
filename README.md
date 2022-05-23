@@ -18,10 +18,10 @@ The focus of this project is to create a language that can be easier to learn.
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-df name s = 'Filipe Lukebana';
-df number_1 i = 2;
-df number_2 f = 34;
-df is_gather = fls;
+def name s = 'Filipe Lukebana';
+def number_1 i = 2;
+def number_2 f = 34;
+def is_gather = fls;
 
 
 /** Defining a New Function**/
