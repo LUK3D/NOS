@@ -1,16 +1,3 @@
-# ![nos-logo](img/logo.png)
-
-## WELCOME TO PROJECT {NOS}
-
-{Nos} (Nós), Its an interpreted language written in Rust.
-
-The focus of this project is to create a language that can be easier to learn.
-
-
-
-### little example application to show the {NOS} Syntax 🙂
-
-```cs
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ BASIC NOS CODE EXAMPLE                                                  |
@@ -26,8 +13,8 @@ df is_gather = fls;
 
 /** Defining a New Function**/
 fn main (def cmd_arguments stack<s>) {
-    out('Enter the name: '); //Print a message on cmd
-    name = in(); //reading the user input
+    out('Enter the name: ');
+    name = in();
     out('Enter the first Number: ');
     number_1 = i.parse(in());
     out('Enter the Second Number: ');
@@ -67,9 +54,9 @@ fn evenNumbers(def number f){
     return numbers;
 }
 
-```
 
 
-## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE 'repositorio oficial da IDE')
 
-> In progress...
+
+
+
