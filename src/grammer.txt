@@ -1,0 +1,5 @@
+expression      : term ((PLUS|MINUS) term)*
+
+term            : factor ((MULTIPLY|DIVIDE) factor) *
+
+factor          : INTEGER|FLOAT
