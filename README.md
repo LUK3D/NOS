@@ -6,12 +6,10 @@
 
 The focus of this project is to create a language that can be easier to learn.
 
-
-
 ### little example application to show the {NOS} Syntax 🙂
 
 ```cs
-/* 
+/*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ BASIC NOS CODE EXAMPLE                                                  |
   | 23/05/2022 - luk3d                                                      │
@@ -59,7 +57,7 @@ fn range(def number f)->stack<f>{
 /** Function to get the even numbers between 0 "number" x **/
 fn evenNumbers(def number f){
     def numbers stack<f> = [];
-    loop on range(number)(fn(_i){
+    loop.on(range(number),fn(_i){
         if((_i%2) == 0){
             numbers.add(_i);
         }
@@ -69,7 +67,6 @@ fn evenNumbers(def number f){
 
 ```
 
-
-## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE 'repositorio oficial da IDE')
+## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE "repositorio oficial da IDE")
 
 > In progress...
