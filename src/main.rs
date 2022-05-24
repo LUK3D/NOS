@@ -4,8 +4,10 @@ use std::fs;
 use std::env;
 use clearscreen::clear;
 
-mod lexer;
-use lexer::Lexer;
+
+#[path = "core/nos.rs"]
+mod nos;
+use nos::Nos;
 
 
 fn main() {
@@ -14,16 +16,17 @@ fn main() {
     loop{
         print!("{{nos}}-> ");
         let mut input_string =  read_input();
+        //-------------------------------------------------------
         if input_string.replace("\n", "") == "limpar"{
             clear_screen();
         }else{
-          let mut l =   Lexer::new();
-          l.current_text = input_string;
-          l.run();
-
+            let nos = Nos{input:input_string};
+            nos.run();
         }
     }
 }
+
+
 
 
 fn readFile (path:&str)->String{

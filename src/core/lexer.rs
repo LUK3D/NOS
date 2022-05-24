@@ -11,8 +11,8 @@
 //=======================================================================================================================
 
 
-#[path="core/structures.rs"]
-mod structures;
+#[path="structures.rs"]
+pub mod structures;
 use structures::*;
 
 
@@ -34,23 +34,23 @@ impl Lexer{
         }
     }
 
-    pub fn run(&self){
+    // pub fn run(&self){
 
 
-        let results = self.generate_tokens();
+    //     let results = self.generate_tokens();
 
-        if results.errors.len()>0 {
-            for error in results.errors {
-                print!("{0}",error.to_string());
-            }
-        }else{
-            for token in results.tokens {
-                print!("{0}",token.t_rsttn());
-            }
-        }
-        println!("");
+    //     if results.errors.len()>0 {
+    //         for error in results.errors {
+    //             print!("{0}",error.to_string());
+    //         }
+    //     }else{
+    //         for token in results.tokens {
+    //             print!("{0}",token.t_rsttn());
+    //         }
+    //     }
+      
 
-    }
+    // }
 
     pub fn generate_tokens(&self)-> TokenResult{
 
