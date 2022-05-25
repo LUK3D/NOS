@@ -34,24 +34,6 @@ impl Lexer{
         }
     }
 
-    // pub fn run(&self){
-
-
-    //     let results = self.generate_tokens();
-
-    //     if results.errors.len()>0 {
-    //         for error in results.errors {
-    //             print!("{0}",error.to_string());
-    //         }
-    //     }else{
-    //         for token in results.tokens {
-    //             print!("{0}",token.t_rsttn());
-    //         }
-    //     }
-      
-
-    // }
-
     pub fn generate_tokens(&self)-> TokenResult{
 
         let white_spaces = " \n\t";
@@ -84,7 +66,7 @@ impl Lexer{
         for i in 0..f_line.chars().count() {
             
             
-            let mut current_character = f_line.chars().nth(i).unwrap();
+            let current_character = f_line.chars().nth(i).unwrap();
             
             position = position.process(&current_character.to_string());
     

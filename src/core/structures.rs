@@ -84,6 +84,25 @@ pub struct TokenResult{
     pub errors:Vec<Error>
 }
 
+impl TokenResult{
+    
+    pub fn new()->TokenResult{
+        return TokenResult{
+            tokens: vec![],
+            errors: vec![]
+        };
+    }
+
+    pub fn add(&mut self, mut tokenresult:TokenResult)->Option<&TokenResult>{
+
+        self.tokens.append(&mut tokenresult.tokens);
+        self.errors.append(&mut tokenresult.errors);
+
+        return Some(self);
+
+    }
+}
+
 
 pub struct Position{
     pub index:i64,
@@ -168,3 +187,14 @@ pub fn illegal_character(details:&str, file_name:&str, command:&str, position:Po
     };
     return err;
 }
+
+
+pub struct Program{
+
+}
+
+impl Program{
+
+}
+
+

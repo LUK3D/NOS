@@ -14,14 +14,19 @@ impl Nos{
         let reader = BufReader::new(file);
         let mut l =   parser::lexer::Lexer::new();
 
+        let mut tokens = parser::lexer::structures::TokenResult::new();
+
+
         for line in reader.lines() {
             // println!("{:?}", line);
             l.current_text = line?.to_string();
-            let  p = Parser{
-            tokens:l.generate_tokens()
-            };
-            p.parse();
+            tokens.add(l.generate_tokens());
         }
+
+        let  p = Parser{
+            tokens:tokens
+        };
+        p.parse();
         Ok(())
      }
 }
