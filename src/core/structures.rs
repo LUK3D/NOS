@@ -43,7 +43,7 @@ impl Token{
     }
 }
 
-
+#[derive(Copy, Clone)]
 pub enum TokenTypes {
    INTEGER,
    FLOAT,
