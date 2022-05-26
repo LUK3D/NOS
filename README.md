@@ -1,6 +1,6 @@
 # ![nos-logo](img/logo.png)
 
-## WELCOME TO PROJECT {NOS}
+## 😌 WELCOME TO PROJECT {NOS}
 
 {Nos} (Nós), Its an interpreted language written in Rust.
 
@@ -67,6 +67,62 @@ fn evenNumbers(def number f){
 
 ```
 
-## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE "repositorio oficial da IDE")
+
+# 🚀 CURRNT STATE 
+
+## Lexer / Tokenizer
+
+Example:
+```js
+INPUT -> 1.2+2.2+1.3
+//The above input is tanslated to this tokens by the {NOS} Lexer
+OUTPUT-> [FLOAT:1.2][PLUS][INTEGER:22][MULTIPLY][FLOAT:1.3][DIVIDE][INTEGER:4]
+```
+## Parser
+### Abstract Syntax Tree (AST)
+Example:
+
+```js
+INPUT -> 1+2*32/3*5
+//The above input is tanslated to this tokens by the {NOS} Lexer 😀
+(
+    ComplexExpression: Operator: * 
+        (
+            (
+                BinaryExpression: operator: + 
+                    (
+                        NumericLiteral: 1, NumericLiteral: 2
+                    ) , 
+                    (
+                        ComplexExpression: Operator: / 
+                            (
+                                BinaryExpression: NumericLiteral: 32 , 
+                                (
+                                    (
+                                        BinaryExpression: operator: * 
+                                            (
+                                                NumericLiteral: 3, NumericLiteral: 5
+                                            )
+                                    )
+                                )
+                            )
+                    )
+            )
+        )
+)
+```
+-------------------------------------------
+
+The above Example Represented as Graph.
+
+![NOS AST](img%5Cnos_execution_tree.png)
+
+devellopment 
+
+
+
+
+
+<!-- ## [NOS-IDE](https://github.com/LUK3D-Angola/Nos_IDE "repositorio oficial da IDE") -->
 
 > In progress...

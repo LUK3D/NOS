@@ -20,6 +20,7 @@ pub enum Value{
     int(i128),
     float(f64),
     bool(bool),
+    null(String)
 
 }
 
@@ -28,6 +29,7 @@ pub enum Value{
  * Defines the kinds of operation that Terms and Expressions operated wtih 
  * Operations: `+, / , * , -`
  */
+#[derive(std::clone::Clone)]
 pub enum Operation{
     multiply,
     divide,
@@ -50,47 +52,33 @@ impl Operation{
     }
 }
 
-/**
- * # Term
- * Represents a binary operation between Values with Operations
- * 
- * Eg: `Value ((Operation) Value) *`
- */
-pub struct Term{
-    _type:String,
-    l_value:Option<Value>,
-    operation:Option<Operation>,
-    r_value:Option<Value>
+
+
+#[derive(std::clone::Clone)]
+pub struct Operator{
+    l_term:Value,
+    r_term:Value,
+    operation:Operation
 }
 
-impl Term{
 
+impl Operator{
     pub fn new()->Self{
         return Self{
-        _type:"Term".to_string(),
-        l_value:None,
-        operation:None,
-        r_value:None
-        }
+            l_term:Value::null("".to_string()),
+            r_term:Value::null("".to_string()),
+            operation:Operation::undefined
+        };
     }
 
-    pub fn representation(&self)->String{
-        let l_value = getValue(&self.l_value);
-        let r_value = getValue(&self.r_value);
-
-        let mut res = "".to_string();
-
-        if l_value != "0".to_string(){
-            res = format!("NumericLiteral: {0} ", l_value);
+    pub fn representation(self)->String{
+        if Operation::undefined.value() != self.operation.value(){
+            return format!("operator: {0} (NumericLiteral: {1}, NumericLiteral: {2})", getOperation(&Some(self.operation).clone()),  getValue(&Some(self.l_term).clone()),  getValue(&Some(self.r_term).clone()))
+        }else{
+            return format!("NumericLiteral: {}",getValue(&Some(self.l_term).clone()));
         }
-        if r_value != "0".to_string(){
-            res = format!("{0} ((Operator: {1}) NumericLiteral: {2}) ",res, getOperation(&self.operation), r_value).to_string();
-        }
-
-        return format!("{0}", res.to_string())
     }
 }
-
 
 
 pub fn getValue(option:&Option<Value>)->String{
@@ -103,11 +91,13 @@ pub fn getValue(option:&Option<Value>)->String{
         Value::bool(v)=>v.to_string(),
         Value::float(v)=>v.to_string(),
         Value::int(v)=>v.to_string(),
-        Value::string(v)=>v.to_string()
+        Value::string(v)=>v.to_string(),
+        Value::null(v)=>"".to_string()
     };
 
     return l_value_v;
 }
+
 
 pub fn getOperation(option:&Option<Operation>)->String{
     let operation = match option{
@@ -119,165 +109,119 @@ pub fn getOperation(option:&Option<Operation>)->String{
 
 
 
-/**
- * # Expression
- * Represents an Operation between two Terms
- * 
- * Eg `Term ((Operation) Term)*`
- */
 pub struct Expression{
-    _type:String,
-    l_term:Option<Term>,
-    operation:Option<Operation>,
-    r_term:Option<Term>,
-    expression:Option<Box<Expression>>,
-    value:Option<Value>
+
+    operator:Option<Operator>,
+    exp_operation:Operation,
+    expression:Option<Box<Expression>>
+
 }
 
 impl Expression{
 
     pub fn new()->Self{
+
+        return Expression{
+            operator:Some(Operator::new()),
+            exp_operation:Operation::undefined,
+            expression:None
+        };
+    }
+
+    pub fn copy(self)->Self{
         return Self{
-        _type:"Expression".to_string(),
-        l_term:None,
-        operation:None,
-        r_term:None,
-        expression:None,
-        value:None
+            operator:self.operator,
+            exp_operation:self.exp_operation,
+            expression:self.expression
         }
     }
 
-    pub fn representation(&self)->String{
-        let n = Term::new();
-        let l_term = match &self.l_term{
-            Some(v)=>v,
-            None=>&n
-        };
-        let r_term = match &self.r_term{
-            Some(v)=>v,
-            None=>&n
-        };
 
+    pub fn extract_representation(self)->String{
         let mut res = "".to_string();
+        let s = match self.operator.clone(){
+            Some(v)=>v,
+            None=>Operator::new()
+        };
+        let Expression { operator, expression, exp_operation } = self;
+        let Operator { l_term, r_term, operation } = operator.clone().unwrap();
 
-        if getValue(&l_term.l_value) !="0"{
-            res = format!("Term {0}", l_term.representation());
-        }
-        if getValue(&r_term.l_value) !="0"{
-            res = format!("{0} ((Operator {1}) Term {2})",res, getOperation(&self.operation), r_term.representation());
-        }
+        let rep = operator.unwrap().representation();
 
+        if rep.len()>0{
+            res = format!("(BinaryExpression: {}", rep);
+        } 
+  
+        let n = Box::new(Expression::new());
+        let exp = unbox(match expression{
+            Some(v)=>v,
+            None=>n
+        });
 
-        if self.expression.is_some() {
-
-            
-
-
-            // let exp = unbox(self.expression);
-
-            return format!("Term {0}  ((Operator {1}) Term {2})", l_term.representation(), r_term.representation(), getOperation(&self.operation));
+    
+        let comp_bin_oper = exp_operation.value().clone();
+    
+        if &exp.operator.as_ref().unwrap().operation.value() != &Operation::undefined.value(){
+            res = format!("(ComplexExpression: Operator: {1} {0} , ({2}))", res,comp_bin_oper, exp.extract_representation());
         }else{
-            return format!("{0}",res);
+
+            if &exp_operation.value() != &Operation::undefined.value(){
+                res = format!("(ComplexExpression: Operator: {1} ({0} , {2}))", res,comp_bin_oper, exp.extract_representation() );
+            }
         }
-    }
-
-    pub fn get_value(){
-
-    }
-}
-
-
-
-pub enum ExpressionStatement{
-    expression(Expression),
-    term(Term)
-}
-
-
-
-
-pub struct NumericLiteral{
-    _type:String,
-    value:Value
-}
-
-impl NumericLiteral{
-
-    pub fn new()->Self{
-        return Self{
-        _type:"NumericLiteral".to_string(),
-        value:Value::int(0)
-        }
-    }
-}
-
-
-
-
-
-
-
-
-pub struct Program{
-    _type:String,
-    body:Expression
-}
-
-impl Program{
-    pub fn get_str(self)->String{
-        // let val = match self.body.value{
-        //     Value::bool(v)=>v.to_string(),
-        //     Value::float(v)=>v.to_string(),
-        //     Value::int(v)=>v.to_string(),
-        //     Value::string(v)=>v
-        // };
-
         
-        return format!("(Program  ({0} ({1})))",self.body._type, self.body.representation()).to_string()
+        res = format!("{0})", res);
+    
+        return res;
     }
+
+
 }
 
 
-/**
- * Parses a Token into an AST
- */
-pub struct Parser{
-    tokens:Vec<Token>
-}
+
+pub struct Parser;
 
 impl Parser{
+
     pub fn parse()->String{
-
-        /** */
-
-        let mut program =  Program{
-            _type:"Program".to_string(),
-            body:Expression{
-                   _type:"Expression".to_string(),
-                   l_term:Some(
-                    Term{
-                        _type:"BinaryOperation".to_string(),
-                        l_value:Some(Value::int(23)),
-                        r_value:Some(Value::int(42)),
-                        operation:Some(Operation::sum)
-                   }
-                   ),
-                   r_term:
-                   
-                   Some(Term{
-                    _type:"BinaryOperation".to_string(),
-                    l_value:Some(Value::int(56)),
-                    r_value:Some(Value::int(98)),
-                    operation:Some(Operation::multiply)
-                })
-               
-               ,
-                   operation:Some(Operation::divide),
-                   expression:None,
-                   value:None
-            }
+        let body = Expression{
+            operator:Some(Operator{
+                l_term:Value::int(1),
+                r_term:Value::int(2),
+                operation:Operation::sum
+            }),
+            exp_operation:Operation::multiply,
+            expression: Some(
+                Box::new(Expression{
+                    operator:Some(Operator{
+                        l_term:Value::int(32),
+                        r_term:Value::null("".to_string()),
+                        operation:Operation::undefined
+                    }),
+                    exp_operation:Operation::divide,
+                    expression:Some(
+                        Box::new(Expression{
+                            operator:Some(Operator{
+                                l_term:Value::int(3),
+                                r_term:Value::int(5),
+                                operation:Operation::multiply
+                            }),
+                            exp_operation:Operation::undefined,
+                            expression:None
+                        }
+                    ))
+                }
+            ))
         };
-        return program.get_str();
+
+        return body.extract_representation();
     }
+
 }
+
+// 1+2
+
+
+
 

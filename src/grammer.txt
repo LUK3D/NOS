@@ -30,3 +30,73 @@ factor          : INTEGER|FLOAT
         )
     )
 )
+
+(
+    operator: + (1,2) 
+    (BinaryExpression: + (2)) 
+    (
+        BinaryExpression: 
+        (
+            operator: + (32,21) 
+            (
+                BinaryExpression: + (21)
+            )
+        )
+    )
+)
+
+
+(
+    BinaryExpression: operator: + (1,2) 
+    (
+        (BinaryExpression: operator: + (32,21))
+    )
+)
+
+1+2*32/15
+(ComplexExpression: Operator: * 
+    (
+        BinaryExpression: operator: + 
+            (
+                NumericLiteral: 1, 
+                NumericLiteral: 2
+            ) , 
+            (
+                (
+                    BinaryExpression: operator: / 
+                    (
+                        NumericLiteral: 32, 
+                        NumericLiteral: 15
+                    )
+                )
+            )
+    )
+)
+
+
+1+2*32/3*5
+(
+    ComplexExpression: Operator: * 
+        (
+            (
+                BinaryExpression: operator: + 
+                    (
+                        NumericLiteral: 1, NumericLiteral: 2
+                    ) , 
+                    (
+                        ComplexExpression: Operator: / 
+                            (
+                                BinaryExpression: NumericLiteral: 32 , 
+                                (
+                                    (
+                                        BinaryExpression: operator: * 
+                                            (
+                                                NumericLiteral: 3, NumericLiteral: 5
+                                            )
+                                    )
+                                )
+                            )
+                    )
+            )
+        )
+)
