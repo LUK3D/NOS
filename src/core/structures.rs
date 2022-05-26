@@ -7,6 +7,7 @@
  * Extrutura de Cada parte de uma instrução
  * Para cada uma da estrutruras dentro de uma instrução, deve ter um tipo e um valor opcional
  */
+#[derive(Debug)]
 pub struct Token{
     /** Tipo de Token */
     pub _type:Option<TokenTypes>,
@@ -42,7 +43,7 @@ impl Token{
         }
     }
 }
-
+#[derive(Debug)]
 #[derive(Copy, Clone)]
 pub enum TokenTypes {
    INTEGER,
@@ -78,7 +79,7 @@ pub enum TokenTypes {
 }
 
 
-
+#[derive(Debug)]
 pub struct TokenResult{
     pub tokens:Vec<Token>,
     pub errors:Vec<Error>
@@ -103,7 +104,7 @@ impl TokenResult{
     }
 }
 
-
+#[derive(Debug)]
 pub struct Position{
     pub index:i64,
     pub line_number:i64,
@@ -142,7 +143,7 @@ impl Position{
  * ERROR STRUCTURES AND IMPLEMENTATIONS **********************************
  * ***********************************************************************
  */
-
+#[derive(Debug)]
 pub struct Error{
     pub name:Option<String>,
     pub details:Option<String>,

@@ -3,3 +3,30 @@ expression      : term ((PLUS|MINUS) term)*
 term            : factor ((MULTIPLY|DIVIDE) factor) *
 
 factor          : INTEGER|FLOAT
+
+(((23+42)/(56*98))-23)
+
+( Program Expression ( Term NumericLiteral: 23 ((Operator: +) NumericLiteral: 5) ((Operator NumericLiteral: 0 ((Operator: undefined)NumericLiteral: 0)) Term undefined) ) )
+
+
+
+(Program  (Expression (Term NumericLiteral: 23  ((Operator: +) NumericLiteral: 42)   ((Operator ) Term undefined))))
+(Program  (Expression (Term NumericLiteral: 23  ((Operator: +) NumericLiteral: 42) )))
+(Program  
+    (Expression 
+        (Term NumericLiteral: 23  
+            (
+                (Operator: +) 
+                NumericLiteral: 42
+            )  
+            (
+                (Operator /) 
+                Term NumericLiteral: 56  
+                (
+                    (Operator: *) 
+                    NumericLiteral: 98
+                ) 
+            )
+        )
+    )
+)

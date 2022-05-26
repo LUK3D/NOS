@@ -5,7 +5,7 @@
   │ 24/05/2022 - @luk3d                                                     │
   └─────────────────────────────────────────────────────────────────────────┘
  */
-
+#[derive(Debug)]
 #[derive(Copy, Clone)]
 pub enum BranchTypes {
     BinaryExpression,
@@ -27,7 +27,7 @@ pub enum BranchTypes {
          return self.value() == to.value();
      }
  }
-
+ #[derive(Debug)]
 pub struct Branch{
     pub _type:BranchTypes,
     pub value: Option<Value>,
@@ -54,7 +54,7 @@ pub struct Branch{
         };
     }
     /// Branch Representation
-    pub fn b_rsttn(&self, branch:&Option<&Branch>) -> String{
+    pub fn b_rsttn(&self, branch:Option<&Branch>) -> String{
         // let def_str:String = "".to_string();
 
         let _branch = match branch{
@@ -63,31 +63,39 @@ pub struct Branch{
         };
 
         if _branch._type.value() != BranchTypes::None.value(){
+
+            
             let _none = Box::new(Branch::new());
              let left = match &_branch.left{
-                Some(l)=>l,
-                None =>&_none
-            };
-
-            let right = match &_branch.right{
-                Some(l)=>l,
-                None => &_none
-            };
-
+                 Some(l)=>l,
+                 None =>&_none
+                };
+                
+                let right = match &_branch.right{
+                    Some(l)=>l,
+                    None => &_none
+                };
+                
             let mut final_node =  "".to_string();
+
             let mut lnode = "".to_string();
             if left._type.value() == BranchTypes::BinaryExpression.value(){
-                lnode = Self::b_rsttn(&self,&Some(left));
+                lnode = Self::b_rsttn(&self,Some(left));
             }else{
                 lnode = left._type.value(); 
             }
             
             let mut rnode = "".to_string();
             if left._type.value() == BranchTypes::BinaryExpression.value(){
-                rnode = Self::b_rsttn(&self,&Some(left));
+                rnode = Self::b_rsttn(&self,Some(left));
             }else{
                 rnode = left._type.value(); 
             }
+
+
+            println!("{0} <-> {1}", lnode,rnode);
+
+
             
             if lnode.len()>0{
                 final_node = format!("({0})",lnode)
@@ -123,12 +131,18 @@ pub struct Branch{
     }
 }
 
-
+#[derive(Debug)]
 pub struct Value{
     pub string:String
 }
 
 impl Value{
+
+    pub fn copy(self)->Value{
+        return Value{
+            string:self.string
+        };
+    }
     pub fn int(&self)->i128{
         let num: i128 = self.string.parse().unwrap();
         return num;
@@ -150,6 +164,7 @@ impl Value{
 
 
 /** Abstract Syntax Tree */
+#[derive(Debug)]
 pub struct AST{
     pub program:Vec<Branch>
 }
