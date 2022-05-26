@@ -115,7 +115,7 @@ INPUT -> 1+2*32/3*5
 
 The above Example Represented as Graph.
 
-![NOS AST](img%5Cnos_execution_tree.png)
+![NOS AST](img/nos_execution_tree.png)
 
 devellopment 
 
