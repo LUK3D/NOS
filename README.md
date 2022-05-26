@@ -68,7 +68,7 @@ fn evenNumbers(def number f){
 ```
 
 
-# 🚀 CURRNT STATE 
+# 🚀 CURRENT STATE 
 
 ## Lexer / Tokenizer
 
