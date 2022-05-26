@@ -84,7 +84,7 @@ Example:
 
 ```js
 INPUT -> 1+2*32/3*5
-//The above input is tanslated to this tokens by the {NOS} Lexer 😀
+//The above input is translated to this tokens by the {NOS} Parser 😀
 (
     ComplexExpression: Operator: * 
         (
