@@ -1,8 +1,8 @@
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
-mod parser;
+pub mod parser;
 use parser::Parser;
-mod lexer;
+use parser::lexer;
 
 pub struct Nos{
     pub input:String
@@ -11,7 +11,6 @@ pub struct Nos{
 impl Nos{
      pub fn run(&self)->io::Result<()>{
 
-        println!("{0}",Parser::parse());
         
 
         let file = File::open(self.input.to_string())?;
@@ -19,18 +18,32 @@ impl Nos{
 
         let mut tokens = lexer::Lexer::new();
 
+        tokens.file_name = self.input.to_string();
+
         let mut result = lexer::structures::TokenResult::new();
         
-
+        
         for line in reader.lines() {
             // println!("{:?}", line);
             tokens.current_text = line?.to_string();
             result.add(tokens.generate_tokens());
         }
 
-        for token in result.tokens {
-            print!("{0}", token.t_rsttn());
+        if result.errors.len()>0{
+
+            for err in result.errors {
+                
+                println!("\n{0}",err.to_string());
+            }
+        }else{
+            println!("{0}",Parser::parse(result.tokens));
         }
+
+
+
+        // for token in result.tokens {
+        //     print!("{0}", token.t_rsttn());
+        // }
 
         // let  p = Parser{
         //     tokens:tokens

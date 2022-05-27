@@ -17,6 +17,13 @@ pub struct Token{
 
 
 impl Token{
+
+    pub fn new()->Self{
+        return Self{
+            _type:None,
+            _value:None
+        };
+    }
     /** 
      * # Token Representation
      * The token representation for debug purpose 
@@ -173,7 +180,7 @@ impl Error{
         char_pos  = format!("{0}^",char_pos);
 
        
-        let result = format!("\tFile \"{3}\", line {2},  \n\t{0}: {1} \n\t{4}\n\t{5}", name, details,self.position.line_number,  self.file_name, self.command, char_pos);
+        let result = format!("\t{0}: {1} at File \"{3}:{2}:{6}\" \n\t{4}\n\t{5}", name, details,self.position.line_number,  self.file_name, self.command, char_pos,self.position.column+1);
         return result;
     }
 }
