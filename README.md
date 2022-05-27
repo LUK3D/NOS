@@ -74,7 +74,7 @@ fn evenNumbers(def number f){
 
 Example:
 ```js
-INPUT -> 1.2+2.2+1.3
+INPUT -> 1.2+22+1.3/4
 //The above input is tanslated to this tokens by the {NOS} Lexer
 OUTPUT-> [FLOAT:1.2][PLUS][INTEGER:22][MULTIPLY][FLOAT:1.3][DIVIDE][INTEGER:4]
 ```
