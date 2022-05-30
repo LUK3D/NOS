@@ -179,76 +179,111 @@ impl Expression {
     }
 }
 
-
-
-
-pub fn generate_expressions(list_tokens:Vec<Token>)->Expression{
+pub fn generate_expressions(list_tokens: Vec<Token>) -> Expression {
     let mut final_expression = Some(Expression::new());
-
 
     let mut expression = Some(Expression::new());
 
+    let mut left_operator = Some(Operator::new());
     let mut i = 0;
+    let mut operator_counter: i64 = 0;
 
-    let mut operator_counter:i8 = 0;
+    let mut v1 = "".to_string();
+    let mut v2 = "".to_string();
+
+    let mut operation = Some(Operation::undefined);
 
     for token in list_tokens {
+        let Token { _type, _value } = token;
 
-        println!("{:?}", &token.t_rsttn());
-        if operator_counter>=1{
-            final_expression = Some(make_operation(Some(Box::new(final_expression.clone().unwrap())),expression.clone() ));
-            expression = Some(Expression::new());
+        if &_value.is_some() == &true {
+           
 
-            operator_counter = 0;
-        }else{
+            if _type.clone().unwrap().value() == TokenTypes::INTEGER.value() {
+                let v: i128 = (match _value.clone() {
+                    Some(v) => v,
+                    None => "0".to_string(),
+                })
+                .parse()
+                .unwrap();
 
-            let Token {_type,_value} = token;
-            let mut operation:Operation = Operation::undefined;
-
-            if &_type.unwrap().value() == &TokenTypes::PLUS.value(){
-                operation = Operation::plus;
-                operator_counter = operator_counter+1;
-            }
-            if &_type.unwrap().value() == &TokenTypes::MINUS.value(){
-                operation = Operation::minus;
-                operator_counter = operator_counter+1;
-            }
-            if &_type.unwrap().value() == &TokenTypes::MULTIPLY.value(){
-                operation = Operation::multiply;
-                operator_counter = operator_counter+1;
-            }
-            if &_type.unwrap().value() == &TokenTypes::DIVIDE.value(){
-                operation = Operation::divide;
-                operator_counter = operator_counter+1;
-            }
-
-            println!("{:?}", &_value);
-
-            let v:i128 =(
-                match _value{
-                    Some(v)=>v,
-                    None=>"0".to_string()
+                if &v1.len() > &0 {
+                    println!("Valor1 {:?}", &v1);
+                    let _v: i128 = v1.parse().unwrap();
+                    left_operator = Some(Operator {
+                        l_term: Value::int(_v),
+                        r_term: Value::int(v),
+                        operation: left_operator.clone().unwrap().operation,
+                    });
+                    v1 = "".to_string();
+                } else {
+                    v1 = _value.unwrap();
                 }
-            ).parse().unwrap();
+            } else if _type.clone().unwrap().value() == TokenTypes::FLOAT.value() {
+                let v: f64 = (match _value.clone() {
+                    Some(v) => v,
+                    None => "0".to_string(),
+                })
+                .parse()
+                .unwrap();
+                
+                if &v1.len() > &0 {
+                    println!("Valor2 {:?}", &v1);
+                    let _v: f64 = v1.parse().unwrap();
+                    left_operator = Some(Operator {
+                        l_term: Value::float(_v),
+                        r_term: Value::float(v),
+                        operation: left_operator.clone().unwrap().operation,
+                    });
+                    v1 = "".to_string();
+                } else {
+                    v1 = _value.unwrap();
+                }
+            }
+        }
 
-            expression = Some(Expression{
-                operator: Some(Operator { l_term: Value::int(v), r_term: Value::null("".to_string()), operation: operation }),
-                exp_operation: Operation::undefined,
-                expression: None,
-            })
+        if operator_counter >= 1 {
+            let lop = left_operator.clone();
+            final_expression = Some(Expression {
+                operator: lop,
+                exp_operation: operation.clone().unwrap(),
+                expression: Some(Box::new(final_expression.clone().unwrap())),
+            });
+            operator_counter = 0;
+        } else {
+            if &_type.unwrap().value() == &TokenTypes::PLUS.value() {
+                operation = Some(Operation::plus);
+                operator_counter = operator_counter + 1;
+            }
+            if &_type.unwrap().value() == &TokenTypes::MINUS.value() {
+                operation = Some(Operation::minus);
+                operator_counter = operator_counter + 1;
+            }
+            if &_type.unwrap().value() == &TokenTypes::MULTIPLY.value() {
+                operation = Some(Operation::multiply);
+                operator_counter = operator_counter + 1;
+            }
+            if &_type.unwrap().value() == &TokenTypes::DIVIDE.value() {
+                operation = Some(Operation::divide);
+                operator_counter = operator_counter + 1;
+            }
+
         }
     }
 
     return final_expression.unwrap();
 }
 
-pub fn make_operation(expression:Option<Box<Expression>>, to_add:Option<Expression>)->Expression{
+pub fn make_operation(
+    expression: Option<Box<Expression>>,
+    to_add: Option<Expression>,
+) -> Expression {
     let mut current_exp = unbox(expression.unwrap());
-    while  current_exp.expression.is_some() {
+    while current_exp.expression.is_some() {
         current_exp = make_operation(current_exp.expression, to_add.clone());
 
         println!("Exito Code (0)");
-    } 
+    }
     return current_exp;
 }
 
@@ -275,7 +310,6 @@ impl Parser {
         // //         Some(v)=>v,
         // //         None=>"".to_string()
         // //     };
-            
 
         // //     if (&tmp_token.value() != &TokenTypes::UNDEFINED.value()) {
         // //         if &last_type.value() == &TokenTypes::PLUS.value() {
@@ -299,7 +333,6 @@ impl Parser {
         // //                 if tmp_val.len() >0{
         // //                     number2 = tmp_val.parse().unwrap();
         // //                 }
-                         
         // //                 tokes_to_parse.expression = Some(Box::new(Expression {
         // //                     operator: Some(Operator {
         // //                         l_term: Value::int(number2),
@@ -310,13 +343,10 @@ impl Parser {
         // //                     expression: None,
         // //                 }));
         // //             }
-                   
         // //         } else {
         // //             if _type.unwrap().value() == TokenTypes::PLUS.value() {
-                        
         // //                 // let number1: i128 = last_value.parse().unwrap();
         // //                 // let number2: i128 = _value.clone().unwrap().parse().unwrap();
-
 
         // //                 tokes_to_parse.expression = Some(Box::new(Expression {
         // //                     operator: Some(Operator {
@@ -372,7 +402,6 @@ impl Parser {
 
         // return body.extract_representation();
 
-        
         // return tokes_to_parse.extract_representation();
     }
 }

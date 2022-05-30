@@ -29,6 +29,10 @@ impl Nos{
             result.add(tokens.generate_tokens());
         }
 
+        for token in &result.tokens {
+            print!("{0}", token.t_rsttn());
+        }
+
         if result.errors.len()>0{
 
             for err in result.errors {
@@ -41,9 +45,6 @@ impl Nos{
 
 
 
-        // for token in result.tokens {
-        //     print!("{0}", token.t_rsttn());
-        // }
 
         // let  p = Parser{
         //     tokens:tokens
