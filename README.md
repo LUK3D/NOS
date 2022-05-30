@@ -68,13 +68,13 @@ fn evenNumbers(def number f){
 ```
 
 
-# 🚀 CURRNT STATE 
+# 🚀 CURRENT STATE 
 
 ## Lexer / Tokenizer
 
 Example:
 ```js
-INPUT -> 1.2+2.2+1.3
+INPUT -> 1.2+22+1.3/4
 //The above input is tanslated to this tokens by the {NOS} Lexer
 OUTPUT-> [FLOAT:1.2][PLUS][INTEGER:22][MULTIPLY][FLOAT:1.3][DIVIDE][INTEGER:4]
 ```
@@ -84,7 +84,7 @@ Example:
 
 ```js
 INPUT -> 1+2*32/3*5
-//The above input is tanslated to this tokens by the {NOS} Lexer 😀
+//The above input is translated to this tokens by the {NOS} Parser 😀
 (
     ComplexExpression: Operator: * 
         (
@@ -115,7 +115,7 @@ INPUT -> 1+2*32/3*5
 
 The above Example Represented as Graph.
 
-![NOS AST](img%5Cnos_execution_tree.png)
+![NOS AST](img/nos_execution_tree.png)
 
 devellopment 
 
